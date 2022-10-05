@@ -2,35 +2,29 @@ package model;
 
 import java.util.List;
 
-public class Empresa extends Usuario implements Impressão {
-  
+public class Empresa extends Usuario implements Impressao {
+    private String cnpj;
+    private List<Vaga> vagas;
 
+    public Empresa(TipoUsuario tipoUsuario, String nome, Endereco endereco, String telefone,
+                   String email, String senha, String cnpj) {
+        super(tipoUsuario, nome, endereco, telefone, email, senha);
+        this.cnpj = cnpj;
+    }
 
-public Empresa(TipoUsuario tipoUsuario, String nome, String identificacaoUsuario, List<Endereco> endereco,
-      String telefone, String email, String senha) {
-    super(tipoUsuario, nome, identificacaoUsuario, endereco, telefone, email, senha);
-  }
+    @Override
+    public void imprimir() {
+        System.out.println("Nome: " + getNome());
+        System.out.println("Email: " + getEmail());
+        System.out.println("Endereço: " + getEndereco());
+        System.out.println("Tel: " + getTelefone());
+    }
 
-public Empresa() {
-  }
+    public boolean cadastrarVaga() {
+        return false;
+    }
 
-public boolean cadastrarVaga(){
-  return false;
-}
+    public void listarCurriculos() {
 
-public void listarCurriculos(){
-
-}
-
-@Override
-public void imprimir() {
-  System.out.println("Nome: " + getNome());
-  System.out.println("CNPJ: " + getIdentificacaoUsuario());
-  System.out.println("Email: " + getEmail());
-  System.out.println("Endereço: " + getEndereco());
-  System.out.println("Tel: " + getTelefone());  
-}
-
-
-
+    }
 }
