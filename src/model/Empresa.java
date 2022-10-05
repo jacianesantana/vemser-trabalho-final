@@ -27,7 +27,7 @@ public void imprimir() {
   System.out.println("Nome: " + getNome());
   System.out.println("CNPJ: " + getIdentificacaoUsuario());
   System.out.println("Email: " + getEmail());
-  System.out.println("Endereço: " + getEndereco());
+  System.out.println("Endereço: " + getEndereco().get(0).getCidade());
   System.out.println("Tel: " + getTelefone());  
 }
 
