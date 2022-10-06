@@ -32,9 +32,9 @@ public class Estudante extends Usuario implements Impressao {
         System.out.println("Curriculo: " + curriculo);
     }
 
-    public void cadastrarCurriculo(String universidade, String curso, int semestre,
+    public void cadastrarCurriculo(String nome, String universidade, String curso, int semestre,
                                    String resumoProfissional, String vagaInteresse) {
-        curriculo = new Curriculo(universidade, curso, semestre, resumoProfissional, vagaInteresse);
+        curriculo = new Curriculo(nome, universidade, curso, semestre, resumoProfissional, vagaInteresse);
     }
 
     public boolean concorrerVaga(Vaga vaga){

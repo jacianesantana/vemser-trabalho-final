@@ -1,10 +1,11 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Empresa extends Usuario implements Impressao {
     private String cnpj;
-    private List<Vaga> vagas;
+    private List<Vaga> vagas = new ArrayList<>();
 
     public Empresa(TipoUsuario tipoUsuario, String nome, Endereco endereco, String telefone,
                    String email, String senha, String cnpj) {
@@ -29,6 +30,8 @@ public class Empresa extends Usuario implements Impressao {
     }
 
     public List<Vaga> getVagas() {
+        vagas.stream()
+        .forEach(vaga -> System.out.println(vaga.getTitulo()));
         return vagas;
     }
 
@@ -36,11 +39,17 @@ public class Empresa extends Usuario implements Impressao {
         this.vagas = vagas;
     }
 
-    public boolean cadastrarVaga() {
-        return false;
+    public boolean cadastrarVaga(Vaga vaga) {
+        if(vaga != null){
+            this.vagas.add(vaga);
+            return true;
+        }else{
+            return false;
+        }
     }
 
-    public void listarCurriculos() {
-
+    public List<Curriculo> listarCandidatos(Vaga vaga){
+       return vaga.getCadidatos();
     }
+
 }

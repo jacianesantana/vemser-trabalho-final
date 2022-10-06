@@ -11,7 +11,7 @@ public class Main {
                 "49000-000", "Avenida Euclides", 321);
         Estudante estudante1 = new Estudante(TipoUsuario.ESTUDANTE, "Jaciane", enderecoEstudante1,
                 "71 9999-9999", "jaciane@gmail", "24680", "012.345.678-90");
-        estudante1.cadastrarCurriculo("PUC", "Sistemas de Informação", 1,
+        estudante1.cadastrarCurriculo("Jaci", "PUC", "Sistemas de Informação", 1,
                 "Sem experiência", "Dev Junior");
         estudante1.imprimir();
         System.out.println("__________");
@@ -42,10 +42,15 @@ public class Main {
         Vaga desenvolvedor = new Vaga("Estágio frontend", empresa1, "React", 2);
         Vaga QA = new Vaga("Senior QA", empresa1, "Automação de testes", 3);
 
+        empresa1.cadastrarVaga(desenvolvedor);
+
         estudante1.concorrerVaga(desenvolvedor);
         estudante1.concorrerVaga(QA);
 
         System.out.println("---------------------- Vagas inscritas ------------");
        estudante1.getVagasInscritas();
+
+        empresa1.getVagas();
+        System.out.println(empresa1.listarCandidatos(desenvolvedor));
     }
 }
