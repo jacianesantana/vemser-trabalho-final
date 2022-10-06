@@ -1,16 +1,28 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Vaga {
     private String titulo;
     private Empresa empresa;
     private String requisito;
     private int quantidade;
+    private List<Curriculo> candidatos = new ArrayList<>();
 
     public Vaga(String titulo, Empresa empresa, String requisito, int quantidade) {
         this.titulo = titulo;
         this.empresa = empresa;
         this.requisito = requisito;
         this.quantidade = quantidade;
+    }
+
+    public List<Curriculo> getCadidatos() {
+        return candidatos;
+    }
+
+    public void setCadidatos(Curriculo curriculo) {
+        this.candidatos.add(curriculo);
     }
 
     public String getTitulo() {
@@ -44,4 +56,5 @@ public class Vaga {
     public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
     }
+
 }

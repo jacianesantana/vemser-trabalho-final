@@ -1,13 +1,16 @@
 package model;
 
 public class Curriculo {
+    private String nome;
     private String universidade;
     private String curso;
     private int semestre;
     private String resumoProfissional;
     private String vagaInteresse;
 
-    public Curriculo(String universidade, String curso, int semestre, String resumoProfissional, String vagaInteresse) {
+    public Curriculo(String nome, String universidade, String curso, int semestre, String resumoProfissional,
+            String vagaInteresse) {
+        this.nome = nome;
         this.universidade = universidade;
         this.curso = curso;
         this.semestre = semestre;
@@ -15,10 +18,18 @@ public class Curriculo {
         this.vagaInteresse = vagaInteresse;
     }
 
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
     @Override
     public String toString() {
-        return "Curriculo{" +
-                "universidade='" + universidade + '\'' +
+        return "Curriculo{" + "Nome='" + nome +
+                "', universidade='" + universidade + '\'' +
                 ", curso='" + curso + '\'' +
                 ", semestre=" + semestre +
                 ", resumoProfissional='" + resumoProfissional + '\'' +
