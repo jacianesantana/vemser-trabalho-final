@@ -20,6 +20,22 @@ public class Empresa extends Usuario implements Impressao {
         System.out.println("Tel: " + getTelefone());
     }
 
+    public String getCnpj() {
+        return cnpj;
+    }
+
+    public void setCnpj(String cnpj) {
+        this.cnpj = cnpj;
+    }
+
+    public List<Vaga> getVagas() {
+        return vagas;
+    }
+
+    public void setVagas(List<Vaga> vagas) {
+        this.vagas = vagas;
+    }
+
     public boolean cadastrarVaga() {
         return false;
     }

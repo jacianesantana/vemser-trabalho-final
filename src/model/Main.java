@@ -38,5 +38,14 @@ public class Main {
         Empresa empresa1 = new Empresa(TipoUsuario.EMPRESA, "DBC", enderecoEmpresa1,
                 "51 98888-8888", "dbc@gmail.com", "123456", "111.111.111.0001-0");
         empresa1.imprimir();
+
+        Vaga desenvolvedor = new Vaga("Estágio frontend", empresa1, "React", 2);
+        Vaga QA = new Vaga("Senior QA", empresa1, "Automação de testes", 3);
+
+        estudante1.concorrerVaga(desenvolvedor);
+        estudante1.concorrerVaga(QA);
+
+        System.out.println("---------------------- Vagas inscritas ------------");
+       estudante1.getVagasInscritas();
     }
 }
