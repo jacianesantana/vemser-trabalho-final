@@ -1,10 +1,6 @@
 package model;
 
-import service.CurriculoCRUD;
-
-import java.util.List;
-
-public class Curriculo implements CurriculoCRUD {
+public class Curriculo {
     private String nomeDoEstudante;
     private String cpf;
     private String universidade;
@@ -54,53 +50,6 @@ public class Curriculo implements CurriculoCRUD {
 
     public void listarCurriculosPorEmpresa() {
 
-    }
-
-    @Override
-    public Curriculo cadastrarCurriculo(String nomeDoEstudante, String cpf, String universidade, String curso,
-                                        int semestre, String resumoProfissional, String tituloVagaInteresse) {
-        Curriculo curriculo = new Curriculo(nomeDoEstudante, cpf, universidade, curso, semestre,
-                resumoProfissional, tituloVagaInteresse);
-        BancoDeDados bancoDeDados = new BancoDeDados();
-        bancoDeDados.curriculos.add(curriculo);
-        return curriculo;
-    }
-
-    public Curriculo atualizarCurriculo(Curriculo curriculo) {
-        if (curriculo.getCpf().equals(this.cpf)) {
-            this.setNomeDoEstudante(curriculo.getNomeDoEstudante());
-            this.setUniversidade(curriculo.getUniversidade());
-            this.setCurso(curriculo.getCurso());
-            this.setSemestre(curriculo.getSemestre());
-            this.setResumoProfissional(curriculo.getResumoProfissional());
-            this.setTituloVagaInteresse(curriculo.getTituloVagaInteresse());
-            return curriculo;
-        }
-        throw new RuntimeException("Usuário não autorizado"); //tratar exception
-    }
-
-    public void buscarCurriculo(String tituloVagaInteresse) {
-        BancoDeDados bancoDeDados = new BancoDeDados();
-        List<Curriculo> curriculosComTituloVagaInteresse = bancoDeDados.curriculos.stream()
-                .filter(c -> c.getTituloVagaInteresse().equals(tituloVagaInteresse))
-                .toList();
-        if (curriculosComTituloVagaInteresse.isEmpty()) {
-            System.out.println("Nenhum currículo encontrado");
-        }
-        curriculosComTituloVagaInteresse.forEach(System.out::println);
-    }
-
-    public void deletarCurriculo(String cpf) {
-        if (cpf.equals(this.cpf)) {
-            BancoDeDados bancoDeDados = new BancoDeDados();
-            int curriculoIndex = bancoDeDados.curriculos.stream()
-                    .map(curriculo -> curriculo.cpf)
-                    .toList()
-                    .indexOf(cpf);
-            bancoDeDados.curriculos.remove(curriculoIndex);
-            System.out.println("Currículo removido");
-        }
-        System.out.println("Nenhum currículo encontrado");
     }
 
     public String getNomeDoEstudante() {
