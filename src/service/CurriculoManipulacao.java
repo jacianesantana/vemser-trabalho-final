@@ -28,12 +28,12 @@ public class CurriculoManipulacao implements CRUD<Curriculo> {
     public void atualizar(Integer index, Curriculo curriculo) {
         Curriculo curriculoIndex = listaDeCurriculos.get(index);
         curriculoIndex.setNomeDoEstudante(curriculo.getNomeDoEstudante());
-        curriculoIndex.setCpf(curriculo.getCpf());
         curriculoIndex.setUniversidade(curriculo.getUniversidade());
         curriculoIndex.setCurso(curriculo.getCurso());
         curriculoIndex.setSemestre(curriculo.getSemestre());
         curriculoIndex.setResumoProfissional(curriculo.getResumoProfissional());
         curriculoIndex.setTituloVagaInteresse(curriculo.getTituloVagaInteresse());
+        curriculoIndex.setHabilidades(curriculo.getHabilidades());
     }
 
     @Override

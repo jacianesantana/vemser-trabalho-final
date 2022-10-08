@@ -5,7 +5,6 @@ import java.util.List;
 
 public class Curriculo {
     private String nomeDoEstudante;
-    private String cpf;
     private String universidade;
     private String curso;
     private int semestre;
@@ -19,7 +18,6 @@ public class Curriculo {
 
 
     public Curriculo(String nomeDoEstudante,
-                     String cpf,
                      String universidade,
                      String curso,
                      int semestre,
@@ -28,7 +26,6 @@ public class Curriculo {
                      List<String> habilidades
                     ) {
         this.nomeDoEstudante = nomeDoEstudante;
-        this.cpf = cpf;
         this.universidade = universidade;
         this.curso = curso;
         this.semestre = semestre;
@@ -68,14 +65,6 @@ public class Curriculo {
 
     public void setNomeDoEstudante(String nomeDoEstudante) {
         this.nomeDoEstudante = nomeDoEstudante;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
     }
 
     public String getUniversidade() {

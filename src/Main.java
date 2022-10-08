@@ -1,4 +1,5 @@
 import model.*;
+import service.CurriculoManipulacao;
 import service.EstudanteManipulacao;
 
 import java.util.ArrayList;
@@ -35,6 +36,25 @@ public class Main {
         Estudante estudante3 = new Estudante(TipoUsuario.ESTUDANTE, "Vitoria", enderecoEstudante3,
                 "71 9999-9999", "vitoria@gmail", "vitoria123", "011.111.111-10");
 
+        //Curriculos
+        CurriculoManipulacao curriculoManipulacao = new CurriculoManipulacao();
+
+        Curriculo curriculoEstudante0 = new Curriculo(estudante0.getNome(), "PUC", "SI",
+                1, "Sem experiência", "Estágio QA",
+                Arrays.asList("Testes", "Selenium", "Cypress"));
+        estudante0.setCurriculo(curriculoEstudante0);
+
+        Curriculo curriculoEstudante1 = new Curriculo(estudante1.getNome(), "Univ", "Curso",
+                1, "Sem experiência", "Dev Backend Junior",
+                Arrays.asList("POO", "Java", "Spring"));
+        estudante1.setCurriculo(curriculoEstudante1);
+
+        Curriculo curriculoEstudante2 = new Curriculo(estudante2.getNome(), "Univ", "Curso",
+                1, "Sem experiência", "Dev Frontend Junior",
+                Arrays.asList("Javascript", "HTML", "CSS"));
+        estudante2.setCurriculo(curriculoEstudante2);
+
+        // Testes de Estudantes e Curriculos
         estudanteManipulacao.cadastrar(estudante0);
         estudanteManipulacao.cadastrar(estudante1);
         estudanteManipulacao.cadastrar(estudante2);
@@ -47,6 +67,10 @@ public class Main {
         estudanteManipulacao.atualizar(1, estudante1);
         estudanteManipulacao.deletar(3);
         estudanteManipulacao.listar();
+        curriculoManipulacao.cadastrar(curriculoEstudante0);
+        curriculoManipulacao.cadastrar(curriculoEstudante1);
+        curriculoManipulacao.cadastrar(curriculoEstudante2);
+        curriculoManipulacao.listar();
 
 /*        //Empresas
         Endereco enderecoEmpresa1 = new Endereco("Brasil", "RS", "POA",
