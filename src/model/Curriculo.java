@@ -2,6 +2,7 @@ package model;
 
 import service.CurriculoCRUD;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Curriculo implements CurriculoCRUD {
@@ -13,8 +14,11 @@ public class Curriculo implements CurriculoCRUD {
     private String resumoProfissional;
     private String tituloVagaInteresse;
 
-    public Curriculo() {
+    private  List<String> habilidades = new ArrayList<>();
+
+    public Curriculo(String nomeDoEstudante, String cpf, String universidade, String curso, int semestre, String resumoProfissional, String tituloVagaInteresse) {
     }
+
 
     public Curriculo(String nomeDoEstudante,
                      String cpf,
@@ -22,7 +26,9 @@ public class Curriculo implements CurriculoCRUD {
                      String curso,
                      int semestre,
                      String resumoProfissional,
-                     String tituloVagaInteresse) {
+                     String tituloVagaInteresse,
+                     List<String> habilidades
+                    ) {
         this.nomeDoEstudante = nomeDoEstudante;
         this.cpf = cpf;
         this.universidade = universidade;
@@ -30,6 +36,8 @@ public class Curriculo implements CurriculoCRUD {
         this.semestre = semestre;
         this.resumoProfissional = resumoProfissional;
         this.tituloVagaInteresse = tituloVagaInteresse;
+        this.habilidades = habilidades;
+
     }
 
     @Override
@@ -155,7 +163,17 @@ public class Curriculo implements CurriculoCRUD {
         return tituloVagaInteresse;
     }
 
+
+
     public void setTituloVagaInteresse(String tituloVagaInteresse) {
         this.tituloVagaInteresse = tituloVagaInteresse;
+    }
+
+    public List<String> getHabilidades() {
+        return habilidades;
+    }
+
+    public void setHabilidades(List<String> habilidades) {
+        this.habilidades = habilidades;
     }
 }

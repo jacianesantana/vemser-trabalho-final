@@ -32,7 +32,6 @@ public class Empresa extends Usuario implements EmpresaCRUD {
         .forEach(vaga -> System.out.println(vaga.getTitulo()));
         return vagas;
     }
-
     public void setVagas(List<Vaga> vagas) {
         this.vagas = vagas;
     }
