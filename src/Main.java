@@ -1,4 +1,5 @@
 import model.*;
+import service.EstudanteManipulacao;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,39 +9,43 @@ import java.util.stream.Stream;
 
 public class Main {
     public static void main(String[] args) {
-        //Estudante 1
-        Endereco enderecoEstudante1 = new Endereco("Brasil", "SE", "Aracaju",
+        //Estudantes
+        EstudanteManipulacao estudanteManipulacao = new EstudanteManipulacao();
+
+        Endereco enderecoEstudante0 = new Endereco("Brasil", "SE", "Aracaju",
                 "49000-000", "Avenida Euclides", 321);
-        Estudante estudante1 = new Estudante();
-        estudante1.cadastrarEstudante(TipoUsuario.ESTUDANTE, "Jaciane", enderecoEstudante1,
-                "71 9999-9999", "jaciane@gmail", "2468", "012.345.678-90", bancoDeDados);
-        //estudante1.atualizarEstudante();    //corrigir
-        estudante1.imprimirEstudante();
-//        estudante1.cadastrarCurriculo("Jaci", "PUC", "Sistemas de Informação", 1,
-//                "Sem experiência", "Dev Junior");
-        System.out.println("__________");
+        Estudante estudante0 = new Estudante(TipoUsuario.ESTUDANTE, "Jaciane", enderecoEstudante0,
+                "79 9999-9999", "jaciane@gmail", "jaci2468", "012.345.678-90");
 
-        //Estudante 2
-        Endereco enderecoEstudante2 = new Endereco("Brasil", "SE", "Aracaju",
-                "49000-000", "Avenida Euclides", 321);
-        Estudante estudante2 = new Estudante();
-        estudante2.cadastrarEstudante(TipoUsuario.ESTUDANTE, "Alain", enderecoEstudante2,
-                "71 9999-9999", "alain@gmail", "123456", "099.999.999-90", bancoDeDados);
-        estudante2.deletarEstudante("099.999.999-90", bancoDeDados);
-        System.out.println("__________");
+        Endereco enderecoEstudante1 = new Endereco("Brasil", "PI", "Teresina",
+                "41000-000", "Rua Teresina", 99);
+        Estudante estudante1 = new Estudante(TipoUsuario.ESTUDANTE, "Alain", enderecoEstudante1,
+                "71 9999-9999", "alain@gmail", "12345678", "099.999.999-90");
 
-        //Estudante 3
-        Endereco enderecoEstudante3 = new Endereco("Brasil", "SE", "Aracaju",
-                "49000-000", "Avenida Euclides", 321);
-        Estudante estudante3 = new Estudante();
-        estudante3.cadastrarEstudante(TipoUsuario.ESTUDANTE, "Jhennyfer", enderecoEstudante3,
-                "71 9999-9999", "jhennyfer@gmail", "654321", "011.111.111-10", bancoDeDados);
-        estudante3.imprimirEstudante();
-        System.out.println("__________");
+        Endereco enderecoEstudante2 = new Endereco("Brasil", "PR", "Pato Branco",
+                "42000-000", "Avenida Euclides", 1010);
+        Estudante estudante2 = new Estudante(TipoUsuario.ESTUDANTE, "Jhennyfer", enderecoEstudante2,
+                "46 9999-9999", "jhennyfer@gmail", "654321", "022.222.222-20");
 
-        System.out.println(bancoDeDados);
+        Endereco enderecoEstudante3 = new Endereco("Brasil", "BA", "Salvador",
+                "41180-000", "Avenida Silveira Martins", 115);
+        Estudante estudante3 = new Estudante(TipoUsuario.ESTUDANTE, "Vitoria", enderecoEstudante3,
+                "71 9999-9999", "vitoria@gmail", "vitoria123", "011.111.111-10");
 
-/*        //Empresa 1
+        estudanteManipulacao.cadastrar(estudante0);
+        estudanteManipulacao.cadastrar(estudante1);
+        estudanteManipulacao.cadastrar(estudante2);
+        estudanteManipulacao.cadastrar(estudante3);
+        estudanteManipulacao.listar();
+        estudante0.setEmail("jaciane.santata@gamil.com");
+        estudanteManipulacao.atualizar(0, estudante0);
+        enderecoEstudante1.setRua("Rua Desembargador Pires");
+        estudante1.setEndereco(enderecoEstudante1);
+        estudanteManipulacao.atualizar(1, estudante1);
+        estudanteManipulacao.deletar(3);
+        estudanteManipulacao.listar();
+
+/*        //Empresas
         Endereco enderecoEmpresa1 = new Endereco("Brasil", "RS", "POA",
                 "77777-777", "sem fim", 1234);
         Empresa empresa1 = new Empresa(TipoUsuario.EMPRESA, "DBC", enderecoEmpresa1,
@@ -199,7 +204,6 @@ public class Main {
                     }
 
                 }
-        }while(true);
-    }*/
+        }while(true);*/
     }
 }
