@@ -1,52 +1,77 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.List;
+import service.EstudanteCRUD;
 
-public class Estudante extends Usuario implements Impressao {
+public class Estudante extends Usuario implements EstudanteCRUD {
     private String cpf;
     private Curriculo curriculo;
-    private List<Vaga> vagasInscritas = new ArrayList<>();
+    //private List<Vaga> vagasInscritas = new ArrayList<>();
+
 
     public Estudante() {
-
     }
 
-    public List<Vaga> getVagasInscritas() {
-        vagasInscritas.stream()
-        .forEach(vaga -> System.out.println(vaga.getTitulo()));
-
-        return vagasInscritas;
-    }
-
-    public void setVagasInscritas(List<Vaga> vagasInscritas) {
-        this.vagasInscritas = vagasInscritas;
-    }
-
-    public Estudante(TipoUsuario tipoUsuario, String nome, Endereco endereco, String telefone,
-                     String email, String senha, String cpf) {
+    public Estudante(TipoUsuario tipoUsuario,
+                     String nome,
+                     Endereco endereco,
+                     String telefone,
+                     String email,
+                     String senha,
+                     String cpf) {
         super(tipoUsuario, nome, endereco, telefone, email, senha);
         this.cpf = cpf;
     }
 
     @Override
-    public void imprimir() {
-        System.out.println(getTipoUsuario() + ", Nome: " + getNome() + ", CPF: " + cpf + ", Email: " + getEmail());
-        System.out.println("Telefone: " + getTelefone() + ", " + getEndereco());
-        System.out.println("Curriculo: " + curriculo);
+    public String toString() {
+        return "Estudante{" +
+                "cpf='" + cpf + '\'' +
+                ", curriculo=" + curriculo +
+                '}';
     }
 
-    public void cadastrarCurriculo(String nome, String universidade, String curso, int semestre,
-                                   String resumoProfissional, String vagaInteresse) {
-        curriculo = new Curriculo(nome, universidade, curso, semestre, resumoProfissional, vagaInteresse);
+    @Override
+    public Estudante cadastrarEstudante(TipoUsuario tipoUsuario, String nome, Endereco endereco, String telefone,
+                                        String email, String senha, String cpf) {
+        Estudante estudante = new Estudante(tipoUsuario, nome, endereco, telefone, email, senha, cpf);
+        BancoDeDados bancoDeDados = new BancoDeDados();
+        bancoDeDados.estudantes.add(estudante);
+        return estudante;
     }
 
-    public boolean concorrerVaga(Vaga vaga){
+    @Override
+    public Estudante atualizarEstudante(Estudante estudante) {
+        this.setNome(estudante.getNome());
+        this.setEndereco(estudante.getEndereco());
+        this.setTelefone(estudante.getTelefone());
+        this.setEmail(estudante.getEmail());
+        this.setSenha(estudante.getSenha());
+        return estudante;
+    }
+
+    @Override
+    public void imprimirEstudante() {
+        System.out.println(getTipoUsuario() + ", Nome: " + getNome() + ", CPF: " + cpf +
+                ", Endereço: " + getEndereco() + ", Telefone: " + getTelefone() +
+                "Email: " + getEmail() + "}");
+    }
+
+    @Override
+    public void deletarEstudante(String cpf) {
+        BancoDeDados bancoDeDados = new BancoDeDados();
+        int estudanteIndex = bancoDeDados.estudantes.stream()
+                .map(estudante -> estudante.cpf)
+                .toList()
+                .indexOf(cpf);
+        bancoDeDados.estudantes.remove(estudanteIndex);
+    }
+
+    /*    public boolean concorrerVaga(Vaga vaga){
 
         vaga.setCadidatos(this.getCurriculo());
         vagasInscritas.add(vaga);
         return true;
-    }
+    }*/
 
     public String getCpf() {
         return cpf;
