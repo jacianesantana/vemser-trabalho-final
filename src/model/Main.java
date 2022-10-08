@@ -1,5 +1,6 @@
 package model;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -7,7 +8,7 @@ import java.util.Scanner;
 import java.util.stream.Stream;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, InterruptedException {
         //Estudantes
         Endereco enderecoEstudante1 = new Endereco("Brasil", "SE", "Aracaju",
                 "49000-000", "Avenida Euclides", 321);
@@ -64,7 +65,7 @@ public class Main {
             System.out.println("2 - Cadastrar Usuário.");
             opcao = input.nextLine();
 
-                switch (opcao) {
+            switch (opcao) {
                     case "1": {
                         int opcaoLogin = 0;
                         System.out.println("----------------- Login --------------------");
@@ -109,9 +110,10 @@ public class Main {
                                     break;
                                 }
                                 case "3": {
-                                    //digite a vaga
+                                    System.out.println("Digite o nome da vaga: ");
+                                    String opcaoVaga = input.nextLine();
                                     List<Vaga> cadidatosVaga = empresa1.getVagas().stream()
-                                            .filter(vaga -> vaga.getTitulo().toLowerCase().contains("qa")).toList();
+                                            .filter(vaga -> vaga.getTitulo().toLowerCase().contains(opcaoVaga)).toList();
                                     System.out.println("Cadidatos para a vaga: " + cadidatosVaga.get(0).getCadidatos());
                                     break;
                                 }
@@ -260,4 +262,5 @@ public class Main {
                 }
         }while(true);
     }
+
 }
