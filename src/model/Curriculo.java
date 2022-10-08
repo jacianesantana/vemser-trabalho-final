@@ -29,15 +29,7 @@ public class Curriculo implements CurriculoCRUD {
         this.curso = curso;
         this.semestre = semestre;
         this.resumoProfissional = resumoProfissional;
-        this.vagaInteresse = vagaInteresse;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
+        this.tituloVagaInteresse = tituloVagaInteresse;
     }
 
     @Override
