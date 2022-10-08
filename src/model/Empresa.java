@@ -1,9 +1,11 @@
 package model;
 
+import service.EmpresaCRUD;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Empresa extends Usuario implements Impressao {
+public class Empresa extends Usuario implements EmpresaCRUD {
     private String cnpj;
     private List<Vaga> vagas = new ArrayList<>();
 
@@ -15,14 +17,6 @@ public class Empresa extends Usuario implements Impressao {
 
     public Empresa() {
 
-    }
-
-    @Override
-    public void imprimir() {
-        System.out.println("Nome: " + getNome());
-        System.out.println("Email: " + getEmail());
-        System.out.println("Endereço: " + getEndereco());
-        System.out.println("Tel: " + getTelefone());
     }
 
     public String getCnpj() {
@@ -52,8 +46,8 @@ public class Empresa extends Usuario implements Impressao {
         }
     }
 
-    public List<Curriculo> listarCandidatos(Vaga vaga){
-       return vaga.getCadidatos();
-    }
+/*    public List<Curriculo> listarCandidatos(Vaga vaga){
+       return vaga.getCandidatos();
+    }*/
 
 }

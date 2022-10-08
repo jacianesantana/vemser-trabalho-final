@@ -1,31 +1,33 @@
 package model;
 
+import service.VagaCRUD;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Vaga {
+public class Vaga implements VagaCRUD {
     private String titulo;
-    private Empresa empresa;
+    private String nomeDaEmpresa;
     private String requisito;
-    private int quantidade;
-    private List<Curriculo> candidatos = new ArrayList<>();
+    private List<Estudante> candidatos = new ArrayList<>();
 
     public Vaga() {
     }
 
-    public Vaga(String titulo, Empresa empresa, String requisito, int quantidade) {
+    public Vaga(String titulo, String nomeDaEmpresa, String requisito) {
         this.titulo = titulo;
-        this.empresa = empresa;
+        this.nomeDaEmpresa = nomeDaEmpresa;
         this.requisito = requisito;
-        this.quantidade = quantidade;
     }
 
-    public List<Curriculo> getCadidatos() {
-        return candidatos;
-    }
-
-    public void setCadidatos(Curriculo curriculo) {
-        this.candidatos.add(curriculo);
+    @Override
+    public String toString() {
+        return "Vaga{" +
+                "titulo='" + titulo + '\'' +
+                ", nomeDaEmpresa='" + nomeDaEmpresa + '\'' +
+                ", requisito='" + requisito + '\'' +
+                ", candidatos=" + candidatos +
+                '}';
     }
 
     public String getTitulo() {
@@ -36,12 +38,12 @@ public class Vaga {
         this.titulo = titulo;
     }
 
-    public Empresa getEmpresa() {
-        return empresa;
+    public String getNomeDaEmpresa() {
+        return nomeDaEmpresa;
     }
 
-    public void setEmpresa(Empresa empresa) {
-        this.empresa = empresa;
+    public void setNomeDaEmpresa(String nomeDaEmpresa) {
+        this.nomeDaEmpresa = nomeDaEmpresa;
     }
 
     public String getRequisito() {
@@ -52,12 +54,11 @@ public class Vaga {
         this.requisito = requisito;
     }
 
-    public int getQuantidade() {
-        return quantidade;
+    public List<Estudante> getCandidatos() {
+        return candidatos;
     }
 
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
+    public void setCandidatos(List<Estudante> candidatos) {
+        this.candidatos = candidatos;
     }
-
 }
