@@ -18,7 +18,6 @@ public class CurriculoTest {
         Vaga vaga = new Vaga();
         vaga.setTitulo("Java");
         vaga.setRequisito("Junior");
-        vaga.setQuantidade(3);
 
 //        List<Curriculo> retorno = curriculo.listarCurriculos();
 
@@ -30,7 +29,6 @@ public class CurriculoTest {
         Vaga vaga = new Vaga();
         vaga.setTitulo("Java");
         vaga.setRequisito("Junior");
-        vaga.setQuantidade(3);
 
 //        List<Curriculo> retorno = curriculo.listarCurriculosPorVaga(vaga);
 
