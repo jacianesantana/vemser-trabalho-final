@@ -143,55 +143,111 @@ public class Main {
                                     break;
                                 }
                                 default: {
-                                    System.err.println("2 Opa entrada inválida, digite o número da opção. ");
+                                    System.err.println("Opa entrada inválida, digite o número da opção. ");
                                     break;
                                 }
                             }
                         } else {
                             // Se ESTUDANTE
+                            String opcaoEstudante;
                             System.out.println("-------------------- Logado com " + estudante1.getNome() + " ------------------");
                             System.out.println(" Escolha uma opção: ");
                             System.out.println(" 1 - Cadastrar curriculo; ");
-                            System.out.println(" 2 - Listar vagas; ");
+                            System.out.println(" 2 - Editar curriculo; ");
                             System.out.println(" 3 - Listar vagas por empresa ou nome da vaga?; ");
                             System.out.println(" 4 - Configurações. ");
                             System.out.println(" 5 - Voltar ao Menu Principal. ");
                             System.out.println(" 6 - Sair. ");
+                            opcaoEstudante = input.nextLine();
+
+
+                            switch (opcaoEstudante) {
+                                case "1": {
+                                    Curriculo curriculo = new Curriculo();
+                                    System.out.println("------------- Cadastro de Vaga ------------");
+                                    System.out.println("Nome: ");
+                                    curriculo.setNome(input.nextLine());
+                                    System.out.println("Curso: ");
+                                    curriculo.setCurso(input.nextLine());
+                                    System.out.println("Universidade: ");
+                                    curriculo.setUniversidade(input.nextLine());
+                                    input.nextLine();
+                                    System.out.println("Resumo Profissional: ");
+                                    curriculo.setResumoProfissional(input.nextLine());
+                                    input.nextLine();
+//                                    estudante1.cadastrarCurriculo(curriculo);
+                                    break;
+                                } case "2": {
+                                    System.out.println("Editar curriculo: ");
+
+                                    Curriculo novoCurriculo = new Curriculo();
+                                    System.out.println("Nome: ");
+                                    novoCurriculo.setNome(input.nextLine());
+                                    System.out.println("Curso: ");
+                                    novoCurriculo.setCurso(input.nextLine());
+                                    System.out.println("Universidade: ");
+                                    novoCurriculo.setUniversidade(input.nextLine());
+                                    System.out.println("Resumo Profissional: ");
+                                    novoCurriculo.setResumoProfissional(input.nextLine());
+//                                  estudant1.editarCurriculo(novoCurriculo);
+                                    break;
+                                } case "3":{
+                                    System.out.println("Deseja mesmo excluir o curriculo? ");
+                                    System.out.println("1- SIM ou 2- NÂO: ");
+                                    input.nextLine();
+                                    estudante1.getCurriculo();
+                                    int id = input.nextInt();
+                                } case "6": {
+                                    break;
+                                }
+                            }
                         }
                         break;
                     }
                     case "2": {
-                        Usuario user = new Empresa(); // new Estudante();
                         System.out.println("----------------------Menu de cadastro ---------------------");
                         System.out.println("Tipo de usuário: 1- Empresa, 2- Estudante");
-                        int opcaoTipo = input.nextInt();
-                        input.nextLine();
-
-                        //Se EMPRESA
-                        System.out.println("Digite Nome: ");
-                        user.setNome(input.nextLine());
-                        System.out.println("Digite um email: ");
-                        user.setEmail(input.nextLine());
-                        System.out.println("Digite a senha: ");
-                        String senha = input.nextLine();
-                        System.out.println("Digite a senha novamente: ");
-                        String senhaCopia = input.nextLine();
-                        if (senhaCopia.equals(senha)) {
-                            user.setSenha(input.nextLine());
-
-                        } else {
-                            System.err.println("Senhas não batem.");
+                        String opcaoTipo = input.nextLine();
+                        if(opcaoTipo.equals("1")){
+                            Usuario user = new Empresa();
+                            user.setTipoUsuario(TipoUsuario.EMPRESA);
+                            System.out.println("Digite Nome: ");
+                            user.setNome(input.nextLine());
+                            System.out.println("Digite um email: ");
+                            user.setEmail(input.nextLine());
+                            System.out.println("Digite a senha: ");
+                            String senha = input.nextLine();
+                            System.out.println("Digite a senha novamente: ");
+                            String senhaCopia = input.nextLine();
+                            if (senhaCopia.equals(senha)) {
+                                user.setSenha(input.nextLine());
+                            } else {
+                                System.err.println("Senhas não batem.");
+                            }
+                        }else{
+                            Usuario user = new Estudante();
+                           user.setTipoUsuario(TipoUsuario.ESTUDANTE);
+                            System.out.println("Digite Nome: ");
+                           user.setNome(input.nextLine());
+                            System.out.println("Digite um email: ");
+                           user.setEmail(input.nextLine());
+                            System.out.println("Digite a senha: ");
+                            String senha = input.nextLine();
+                            System.out.println("Digite a senha novamente: ");
+                            String senhaCopia = input.nextLine();
+                            if (senhaCopia.equals(senha)) {
+                                user.setSenha(input.nextLine());
+                                user.cadastrarUsuario();
+                            } else {
+                                System.err.println("Senhas não batem.");
+                            }
                         }
-
-                        //Se ESTUDANTE
-                        //Usuario user = new Estudante();
                         break;
                     }
                     default: {
                         System.err.println("Opa entrada inválida, digite o número da opção. ");
                         break;
                     }
-
                 }
         }while(true);
     }

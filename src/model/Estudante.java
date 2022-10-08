@@ -8,6 +8,10 @@ public class Estudante extends Usuario implements Impressao {
     private Curriculo curriculo;
     private List<Vaga> vagasInscritas = new ArrayList<>();
 
+    public Estudante() {
+
+    }
+
     public List<Vaga> getVagasInscritas() {
         vagasInscritas.stream()
         .forEach(vaga -> System.out.println(vaga.getTitulo()));

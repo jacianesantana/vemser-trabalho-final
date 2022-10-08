@@ -18,6 +18,10 @@ public class Curriculo {
         this.vagaInteresse = vagaInteresse;
     }
 
+    public Curriculo() {
+
+    }
+
     public String getNome() {
         return nome;
     }
