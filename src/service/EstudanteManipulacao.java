@@ -31,8 +31,8 @@ public class EstudanteManipulacao implements CRUD<Estudante> {
         estudanteIndex.setNome(estudante.getNome());
         estudanteIndex.setEndereco(estudante.getEndereco());
         estudanteIndex.setTelefone(estudante.getTelefone());
-        estudanteIndex.setEmail(estudante.getEmail());
-        estudanteIndex.setCpf(estudante.getCpf());
+        estudanteIndex.setEmail(estudante.getEmail());//não ta mudando nada
+        estudanteIndex.setCpf(estudante.getCpf());//não ta mudando nada
     }
 
     @Override

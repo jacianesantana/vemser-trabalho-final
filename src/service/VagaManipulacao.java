@@ -8,9 +8,13 @@ import java.util.List;
 public class VagaManipulacao implements CRUD<Vaga> {
     private List<Vaga> listaDeVagas;
 
+    public VagaManipulacao() {
+        this.listaDeVagas = new ArrayList<>();
+    }
+
     @Override
     public void cadastrar(Vaga vaga) {
-        this.listaDeVagas = new ArrayList<>();
+        this.listaDeVagas.add(vaga);
     }
 
     @Override
@@ -25,6 +29,7 @@ public class VagaManipulacao implements CRUD<Vaga> {
         Vaga vagaProcurada = listaDeVagas.get(index);
         vagaProcurada.setTitulo(vagaProcurada.getTitulo());
         vagaProcurada.setRequisitos(vagaProcurada.getRequisitos());
+
     }
 
     @Override
