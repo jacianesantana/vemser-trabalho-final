@@ -1,5 +1,8 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Curriculo {
     private String nomeDoEstudante;
     private String cpf;
@@ -9,8 +12,11 @@ public class Curriculo {
     private String resumoProfissional;
     private String tituloVagaInteresse;
 
+    private List<String> habilidades = new ArrayList<>();
+
     public Curriculo() {
     }
+
 
     public Curriculo(String nomeDoEstudante,
                      String cpf,
@@ -18,7 +24,9 @@ public class Curriculo {
                      String curso,
                      int semestre,
                      String resumoProfissional,
-                     String tituloVagaInteresse) {
+                     String tituloVagaInteresse,
+                     List<String> habilidades
+                    ) {
         this.nomeDoEstudante = nomeDoEstudante;
         this.cpf = cpf;
         this.universidade = universidade;
@@ -26,6 +34,8 @@ public class Curriculo {
         this.semestre = semestre;
         this.resumoProfissional = resumoProfissional;
         this.tituloVagaInteresse = tituloVagaInteresse;
+        this.habilidades = habilidades;
+
     }
 
     @Override
@@ -104,7 +114,17 @@ public class Curriculo {
         return tituloVagaInteresse;
     }
 
+
+
     public void setTituloVagaInteresse(String tituloVagaInteresse) {
         this.tituloVagaInteresse = tituloVagaInteresse;
+    }
+
+    public List<String> getHabilidades() {
+        return habilidades;
+    }
+
+    public void setHabilidades(List<String> habilidades) {
+        this.habilidades = habilidades;
     }
 }
