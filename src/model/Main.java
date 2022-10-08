@@ -15,8 +15,6 @@ public class Main {
                 "71 9999-9999", "jaciane@gmail", "24680", "012.345.678-90");
         estudante1.cadastrarCurriculo("Jaci", "PUC", "Sistemas de Informação", 1,
                 "Sem experiência", "Dev Junior");
-        estudante1.imprimir();
-        System.out.println("__________");
 
 /*        Endereco enderecoEstudante2 = new Endereco("Brasil", "SE", "Aracaju",
                 "49000-000", "Avenida Euclides", 321);
@@ -39,7 +37,6 @@ public class Main {
                 "77777-777", "sem fim", 1234);
         Empresa empresa1 = new Empresa(TipoUsuario.EMPRESA, "DBC", enderecoEmpresa1,
                 "51 98888-8888", "dbc@gmail.com", "123456", "111.111.111.0001-0");
-        empresa1.imprimir();
 
         Vaga desenvolvedor = new Vaga("Estágio frontend", empresa1, "React", 2);
         Vaga QA = new Vaga("Senior QA", empresa1, "Automação de testes", 3);
@@ -50,32 +47,33 @@ public class Main {
         estudante1.concorrerVaga(desenvolvedor);
         estudante1.concorrerVaga(QA);
         estudante1.concorrerVaga(backend);
+//
+//       estudante1.getVagasInscritas();
 
-        System.out.println("---------------------- Vagas inscritas ----------------------------");
-       estudante1.getVagasInscritas();
+//        empresa1.getVagas();
+//        System.out.println(empresa1.listarCandidatos(desenvolvedor));
 
-        empresa1.getVagas();
-        System.out.println(empresa1.listarCandidatos(desenvolvedor));
-
+        System.out.println("====================== BEM VINDO ============================");
+        System.out.println("||          Sistema de oportunidades em tecnologia          ||");
+        System.out.println("=============================================================");
         Scanner input = new Scanner(System.in);
         String opcao;
 
         do {
-            System.out.println("----------- Menu ------------------");
             System.out.println("1 - Fazer login.");
             System.out.println("2 - Cadastrar Usuário.");
             opcao = input.nextLine();
 
                 switch (opcao) {
                     case "1": {
-                        int opcaoLogin = 1;
-//                System.out.println("----------------- Login --------------------");
-//                System.out.println("Digite o email: ");
-//                System.out.println("Digite a senha: ");
-//                opcaoLogin = input.nextInt();
-//                input.nextLine();
+                        int opcaoLogin = 0;
+                        System.out.println("----------------- Login --------------------");
+                        System.out.println("Digite o email: ");
+                        System.out.println("Digite a senha: ");
+                        opcaoLogin = input.nextInt();
+                        input.nextLine();
 
-                        if (opcaoLogin == 1) {
+                        while(opcaoLogin == 4) {
                             String opcaoEmpresa;
                             System.out.println("-------------------- Logado com " + empresa1.getNome() + "------------------");
                             System.out.println(" Escolha uma opção: ");
@@ -85,6 +83,7 @@ public class Main {
                             System.out.println(" 4 - Editar vaga. ");
                             System.out.println(" 5 - Excluir vaga. ");
                             System.out.println(" 6 - Sair. ");
+                            System.out.println("----------------------------------------------------");
                             opcaoEmpresa = input.nextLine();
 
 
@@ -119,8 +118,7 @@ public class Main {
                                 case "4": {
                                     empresa1.getVagas();
                                     System.out.println("Escolha a vaga que quer editar: ");
-                                    int index = input.nextInt();
-                                    input.nextLine();
+                                    String index = input.nextLine();
 
                                     Vaga novaVaga = new Vaga();
                                     System.out.println(" Titulo da vaga: ");
@@ -140,14 +138,17 @@ public class Main {
                                     break;
                                 }
                                 case "6": {
+                                    opcaoLogin = 0;
                                     break;
                                 }
                                 default: {
-                                    System.err.println("Opa entrada inválida, digite o número da opção. ");
+                                    System.err.println("---------------------------------------------------");
+                                    System.err.println("| Opa entrada inválida, digite o número da opção. |");
+                                    System.err.println("---------------------------------------------------");
                                     break;
                                 }
                             }
-                        } else {
+                        } while(opcaoLogin == 2) {
                             // Se ESTUDANTE
                             String opcaoEstudante;
                             System.out.println("-------------------- Logado com " + estudante1.getNome() + " ------------------");
@@ -158,6 +159,8 @@ public class Main {
                             System.out.println(" 4 - Configurações. ");
                             System.out.println(" 5 - Voltar ao Menu Principal. ");
                             System.out.println(" 6 - Sair. ");
+                            System.out.println("----------------------------------------------------");
+
                             opcaoEstudante = input.nextLine();
 
 
@@ -198,6 +201,7 @@ public class Main {
                                     estudante1.getCurriculo();
                                     int id = input.nextInt();
                                 } case "6": {
+                                    opcaoLogin = 0;
                                     break;
                                 }
                             }
@@ -221,6 +225,7 @@ public class Main {
                             String senhaCopia = input.nextLine();
                             if (senhaCopia.equals(senha)) {
                                 user.setSenha(input.nextLine());
+                                System.out.println("Cadastrado com sucesso!!!");
                             } else {
                                 System.err.println("Senhas não batem.");
                             }
@@ -237,7 +242,9 @@ public class Main {
                             String senhaCopia = input.nextLine();
                             if (senhaCopia.equals(senha)) {
                                 user.setSenha(input.nextLine());
-                                user.cadastrarUsuario();
+                                System.out.println("Cadastrado com sucesso!!!");
+                                break;
+//                                user.cadastrarUsuario();
                             } else {
                                 System.err.println("Senhas não batem.");
                             }
@@ -245,7 +252,9 @@ public class Main {
                         break;
                     }
                     default: {
-                        System.err.println("Opa entrada inválida, digite o número da opção. ");
+                        System.err.println("---------------------------------------------------");
+                        System.err.println("| Opa entrada inválida, digite o número da opção. |");
+                        System.err.println("---------------------------------------------------");
                         break;
                     }
                 }

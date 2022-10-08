@@ -14,16 +14,16 @@ public class VagaTest {
     @Test
     public void deveTestarAlgo(){
 
-        boolean retorno = vaga.;
+//        boolean retorno = vaga.;
 
-        Assertions.assertTrue(retorno);
+//        Assertions.assertTrue(retorno);
     }
 
     @Test
     public void deveTestarOutraCoisa(){
 
-        boolean retorno = vaga.;
+//        boolean retorno = vaga.;
 
-        Assertions.assertTrue(retorno);
+//        Assertions.assertTrue(retorno);
     }
 }
