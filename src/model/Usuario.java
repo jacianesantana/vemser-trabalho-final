@@ -2,16 +2,18 @@ package model;
 
 import java.util.List;
 
-abstract public class Usuario {
+abstract public class Usuario implements Login {
     private TipoUsuario tipoUsuario;
     private String nome;
-    private String identificacaoUsuario;
-    private List<Endereco> endereco;
+    //private String identificacaoUsuario;
+    //private List<Endereco> endereco;
+    private Endereco endereco;
     private String telefone;
     private String email;
     private String senha;
 
     public void cadastrarUsuario(){
+        //será igual o construtor
     }
 
     public Usuario() {
@@ -19,18 +21,37 @@ abstract public class Usuario {
 
     public Usuario(TipoUsuario tipoUsuario,
                    String nome,
-                   String identificacaoUsuario,
-                   List<Endereco> endereco,
+                   //String identificacaoUsuario,
+                   //List<Endereco> endereco,
+                   Endereco endereco,
                    String telefone,
                    String email,
                    String senha) {
         this.tipoUsuario = tipoUsuario;
         this.nome = nome;
-        this.identificacaoUsuario = identificacaoUsuario;
+        //this.identificacaoUsuario = identificacaoUsuario;
         this.endereco = endereco;
         this.telefone = telefone;
         this.email = email;
         this.senha = senha;
+    }
+
+    @Override
+    public boolean validarEmail(String email) {
+        if (email.equals(this.email)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean validarSenha(String senha) {
+        if (senha.equals(this.senha)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public TipoUsuario getTipoUsuario() {
@@ -49,19 +70,27 @@ abstract public class Usuario {
         this.nome = nome;
     }
 
-    public String getIdentificacaoUsuario() {
+/*    public String getIdentificacaoUsuario() {
         return identificacaoUsuario;
-    }
+    }*/
 
-    public void setIdentificacaoUsuario(String identificacaoUsuario) {
+/*    public void setIdentificacaoUsuario(String identificacaoUsuario) {
         this.identificacaoUsuario = identificacaoUsuario;
-    }
+    }*/
 
-    public List<Endereco> getEndereco() {
+/*    public List<Endereco> getEndereco() {
         return endereco;
     }
 
     public void setEndereco(List<Endereco> endereco) {
+        this.endereco = endereco;
+    }*/
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
     }
 
