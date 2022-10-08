@@ -8,33 +8,39 @@ import java.util.stream.Stream;
 
 public class Main {
     public static void main(String[] args) {
-        //Estudantes
+        //Estudante 1
         Endereco enderecoEstudante1 = new Endereco("Brasil", "SE", "Aracaju",
                 "49000-000", "Avenida Euclides", 321);
-        Estudante estudante1 = new Estudante(TipoUsuario.ESTUDANTE, "Jaciane", enderecoEstudante1,
-                "71 9999-9999", "jaciane@gmail", "24680", "012.345.678-90");
-        estudante1.cadastrarCurriculo("Jaci", "PUC", "Sistemas de Informação", 1,
-                "Sem experiência", "Dev Junior");
-        estudante1.imprimir();
+        Estudante estudante1 = new Estudante();
+        estudante1.cadastrarEstudante(TipoUsuario.ESTUDANTE, "Jaciane", enderecoEstudante1,
+                "71 9999-9999", "jaciane@gmail", "2468", "012.345.678-90", bancoDeDados);
+        //estudante1.atualizarEstudante();    //corrigir
+        estudante1.imprimirEstudante();
+//        estudante1.cadastrarCurriculo("Jaci", "PUC", "Sistemas de Informação", 1,
+//                "Sem experiência", "Dev Junior");
         System.out.println("__________");
 
-/*        Endereco enderecoEstudante2 = new Endereco("Brasil", "SE", "Aracaju",
+        //Estudante 2
+        Endereco enderecoEstudante2 = new Endereco("Brasil", "SE", "Aracaju",
                 "49000-000", "Avenida Euclides", 321);
-        Estudante estudante2 = new Estudante(TipoUsuario.ESTUDANTE, "Alain", enderecoEstudante2,
-                "71 9999-9999", "alain@gmail", "24680", "012.345.678-90",
-                "PUC", "Sistemas de Informação", 1);
-        estudante2.imprimir();
+        Estudante estudante2 = new Estudante();
+        estudante2.cadastrarEstudante(TipoUsuario.ESTUDANTE, "Alain", enderecoEstudante2,
+                "71 9999-9999", "alain@gmail", "123456", "099.999.999-90", bancoDeDados);
+        estudante2.deletarEstudante("099.999.999-90", bancoDeDados);
         System.out.println("__________");
 
+        //Estudante 3
         Endereco enderecoEstudante3 = new Endereco("Brasil", "SE", "Aracaju",
                 "49000-000", "Avenida Euclides", 321);
-        Estudante estudante3 = new Estudante(TipoUsuario.ESTUDANTE, "Jhennyfer", enderecoEstudante3,
-                "71 9999-9999", "jhennyfer@gmail", "24680", "012.345.678-90",
-                "PUC", "Sistemas de Informação", 1);
-        estudante3.imprimir();
-        System.out.println("__________");*/
+        Estudante estudante3 = new Estudante();
+        estudante3.cadastrarEstudante(TipoUsuario.ESTUDANTE, "Jhennyfer", enderecoEstudante3,
+                "71 9999-9999", "jhennyfer@gmail", "654321", "011.111.111-10", bancoDeDados);
+        estudante3.imprimirEstudante();
+        System.out.println("__________");
 
-        //Empresa
+        System.out.println(bancoDeDados);
+
+/*        //Empresa 1
         Endereco enderecoEmpresa1 = new Endereco("Brasil", "RS", "POA",
                 "77777-777", "sem fim", 1234);
         Empresa empresa1 = new Empresa(TipoUsuario.EMPRESA, "DBC", enderecoEmpresa1,
@@ -194,5 +200,6 @@ public class Main {
 
                 }
         }while(true);
+    }*/
     }
 }

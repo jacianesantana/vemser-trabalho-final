@@ -32,9 +32,9 @@ public class Estudante extends Usuario implements EstudanteCRUD {
 
     @Override
     public Estudante cadastrarEstudante(TipoUsuario tipoUsuario, String nome, Endereco endereco, String telefone,
-                                        String email, String senha, String cpf) {
+                                        String email, String senha, String cpf, BancoDeDados bancoDeDados) {
         Estudante estudante = new Estudante(tipoUsuario, nome, endereco, telefone, email, senha, cpf);
-        BancoDeDados bancoDeDados = new BancoDeDados();
+
         bancoDeDados.estudantes.add(estudante);
         return estudante;
     }
@@ -57,8 +57,7 @@ public class Estudante extends Usuario implements EstudanteCRUD {
     }
 
     @Override
-    public void deletarEstudante(String cpf) {
-        BancoDeDados bancoDeDados = new BancoDeDados();
+    public void deletarEstudante(String cpf, BancoDeDados bancoDeDados) {
         int estudanteIndex = bancoDeDados.estudantes.stream()
                 .map(estudante -> estudante.cpf)
                 .toList()
