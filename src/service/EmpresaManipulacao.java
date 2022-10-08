@@ -25,14 +25,14 @@ public class EmpresaManipulacao implements CRUD<Empresa> {
     }
 
     @Override
-    public void atualizar(int index, Empresa empresa) {
+    public void atualizar(Integer index, Empresa empresa) {
         Empresa empresaProcurada = listaDeEmpresas.get(index);
         empresaProcurada.setCnpj(empresa.getCnpj());
         empresaProcurada.setNome(empresa.getNome());
     }
 
     @Override
-    public void deletar(int index) {
-        this.listaDeEmpresas.remove(index);
+    public void deletar(Integer index) {
+        this.listaDeEmpresas.remove(index.intValue());
     }
 }

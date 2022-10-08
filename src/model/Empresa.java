@@ -7,14 +7,18 @@ public class Empresa extends Usuario {
     private String cnpj;
     private List<Vaga> vagas = new ArrayList<>();
 
-    public Empresa(TipoUsuario tipoUsuario, String nome, Endereco endereco, String telefone,
-                   String email, String senha, String cnpj) {
+    public Empresa(TipoUsuario tipoUsuario,
+                   String nome,
+                   Endereco endereco,
+                   String telefone,
+                   String email,
+                   String senha,
+                   String cnpj) {
         super(tipoUsuario, nome, endereco, telefone, email, senha);
         this.cnpj = cnpj;
     }
 
     public Empresa() {
-
     }
 
     public String getCnpj() {
@@ -33,7 +37,6 @@ public class Empresa extends Usuario {
     public void setVagas(List<Vaga> vagas) {
         this.vagas = vagas;
     }
-
     public boolean cadastrarVaga(Vaga vaga) {
         if(vaga != null){
             this.vagas.add(vaga);
@@ -42,9 +45,5 @@ public class Empresa extends Usuario {
             return false;
         }
     }
-
-/*    public List<Curriculo> listarCandidatos(Vaga vaga){
-       return vaga.getCandidatos();
-    }*/
 
 }

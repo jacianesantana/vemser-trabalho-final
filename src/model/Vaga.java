@@ -19,6 +19,7 @@ public class Vaga {
         this.nomeDaEmpresa = nomeDaEmpresa;
         this.requisitos = requisito;
     }
+
     public Map<Estudante, Long> candidatoComMaisRequisitos() {
         HashMap<Estudante, Long> estudantesComQtdRequistos = new HashMap<>();
         candidatos.forEach(estudante -> {
@@ -32,6 +33,7 @@ public class Vaga {
         });
         return estudantesComQtdRequistos;
     }
+
     //UsuarioEmpresa digita nome candidato e recebe o cpf para fechar a vaga
     public String candidatoSelecionado(String candidatoSelecionado) {
         Optional<String> cpfCandidadoSelecionado = candidatos.stream()

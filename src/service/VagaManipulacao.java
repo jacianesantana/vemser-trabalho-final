@@ -5,7 +5,7 @@ import model.Vaga;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VagaManipulação implements CRUD<Vaga> {
+public class VagaManipulacao implements CRUD<Vaga> {
     private List<Vaga> listaDeVagas;
 
     @Override
@@ -21,14 +21,14 @@ public class VagaManipulação implements CRUD<Vaga> {
     }
 
     @Override
-    public void atualizar(int index, Vaga requisito) {
-    Vaga vagaProcurada = listaDeVagas.get(index);
-    vagaProcurada.setTitulo(vagaProcurada.getTitulo());
-    vagaProcurada.setRequisito(vagaProcurada.getRequisito());
+    public void atualizar(Integer index, Vaga requisito) {
+        Vaga vagaProcurada = listaDeVagas.get(index);
+        vagaProcurada.setTitulo(vagaProcurada.getTitulo());
+        vagaProcurada.setRequisitos(vagaProcurada.getRequisitos());
     }
 
     @Override
-    public void deletar(int index) {
-
+    public void deletar(Integer index) {
+        this.listaDeVagas.remove(index.intValue());
     }
 }
