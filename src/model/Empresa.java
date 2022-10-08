@@ -13,6 +13,10 @@ public class Empresa extends Usuario implements Impressao {
         this.cnpj = cnpj;
     }
 
+    public Empresa() {
+
+    }
+
     @Override
     public void imprimir() {
         System.out.println("Nome: " + getNome());

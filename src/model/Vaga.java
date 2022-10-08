@@ -10,6 +10,9 @@ public class Vaga {
     private int quantidade;
     private List<Curriculo> candidatos = new ArrayList<>();
 
+    public Vaga() {
+    }
+
     public Vaga(String titulo, Empresa empresa, String requisito, int quantidade) {
         this.titulo = titulo;
         this.empresa = empresa;
