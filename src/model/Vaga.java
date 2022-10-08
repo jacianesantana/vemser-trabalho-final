@@ -1,10 +1,8 @@
 package model;
 
-import service.VagaCRUD;
-
 import java.util.*;
 
-public class Vaga implements VagaCRUD {
+public class Vaga {
     private String titulo;
     private String nomeDaEmpresa;
     private List<String> requisitos = new ArrayList<>();

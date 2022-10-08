@@ -1,12 +1,9 @@
 package model;
 
-import service.EstudanteCRUD;
-
-public class Estudante extends Usuario implements EstudanteCRUD {
+public class Estudante extends Usuario {
     private String cpf;
-    private Curriculo curriculo;
+    private Curriculo meuCurriculo;
     //private List<Vaga> vagasInscritas = new ArrayList<>();
-
 
     public Estudante() {
     }
@@ -26,51 +23,9 @@ public class Estudante extends Usuario implements EstudanteCRUD {
     public String toString() {
         return "Estudante{" +
                 "cpf='" + cpf + '\'' +
-                ", curriculo=" + curriculo +
+                ", curriculo=" + meuCurriculo +
                 '}';
     }
-
-    @Override
-    public Estudante cadastrarEstudante(TipoUsuario tipoUsuario, String nome, Endereco endereco, String telefone,
-                                        String email, String senha, String cpf, BancoDeDados bancoDeDados) {
-        Estudante estudante = new Estudante(tipoUsuario, nome, endereco, telefone, email, senha, cpf);
-
-        bancoDeDados.estudantes.add(estudante);
-        return estudante;
-    }
-
-    @Override
-    public Estudante atualizarEstudante(Estudante estudante) {
-        this.setNome(estudante.getNome());
-        this.setEndereco(estudante.getEndereco());
-        this.setTelefone(estudante.getTelefone());
-        this.setEmail(estudante.getEmail());
-        this.setSenha(estudante.getSenha());
-        return estudante;
-    }
-
-    @Override
-    public void imprimirEstudante() {
-        System.out.println(getTipoUsuario() + ", Nome: " + getNome() + ", CPF: " + cpf +
-                ", Endereço: " + getEndereco() + ", Telefone: " + getTelefone() +
-                "Email: " + getEmail() + "}");
-    }
-
-    @Override
-    public void deletarEstudante(String cpf, BancoDeDados bancoDeDados) {
-        int estudanteIndex = bancoDeDados.estudantes.stream()
-                .map(estudante -> estudante.cpf)
-                .toList()
-                .indexOf(cpf);
-        bancoDeDados.estudantes.remove(estudanteIndex);
-    }
-
-    /*    public boolean concorrerVaga(Vaga vaga){
-
-        vaga.setCadidatos(this.getCurriculo());
-        vagasInscritas.add(vaga);
-        return true;
-    }*/
 
     public String getCpf() {
         return cpf;
@@ -81,10 +36,10 @@ public class Estudante extends Usuario implements EstudanteCRUD {
     }
 
     public Curriculo getCurriculo() {
-        return curriculo;
+        return meuCurriculo;
     }
 
     public void setCurriculo(Curriculo curriculo) {
-        this.curriculo = curriculo;
+        this.meuCurriculo = curriculo;
     }
 }

@@ -1,11 +1,9 @@
 package model;
 
-import service.EmpresaCRUD;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class Empresa extends Usuario implements EmpresaCRUD {
+public class Empresa extends Usuario {
     private String cnpj;
     private List<Vaga> vagas = new ArrayList<>();
 
