@@ -33,7 +33,7 @@ public class CurriculoManipulacao implements CRUD<Curriculo> {
         curriculoIndex.setCurso(curriculo.getCurso());
         curriculoIndex.setSemestre(curriculo.getSemestre());
         curriculoIndex.setResumoProfissional(curriculo.getResumoProfissional());
-        curriculoIndex.setTituloVagaInteresse(curriculo.getTituloVagaInteresse());
+        //curriculoIndex.setTituloVagaInteresse(curriculo.getTituloVagaInteresse());
         curriculoIndex.setHabilidades(curriculo.getHabilidades());
         return false;
     }

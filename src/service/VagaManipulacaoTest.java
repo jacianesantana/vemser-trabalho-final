@@ -1,5 +1,8 @@
 package service;
 
+import model.Empresa;
+import model.Endereco;
+import model.TipoUsuario;
 import model.Vaga;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,7 +21,11 @@ public class VagaManipulacaoTest {
 
     @Test
     public void deveTestarCadastrarVagaComSucesso(){
-        Vaga vaga = new Vaga("java senior", "dbc", Arrays.asList("java", "mysql"));
+        Endereco enderecoEmpresa = new Endereco("Brasil", "RS", "Porto Alegre",
+                "90240-200", "Tv. São José", 455);
+        Empresa empresa1 = new Empresa(TipoUsuario.EMPRESA, "DBC", enderecoEmpresa, "51 3330.777",
+                "dbc@company.com", "123456", "9-9999-9999");
+        Vaga vaga = new Vaga("java senior", empresa1, Arrays.asList("java", "mysql"));
 
         boolean retorno = vagaManipulacao.cadastrar(vaga);
 
@@ -31,7 +38,11 @@ public class VagaManipulacaoTest {
         final String TITULO = "estagiario";
         final String NOME_EMPRESA = "google";
         final List<String> REQUISITOS = Arrays.asList("algoritmo", "sql");
-        Vaga vaga2 = new Vaga("java junior", "dbc", Arrays.asList("algoritimos"));
+        Endereco enderecoEmpresa = new Endereco("Brasil", "RS", "Porto Alegre",
+                "90240-200", "Tv. São José", 455);
+        Empresa empresa1 = new Empresa(TipoUsuario.EMPRESA, "DBC", enderecoEmpresa, "51 3330.777",
+                "dbc@company.com", "123456", "9-9999-9999");
+        Vaga vaga2 = new Vaga("java junior", empresa1, Arrays.asList("algoritimos"));
         Vaga vaga3 = new Vaga();
 //        vaga3.setTitulo(TITULO);
 //        vaga3.setRequisitos(REQUISITOS);

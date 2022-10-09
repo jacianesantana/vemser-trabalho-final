@@ -1,5 +1,7 @@
 package model;
 
+import exception.SenhaEmailInvalidoException;
+
 abstract public class Usuario implements Login {
     private TipoUsuario tipoUsuario;
     private String nome;
@@ -39,6 +41,7 @@ abstract public class Usuario implements Login {
 
     @Override
     public boolean validarEmail(String email) {
+
         if (email.equals(this.email)) {
             return true;
         } else {
@@ -58,12 +61,13 @@ abstract public class Usuario implements Login {
     }
 
     @Override
-    public boolean login(String email, String senha) {
-        if (validarEmail(email) && validarSenha(senha)) {
+    public boolean login(String email, String senha) throws SenhaEmailInvalidoException {
+
+        if (validarEmail(email) && validarSenha(senha))  {
             System.out.println("Login efetuado com sucesso");
             return true;
         } else {
-            return false;
+            throw new SenhaEmailInvalidoException("Senha e email inválido");
         }
     }
 
