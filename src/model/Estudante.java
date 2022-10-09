@@ -1,12 +1,13 @@
 package model;
 
+import exception.SenhaInvalidaException;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Estudante extends Usuario {
     private String cpf;
     private Curriculo curriculo;
-
     private List<Vaga> vagasInscritas = new ArrayList<>();
 
     public Estudante() {
@@ -22,13 +23,6 @@ public class Estudante extends Usuario {
         super(tipoUsuario, nome, endereco, telefone, email, senha);
         this.cpf = cpf;
     }
-    public void candidatarvaga(Vaga vaga){
-        vaga.getCandidatos().add(this);
-        vagasInscritas.add(vaga);
-    }
-    public List<Vaga> listaDeVagasInscritas(){
-        return vagasInscritas;
-    }
 
     @Override
     public String toString() {
@@ -36,6 +30,20 @@ public class Estudante extends Usuario {
                 "cpf='" + cpf + '\'' +
                 ", curriculo=" + curriculo +
                 '}';
+    }
+
+    public boolean candidatarVaga(Vaga vaga){
+        if (vaga != null) {
+            vaga.getCandidatos().add(this);
+            vagasInscritas.add(vaga);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public List<Vaga> listaDeVagasInscritas(){
+        return vagasInscritas;
     }
 
     public String getCpf() {
@@ -61,5 +69,4 @@ public class Estudante extends Usuario {
     public void setVagasInscritas(List<Vaga> vagasInscritas) {
         this.vagasInscritas = vagasInscritas;
     }
-
 }

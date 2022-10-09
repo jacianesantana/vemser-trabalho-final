@@ -1,11 +1,11 @@
-package service;
-
+import exception.SenhaInvalidaException;
 import model.Empresa;
 import model.Endereco;
 import model.TipoUsuario;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import service.EmpresaManipulacao;
 
 public class EmpresaManipulacaoTest {
 
@@ -33,14 +33,15 @@ public class EmpresaManipulacaoTest {
         Assertions.assertTrue(retorno);
     }
     @Test
-    public void deveTestarDeletarEmpresaComSucesso(){
-        final Integer INDEX = 0;
+    public void deveTestarDeletarEmpresaComSucesso() throws SenhaInvalidaException {
         Endereco enderecoEstudante0 = new Endereco("Brasil", "SE", "Aracaju",
                 "49000-000", "Avenida Euclides", 321);
-        new Empresa(TipoUsuario.EMPRESA, "DBC", enderecoEstudante0, "8888-8888", "dbc@company.com", "123456", "9-9999-9999");
+       Empresa empresa = new Empresa(TipoUsuario.EMPRESA, "DBC", enderecoEstudante0, "8888-8888", "dbc@company.com", "123456", "9-9999-9999");
+       empresaManipulacao.cadastrar(empresa);
+       final Integer INDEX = empresaManipulacao.listar().indexOf(empresa);
 
-//        boolean retorno = empresaManipulacao.deletar(INDEX);
-//
-//        Assertions.assertNotEquals(retorno);
+        boolean retorno = empresaManipulacao.deletar(INDEX);
+
+        Assertions.assertTrue(retorno);
     }
 }

@@ -14,8 +14,12 @@ public class VagaManipulacao implements CRUD<Vaga> {
 
     @Override
     public boolean cadastrar(Vaga vaga) {
-        this.listaDeVagas.add(vaga);
-        return false;
+        if (vaga != null) {
+            this.listaDeVagas.add(vaga);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
@@ -25,20 +29,23 @@ public class VagaManipulacao implements CRUD<Vaga> {
 
     @Override
     public boolean atualizar(Integer index, Vaga vaga) {
-        Vaga vagaProcurada = listaDeVagas.get(index);
-
-        vagaProcurada.setTitulo(vaga.getTitulo());
-        vagaProcurada.setRequisitos(vaga.getRequisitos());
-
-
-        vagaProcurada.setTitulo(vagaProcurada.getTitulo());
-        vagaProcurada.setRequisitos(vagaProcurada.getRequisitos());
-
-        return false;
+        if (index != null && vaga != null) {
+            Vaga vagaIndex = listaDeVagas.get(index);
+            vagaIndex.setTitulo(vaga.getTitulo());
+            vagaIndex.setRequisitos(vaga.getRequisitos());
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
-    public void deletar(Integer index) {
-        this.listaDeVagas.remove(index.intValue());
+    public boolean deletar(Integer index) {
+        if (index != null) {
+            this.listaDeVagas.remove(index.intValue());
+            return true;
+        } else {
+            return false;
+        }
     }
 }

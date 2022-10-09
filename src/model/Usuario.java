@@ -1,10 +1,8 @@
 package model;
 
-
 import exception.LoginInvalidoException;
 import exception.SenhaInvalidaException;
 import service.Login;
-
 
 abstract public class Usuario implements Login {
     private TipoUsuario tipoUsuario;
@@ -28,25 +26,7 @@ abstract public class Usuario implements Login {
         this.endereco = endereco;
         this.telefone = telefone;
         this.email = email;
-        try {
-            validarSenhaNova(senha);
-        } catch (SenhaInvalidaException e) {
-            e.printStackTrace();
-        }
         this.senha = senha;
-    }
-
-    public void validarSenhaNova(String senha) throws SenhaInvalidaException {
-        int contNumero = 0;
-        for (int i = 0; i < senha.length(); i++) {
-            if (Character.isAlphabetic(senha.charAt(i))) {
-                contNumero++;
-            }
-        }
-        if (contNumero <= 2) {
-            throw new SenhaInvalidaException("");
-        }
-
     }
 
     @Override
@@ -61,9 +41,20 @@ abstract public class Usuario implements Login {
                 '}';
     }
 
+    public void validarSenhaNova(String senha) throws SenhaInvalidaException {
+        int contNumero = 0;
+        for (int i = 0; i < senha.length(); i++) {
+            if (Character.isDigit(senha.charAt(i))) {
+                contNumero++;
+            }
+        }
+        if (contNumero<=2) {
+            throw new SenhaInvalidaException("");
+        }
+    }
+
     @Override
     public boolean validarEmail(String email) {
-
         if (email.equals(this.email)) {
             return true;
         } else {
@@ -84,7 +75,6 @@ abstract public class Usuario implements Login {
 
     @Override
     public boolean login(String email, String senha) throws LoginInvalidoException {
-
         if (validarEmail(email) && validarSenha(senha)) {
             System.out.println("Login efetuado com sucesso");
             return true;

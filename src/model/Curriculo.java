@@ -9,8 +9,6 @@ public class Curriculo {
     private String curso;
     private int semestre;
     private String resumoProfissional;
-
-
     private List<String> habilidades = new ArrayList<>();
 
     public Curriculo() {
@@ -28,9 +26,7 @@ public class Curriculo {
         this.curso = curso;
         this.semestre = semestre;
         this.resumoProfissional = resumoProfissional;
-
         this.habilidades = habilidades;
-
     }
 
     @Override
@@ -41,9 +37,9 @@ public class Curriculo {
                 ", curso='" + curso + '\'' +
                 ", semestre=" + semestre +
                 ", resumoProfissional='" + resumoProfissional + '\'' +
+                ", habilidades=" + habilidades +
                 '}';
     }
-
 
     public String getNomeDoEstudante() {
         return nomeDoEstudante;
@@ -84,9 +80,6 @@ public class Curriculo {
     public void setResumoProfissional(String resumoProfissional) {
         this.resumoProfissional = resumoProfissional;
     }
-
-
-
 
     public List<String> getHabilidades() {
         return habilidades;

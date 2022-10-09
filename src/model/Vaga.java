@@ -4,7 +4,6 @@ import java.util.*;
 
 public class Vaga {
     private String titulo;
-
     private Empresa empresa;
     private List<String> requisitos = new ArrayList<>();
     private List<Estudante> candidatos = new ArrayList<>();
@@ -15,11 +14,9 @@ public class Vaga {
 
     public Vaga(String titulo, Empresa empresa, List<String> requisitos) {
         this.titulo = titulo;
-
         this.empresa = empresa;
         this.requisitos = requisitos;
         this.statusVaga = StatusVaga.ABERTO;
-
     }
 
     public Map<Estudante, Long> candidatoComMaisRequisitos() {
@@ -35,6 +32,7 @@ public class Vaga {
         });
         return estudantesComQtdRequistos;
     }
+
     //UsuarioEmpresa digita nome candidato e recebe o cpf para fechar a vaga
     public String candidatoSelecionado(String candidatoSelecionado) {
         Optional<String> cpfCandidadoSelecionado = candidatos.stream()
@@ -46,6 +44,7 @@ public class Vaga {
 
     //usuarioEmpresa digita cpf e fecha a vaga
     public void fecharVaga(String cpfCandidatoSelecionado) {
+
         Optional<Estudante> estudanteSelecionado = candidatos.stream()
                 .filter(estudante -> estudante.getCpf().equals(cpfCandidatoSelecionado))
                 .findFirst();
@@ -56,7 +55,7 @@ public class Vaga {
     public String toString() {
         return "Vaga{" +
                 "titulo='" + titulo + '\'' +
-                ", empresa=" + empresa +
+                ", empresa='" + empresa + '\'' +
                 ", requisitos=" + requisitos +
                 ", candidatos=" + candidatos +
                 ", statusVaga=" + statusVaga +
@@ -87,19 +86,19 @@ public class Vaga {
         this.requisitos = requisitos;
     }
 
-    public StatusVaga getStatusVaga() {
-        return statusVaga;
-    }
-
-    public void setStatusVaga(StatusVaga statusVaga) {
-        this.statusVaga = statusVaga;
-    }
-
     public List<Estudante> getCandidatos() {
         return candidatos;
     }
 
     public void setCandidatos(List<Estudante> candidatos) {
         this.candidatos = candidatos;
+    }
+
+    public StatusVaga getStatusVaga() {
+        return statusVaga;
+    }
+
+    public void setStatusVaga(StatusVaga statusVaga) {
+        this.statusVaga = statusVaga;
     }
 }

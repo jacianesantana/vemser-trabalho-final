@@ -1,5 +1,4 @@
-package service;
-
+import exception.SenhaInvalidaException;
 import model.Empresa;
 import model.Endereco;
 import model.TipoUsuario;
@@ -20,7 +19,7 @@ public class VagaManipulacaoTest {
     }
 
     @Test
-    public void deveTestarCadastrarVagaComSucesso(){
+    public void deveTestarCadastrarVagaComSucesso() throws SenhaInvalidaException {
         Endereco enderecoEmpresa = new Endereco("Brasil", "RS", "Porto Alegre",
                 "90240-200", "Tv. São José", 455);
         Empresa empresa1 = new Empresa(TipoUsuario.EMPRESA, "DBC", enderecoEmpresa, "51 3330.777",
@@ -33,7 +32,7 @@ public class VagaManipulacaoTest {
     }
 
     @Test
-    public void deveTestarAtualizarVagaComSucesso(){
+    public void deveTestarAtualizarVagaComSucesso() throws SenhaInvalidaException {
         final int INDEX = 0;
         final String TITULO = "estagiario";
         final String NOME_EMPRESA = "google";
@@ -44,12 +43,12 @@ public class VagaManipulacaoTest {
                 "dbc@company.com", "123456", "9-9999-9999");
         Vaga vaga2 = new Vaga("java junior", empresa1, Arrays.asList("algoritimos"));
         Vaga vaga3 = new Vaga();
-//        vaga3.setTitulo(TITULO);
-//        vaga3.setRequisitos(REQUISITOS);
+        vaga3.setTitulo(TITULO);
+        vaga3.setRequisitos(REQUISITOS);
         vagaManipulacao.cadastrar(vaga2);
 
-//        boolean retorno = vagaManipulacao.atualizar(INDEX, vaga3);
+        boolean retorno = vagaManipulacao.atualizar(INDEX, vaga3);
 
-//        Assertions.assertTrue(retorno);
+        Assertions.assertTrue(retorno);
     }
 }

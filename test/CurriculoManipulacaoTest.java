@@ -1,9 +1,8 @@
-package service;
-
 import model.Curriculo;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import service.CurriculoManipulacao;
 
 import java.util.Arrays;
 import java.util.List;
@@ -27,14 +26,15 @@ public class CurriculoManipulacaoTest {
     }
     @Test
     public void deveTestarExcluirCurrilosComSucesso(){
-        final Integer INDEX = 0;
-        new Curriculo("Antonio", "Univ", "Curso",
+        Curriculo estudante = new Curriculo("Antonio", "Univ", "Curso",
                 1, "Sem experiência",
                 Arrays.asList("Javascript", "HTML", "CSS"));
+        curriculoManipulacao.cadastrar(estudante);
+        final Integer INDEX = curriculoManipulacao.listar().indexOf(estudante);
 
-//        boolean retorno = curriculoManipulacao.deletar(INDEX);
+        boolean retorno = curriculoManipulacao.deletar(INDEX);
 
-//        Assertions.assertTrue(retorno);
+        Assertions.assertTrue(retorno);
     }
 
 }

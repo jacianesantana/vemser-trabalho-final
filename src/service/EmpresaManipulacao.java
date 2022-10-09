@@ -10,10 +10,15 @@ public class EmpresaManipulacao implements CRUD<Empresa> {
     public EmpresaManipulacao(){
         this.listaDeEmpresas = new ArrayList<>();
     }
+
     @Override
     public boolean cadastrar(Empresa empresa) {
-        this.listaDeEmpresas.add(empresa);
-        return false;
+        if (empresa != null) {
+            this.listaDeEmpresas.add(empresa);
+            return true;
+        } else {
+            return false;
+        }
     }
     @Override
     public List<Empresa> listar() {
@@ -22,14 +27,23 @@ public class EmpresaManipulacao implements CRUD<Empresa> {
 
     @Override
     public boolean atualizar(Integer index, Empresa empresa) {
-        Empresa empresaProcurada = listaDeEmpresas.get(index);
-        empresaProcurada.setCnpj(empresa.getCnpj());
-        empresaProcurada.setNome(empresa.getNome());
-        return false;
+        if (index != null && empresa != null) {
+            Empresa empresaIndex = listaDeEmpresas.get(index);
+            empresaIndex.setCnpj(empresa.getCnpj());
+            empresaIndex.setNome(empresa.getNome());
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
-    public void deletar(Integer index) {
-        this.listaDeEmpresas.remove(index.intValue());
+    public boolean deletar(Integer index) {
+        if (index != null) {
+            this.listaDeEmpresas.remove(index.intValue());
+            return true;
+        } else {
+            return false;
+        }
     }
 }
