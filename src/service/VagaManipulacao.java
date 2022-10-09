@@ -26,11 +26,16 @@ public class VagaManipulacao implements CRUD<Vaga> {
     }
 
     @Override
-    public boolean atualizar(Integer index, Vaga requisito) {
+    public boolean atualizar(Integer index, Vaga vaga) {
         Vaga vagaProcurada = listaDeVagas.get(index);
+<<<<<<< HEAD
+        vagaProcurada.setTitulo(vaga.getTitulo());
+        vagaProcurada.setRequisitos(vaga.getRequisitos());
+
+=======
         vagaProcurada.setTitulo(vagaProcurada.getTitulo());
         vagaProcurada.setRequisitos(vagaProcurada.getRequisitos());
-
+>>>>>>> daa118531287cd3a9d52fdc7c35e2ac4dd5a49dd
         return false;
     }
 

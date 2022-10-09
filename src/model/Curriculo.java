@@ -9,20 +9,18 @@ public class Curriculo {
     private String curso;
     private int semestre;
     private String resumoProfissional;
-    private String tituloVagaInteresse;
+
 
     private List<String> habilidades = new ArrayList<>();
 
     public Curriculo() {
     }
 
-
     public Curriculo(String nomeDoEstudante,
                      String universidade,
                      String curso,
                      int semestre,
                      String resumoProfissional,
-                     String tituloVagaInteresse,
                      List<String> habilidades
                     ) {
         this.nomeDoEstudante = nomeDoEstudante;
@@ -30,7 +28,7 @@ public class Curriculo {
         this.curso = curso;
         this.semestre = semestre;
         this.resumoProfissional = resumoProfissional;
-        this.tituloVagaInteresse = tituloVagaInteresse;
+
         this.habilidades = habilidades;
 
     }
@@ -43,21 +41,9 @@ public class Curriculo {
                 ", curso='" + curso + '\'' +
                 ", semestre=" + semestre +
                 ", resumoProfissional='" + resumoProfissional + '\'' +
-                ", tituloVagaInteresse='" + tituloVagaInteresse + '\'' +
                 '}';
     }
 
-    public void listarCurriculos() {
-
-    }
-
-    public void listarCurriculosPorVaga() {
-
-    }
-
-    public void listarCurriculosPorEmpresa() {
-
-    }
 
     public String getNomeDoEstudante() {
         return nomeDoEstudante;
@@ -99,15 +85,8 @@ public class Curriculo {
         this.resumoProfissional = resumoProfissional;
     }
 
-    public String getTituloVagaInteresse() {
-        return tituloVagaInteresse;
-    }
 
 
-
-    public void setTituloVagaInteresse(String tituloVagaInteresse) {
-        this.tituloVagaInteresse = tituloVagaInteresse;
-    }
 
     public List<String> getHabilidades() {
         return habilidades;

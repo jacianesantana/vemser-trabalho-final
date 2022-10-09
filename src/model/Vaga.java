@@ -4,20 +4,31 @@ import java.util.*;
 
 public class Vaga {
     private String titulo;
-    private String nomeDaEmpresa;
+
+    private Empresa empresa;
     private List<String> requisitos = new ArrayList<>();
     private List<Estudante> candidatos = new ArrayList<>();
-
+<<<<<<< HEAD
+    private StatusVaga statusVaga;
+=======
     private StatusVaga statusvaga;
-
+>>>>>>> daa118531287cd3a9d52fdc7c35e2ac4dd5a49dd
 
     public Vaga() {
     }
 
-    public Vaga(String titulo, String nomeDaEmpresa, List<String> requisito) {
+    public Vaga(String titulo, Empresa empresa, List<String> requisitos) {
         this.titulo = titulo;
+<<<<<<< HEAD
         this.nomeDaEmpresa = nomeDaEmpresa;
         this.requisitos = requisito;
+        this.statusVaga = StatusVaga.ABERTO;
+=======
+        this.empresa = empresa;
+        this.requisitos = requisitos;
+        this.statusvaga = statusvaga;
+        this.statusvaga = StatusVaga.ABERTO;
+>>>>>>> daa118531287cd3a9d52fdc7c35e2ac4dd5a49dd
     }
 
     public Map<Estudante, Long> candidatoComMaisRequisitos() {
@@ -33,7 +44,6 @@ public class Vaga {
         });
         return estudantesComQtdRequistos;
     }
-
     //UsuarioEmpresa digita nome candidato e recebe o cpf para fechar a vaga
     public String candidatoSelecionado(String candidatoSelecionado) {
         Optional<String> cpfCandidadoSelecionado = candidatos.stream()
@@ -51,14 +61,14 @@ public class Vaga {
         setStatusvaga(StatusVaga.FECHADO);
     }
 
-
     @Override
     public String toString() {
         return "Vaga{" +
                 "titulo='" + titulo + '\'' +
-                ", nomeDaEmpresa='" + nomeDaEmpresa + '\'' +
+                ", empresa=" + empresa +
                 ", requisitos=" + requisitos +
                 ", candidatos=" + candidatos +
+                ", statusvaga=" + statusvaga +
                 '}';
     }
 
@@ -70,12 +80,12 @@ public class Vaga {
         this.titulo = titulo;
     }
 
-    public String getNomeDaEmpresa() {
-        return nomeDaEmpresa;
+    public Empresa getEmpresa() {
+        return empresa;
     }
 
-    public void setNomeDaEmpresa(String nomeDaEmpresa) {
-        this.nomeDaEmpresa = nomeDaEmpresa;
+    public void setEmpresa(Empresa empresa) {
+        this.empresa = empresa;
     }
 
     public List<String> getRequisitos() {
@@ -87,11 +97,11 @@ public class Vaga {
     }
 
     public StatusVaga getStatusvaga() {
-        return statusvaga;
+        return statusVaga;
     }
 
     public void setStatusvaga(StatusVaga statusvaga) {
-        this.statusvaga = statusvaga;
+        this.statusVaga = statusvaga;
     }
 
     public List<Estudante> getCandidatos() {
