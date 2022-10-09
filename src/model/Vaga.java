@@ -8,27 +8,18 @@ public class Vaga {
     private Empresa empresa;
     private List<String> requisitos = new ArrayList<>();
     private List<Estudante> candidatos = new ArrayList<>();
-<<<<<<< HEAD
     private StatusVaga statusVaga;
-=======
-    private StatusVaga statusvaga;
->>>>>>> daa118531287cd3a9d52fdc7c35e2ac4dd5a49dd
 
     public Vaga() {
     }
 
     public Vaga(String titulo, Empresa empresa, List<String> requisitos) {
         this.titulo = titulo;
-<<<<<<< HEAD
-        this.nomeDaEmpresa = nomeDaEmpresa;
-        this.requisitos = requisito;
-        this.statusVaga = StatusVaga.ABERTO;
-=======
+
         this.empresa = empresa;
         this.requisitos = requisitos;
-        this.statusvaga = statusvaga;
-        this.statusvaga = StatusVaga.ABERTO;
->>>>>>> daa118531287cd3a9d52fdc7c35e2ac4dd5a49dd
+        this.statusVaga = StatusVaga.ABERTO;
+
     }
 
     public Map<Estudante, Long> candidatoComMaisRequisitos() {
@@ -58,7 +49,7 @@ public class Vaga {
         Optional<Estudante> estudanteSelecionado = candidatos.stream()
                 .filter(estudante -> estudante.getCpf().equals(cpfCandidatoSelecionado))
                 .findFirst();
-        setStatusvaga(StatusVaga.FECHADO);
+        setStatusVaga(StatusVaga.FECHADO);
     }
 
     @Override
@@ -68,7 +59,7 @@ public class Vaga {
                 ", empresa=" + empresa +
                 ", requisitos=" + requisitos +
                 ", candidatos=" + candidatos +
-                ", statusvaga=" + statusvaga +
+                ", statusVaga=" + statusVaga +
                 '}';
     }
 
@@ -96,12 +87,12 @@ public class Vaga {
         this.requisitos = requisitos;
     }
 
-    public StatusVaga getStatusvaga() {
+    public StatusVaga getStatusVaga() {
         return statusVaga;
     }
 
-    public void setStatusvaga(StatusVaga statusvaga) {
-        this.statusVaga = statusvaga;
+    public void setStatusVaga(StatusVaga statusVaga) {
+        this.statusVaga = statusVaga;
     }
 
     public List<Estudante> getCandidatos() {

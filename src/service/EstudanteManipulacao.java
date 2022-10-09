@@ -19,10 +19,8 @@ public class EstudanteManipulacao implements CRUD<Estudante> {
     }
 
     @Override
-    public void listar() {
-        for (int i = 0; i < listaDeEstudantes.size(); i++) {
-            System.out.println("id=" + i + " | " + listaDeEstudantes.get(i));
-        }
+    public List<Estudante> listar() {
+        return listaDeEstudantes;
     }
 
     @Override
