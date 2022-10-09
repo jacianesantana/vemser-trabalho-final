@@ -1,7 +1,6 @@
 package service;
 
 import exception.LoginInvalidoException;
-import exception.SenhaInvalidaException;
 
 public interface Login {
     boolean validarEmail(String email);

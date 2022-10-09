@@ -1,12 +1,13 @@
 package model;
 
+import exception.SenhaInvalidaException;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Estudante extends Usuario {
     private String cpf;
     private Curriculo curriculo;
-
     private List<Vaga> vagasInscritas = new ArrayList<>();
 
     public Estudante() {
