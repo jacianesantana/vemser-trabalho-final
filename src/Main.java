@@ -323,7 +323,7 @@ public class Main {
                         while (opcaoLogin == 2) {
                             // Se ESTUDANTE
                             String opcaoEstudante;
-                            System.out.println("-------------------- Logado com"+ estudanteLogado.getNome() + " ------------------");
+                            System.out.println("-------------------- Logado com "+ estudanteLogado.getNome() + " ------------------");
                             System.out.println(" Escolha uma opção: ");
                             System.out.println(" 1 - Criar curriculo; ");
                             System.out.println(" 2 - Editar curriculo; ");
@@ -331,6 +331,8 @@ public class Main {
                             System.out.println(" 4 - Excluir curriculo. ");
                             System.out.println(" 5 - Configuração da conta. ");
                             System.out.println(" 6 - Sair. ");
+                            System.out.println(" 7 - Excluir conta. ");
+                            System.out.println(" 8 - Listar vagas inscritas. ");
                             System.out.println("----------------------------------------------------");
                             opcaoEstudante = input.nextLine();
 
@@ -420,7 +422,7 @@ public class Main {
                                             System.out.println("Digite a senha novamente: ");
                                             String senhaCopia = input.nextLine();
                                             if (senhaCopia.equals(senha3)) {
-                                                user.setSenha(input.nextLine());
+                                                user.setSenha(senha3);
 //                                            estudanteManipulacao.atualizar(index, user);
                                                 System.out.println("Atualizado com sucesso!!!");
                                                 break;
@@ -460,6 +462,10 @@ public class Main {
                                     }else{
                                         break;
                                     }
+                                }
+                                case "8":{
+                                    estudanteLogado.getVagasInscritas().stream().forEach(System.out::println);
+                                    break;
                                 }
                                 default: {
                                     erroOpcao();
@@ -534,9 +540,9 @@ public class Main {
                 System.err.println("Tente novamente.");
                 System.err.println("---------------------------------------------------");
             }
-//            catch (Exception e) {
-//                System.out.println("Tente novamente.");
-//            }
+            catch (Exception e) {
+                System.out.println("Tente novamente.");
+            }
         } while (rodar);
     }
 
@@ -569,19 +575,4 @@ public class Main {
         return endereco;
     }
 
-    private static Usuario contaLogin(TipoUsuario tipo, String email, String senha) {
-        EstudanteManipulacao estudanteManipulacao = new EstudanteManipulacao();
-        EmpresaManipulacao empresaManipulacao = new EmpresaManipulacao();
-        if (tipo == TipoUsuario.EMPRESA) {
-            Empresa retornoEmpresa = empresaManipulacao.listar().stream()
-                    .filter(empresa -> empresa.getEmail().equals(email) && empresa.getSenha().equals(senha))
-                    .findFirst().get();
-            return retornoEmpresa;
-        } else {
-            Estudante retornoEstudante = estudanteManipulacao.listar().stream()
-                    .filter(estudante -> estudante.getEmail().equals(email) && estudante.getSenha().equals(senha))
-                    .findFirst().get();
-            return retornoEstudante;
-        }
-    }
 }
