@@ -1,10 +1,13 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Estudante extends Usuario {
     private String cpf;
-    private Curriculo meuCurriculo;
+    private Curriculo curriculo;
 
-    //private List<Vaga> vagasInscritas = new ArrayList<>();
+    private List<Vaga> vagasInscritas = new ArrayList<>();
 
     public Estudante() {
     }
@@ -19,12 +22,19 @@ public class Estudante extends Usuario {
         super(tipoUsuario, nome, endereco, telefone, email, senha);
         this.cpf = cpf;
     }
+    public void candidatarvaga(Vaga vaga){
+        vaga.getCandidatos().add(this);
+        vagasInscritas.add(vaga);
+    }
+    public List<Vaga> listaDeVagasInscritas(){
+        return vagasInscritas;
+    }
 
     @Override
     public String toString() {
         return "Estudante{" +
                 "cpf='" + cpf + '\'' +
-                ", curriculo=" + meuCurriculo +
+                ", curriculo=" + curriculo +
                 '}';
     }
 
@@ -37,10 +47,19 @@ public class Estudante extends Usuario {
     }
 
     public Curriculo getCurriculo() {
-        return meuCurriculo;
+        return curriculo;
     }
 
     public void setCurriculo(Curriculo curriculo) {
-        this.meuCurriculo = curriculo;
+        this.curriculo = curriculo;
     }
+
+    public List<Vaga> getVagasInscritas() {
+        return vagasInscritas;
+    }
+
+    public void setVagasInscritas(List<Vaga> vagasInscritas) {
+        this.vagasInscritas = vagasInscritas;
+    }
+
 }

@@ -30,7 +30,6 @@ public class VagaManipulacao implements CRUD<Vaga> {
         Vaga vagaProcurada = listaDeVagas.get(index);
         vagaProcurada.setTitulo(vagaProcurada.getTitulo());
         vagaProcurada.setRequisitos(vagaProcurada.getRequisitos());
-
         return false;
     }
 

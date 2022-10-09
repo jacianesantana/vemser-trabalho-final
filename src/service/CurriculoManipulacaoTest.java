@@ -18,7 +18,7 @@ public class CurriculoManipulacaoTest {
     @Test
     public void deveTestarCadastrarCurriculo(){
         Curriculo curriculoEstudante = new Curriculo("Antonio", "Univ", "Curso",
-                1, "Sem experiência", "Dev Frontend Junior",
+                1, "Sem experiência",
                 Arrays.asList("Javascript", "HTML", "CSS"));
 
         boolean retorno = curriculoManipulacao.cadastrar(curriculoEstudante);;
@@ -29,7 +29,7 @@ public class CurriculoManipulacaoTest {
     public void deveTestarExcluirCurrilosComSucesso(){
         final Integer INDEX = 0;
         new Curriculo("Antonio", "Univ", "Curso",
-                1, "Sem experiência", "Dev Frontend Junior",
+                1, "Sem experiência",
                 Arrays.asList("Javascript", "HTML", "CSS"));
 
 //        boolean retorno = curriculoManipulacao.deletar(INDEX);
