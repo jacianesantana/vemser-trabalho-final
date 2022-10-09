@@ -7,6 +7,9 @@ public class Empresa extends Usuario {
     private String cnpj;
     private List<Vaga> vagas = new ArrayList<>();
 
+    public Empresa() {
+    }
+
     public Empresa(TipoUsuario tipoUsuario,
                    String nome,
                    Endereco endereco,
@@ -18,9 +21,6 @@ public class Empresa extends Usuario {
         this.cnpj = cnpj;
     }
 
-    public Empresa() {
-    }
-
     public String getCnpj() {
         return cnpj;
     }
@@ -30,20 +30,10 @@ public class Empresa extends Usuario {
     }
 
     public List<Vaga> getVagas() {
-        vagas.stream()
-        .forEach(vaga -> System.out.println(vaga.getTitulo()));
         return vagas;
     }
+
     public void setVagas(List<Vaga> vagas) {
         this.vagas = vagas;
     }
-    public boolean cadastrarVaga(Vaga vaga) {
-        if(vaga != null){
-            this.vagas.add(vaga);
-            return true;
-        }else{
-            return false;
-        }
-    }
-
 }

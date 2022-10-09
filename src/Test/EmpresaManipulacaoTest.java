@@ -1,4 +1,4 @@
-package service;
+package Test;
 
 import model.Empresa;
 import model.Endereco;
@@ -6,6 +6,7 @@ import model.TipoUsuario;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import service.EmpresaManipulacao;
 
 public class EmpresaManipulacaoTest {
 

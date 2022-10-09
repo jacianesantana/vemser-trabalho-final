@@ -36,22 +36,19 @@ public class Main {
         CurriculoManipulacao curriculoManipulacao = new CurriculoManipulacao();
 
         Curriculo curriculoEstudante0 = new Curriculo(estudante0.getNome(), "PUC", "SI",
-                1, "Sem experiência",
-                Arrays.asList("Testes", "Selenium", "Cypress"));
+                1, "Sem experiência", Arrays.asList("Testes", "Selenium", "Cypress"));
         curriculoEstudante0.setHabilidades(List.of("algoritmo"));
         estudante0.setCurriculo(curriculoEstudante0);
         curriculoManipulacao.cadastrar(curriculoEstudante0);
 
         Curriculo curriculoEstudante1 = new Curriculo(estudante1.getNome(), "Univ", "Curso",
-                1, "Sem experiência",
-                Arrays.asList("POO", "Java", "Spring", "mysql"));
+                1, "Sem experiência", Arrays.asList("POO", "Java", "Spring", "mysql"));
         curriculoEstudante1.setHabilidades(List.of("java"));
         estudante1.setCurriculo(curriculoEstudante1);
         curriculoManipulacao.cadastrar(curriculoEstudante1);
 
         Curriculo curriculoEstudante2 = new Curriculo(estudante2.getNome(), "Univ", "Curso",
-                1, "Sem experiência",
-                Arrays.asList("Javascript", "HTML", "CSS"));
+                1, "Sem experiência", Arrays.asList("Javascript", "HTML", "CSS"));
         curriculoEstudante2.setHabilidades(List.of("java", "mysql"));
         estudante2.setCurriculo(curriculoEstudante2);
         curriculoManipulacao.cadastrar(curriculoEstudante2);
@@ -82,19 +79,18 @@ public class Main {
         Empresa empresa4 = new Empresa(TipoUsuario.EMPRESA, "System", enderecoEmpresa4, "51 1098.1200",
                 "ace@company.com", "09874", "3-3333-3333");
         empresaManipulacao.cadastrar(empresa4);
-        
 
         // Vagas
         VagaManipulacao vagaManipulacao = new VagaManipulacao();
 
         Vaga vaga1 = new Vaga("java senior", "dbc", Arrays.asList("java", "mysql"));
         vagaManipulacao.cadastrar(vaga1);
-        estudante0.candidatarvaga(vaga1);
-        estudante1.candidatarvaga(vaga1);
+        estudante0.candidatarVaga(vaga1);
+        estudante1.candidatarVaga(vaga1);
 
         Vaga vaga2 = new Vaga("java junior", "dbc", Arrays.asList("algoritimos"));
         vagaManipulacao.cadastrar(vaga2);
-        estudante3.candidatarvaga(vaga2);
+        estudante3.candidatarVaga(vaga2);
         
         vaga1.candidatoComMaisRequisitos();
         vaga1.candidatoSelecionado(estudante1.getNome());

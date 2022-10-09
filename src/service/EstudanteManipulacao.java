@@ -1,6 +1,7 @@
 package service;
 
 import model.Estudante;
+import model.Vaga;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,8 +15,12 @@ public class EstudanteManipulacao implements CRUD<Estudante> {
 
     @Override
     public boolean cadastrar(Estudante estudante) {
-        this.listaDeEstudantes.add(estudante);
-        return false;
+        if (estudante != null) {
+            this.listaDeEstudantes.add(estudante);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
@@ -27,17 +32,26 @@ public class EstudanteManipulacao implements CRUD<Estudante> {
 
     @Override
     public boolean atualizar(Integer index, Estudante estudante) {
-        Estudante estudanteIndex = listaDeEstudantes.get(index);
-        estudanteIndex.setNome(estudante.getNome());
-        estudanteIndex.setEndereco(estudante.getEndereco());
-        estudanteIndex.setTelefone(estudante.getTelefone());
-        estudanteIndex.setEmail(estudante.getEmail());
-        estudanteIndex.setCpf(estudante.getCpf());
-        return false;
+        if (index != null && estudante != null) {
+            Estudante estudanteIndex = listaDeEstudantes.get(index);
+            estudanteIndex.setNome(estudante.getNome());
+            estudanteIndex.setEndereco(estudante.getEndereco());
+            estudanteIndex.setTelefone(estudante.getTelefone());
+            estudanteIndex.setEmail(estudante.getEmail());
+            estudanteIndex.setCpf(estudante.getCpf());
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
-    public void deletar(Integer index) {
-        this.listaDeEstudantes.remove(index.intValue());
+    public boolean deletar(Integer index) {
+        if (index != null) {
+            this.listaDeEstudantes.remove(index.intValue());
+            return true;
+        } else {
+            return false;
+        }
     }
 }
