@@ -4,7 +4,7 @@ import service.EmpresaManipulacao;
 import service.EstudanteManipulacao;
 
 import java.util.*;
-import java.util.stream.Stream;
+
 import model.Endereco;
 import model.Estudante;
 import model.TipoUsuario;
@@ -86,10 +86,12 @@ public class Main {
         vagaManipulacao.cadastrar(vaga2);
         vagaManipulacao.cadastrar(vaga3);
         vagaManipulacao.cadastrar(vaga4);
-        
 
+        empresaManipulacao.cadastrar(empresa1);
+        empresaManipulacao.listar();
 
-
+        estudante1.login("jaciane@gmail", "jaci2468");
+        empresa1.login("dbc@company.com", "123456");
 
         System.out.println("====================== BEM VINDO ============================");
         System.out.println("||          Sistema de oportunidades em tecnologia          ||");
@@ -108,13 +110,23 @@ public class Main {
                 switch (opcao) {
                     case "1": {
                         int opcaoLogin = 0;
+                        Usuario usuarioLogado;
                         //logar com empresa ou estudante?
                         System.out.println("----------------- Login --------------------");
+                        System.out.println("Digite 1 para Empresa ou digite 2 para Estudante: ");
+                        String opcaoTipoLogin = input.nextLine();
                         System.out.println("Digite o email: ");
-//                        String email = input.nextLine();
+                        String email = input.nextLine();
                         System.out.println("Digite a senha: ");
                         String senha = input.nextLine();
-                        estudante0.login(email, senha);
+                        if(opcaoTipoLogin.equals("1")){
+                            usuarioLogado = contaLogin(TipoUsuario.EMPRESA, email, senha);
+                        }else if(opcaoTipoLogin.equals("2")){
+                            usuarioLogado = contaLogin(TipoUsuario.EMPRESA, email, senha);
+                        }else{
+                            System.err.println("Erro ao fazer login.");
+                            break;
+                        }
 
                         opcaoLogin = input.nextInt();
                         input.nextLine();
@@ -202,11 +214,12 @@ public class Main {
                                             user.setEmail(input.nextLine());
                                             System.out.println("Digite um email: ");
                                             user.setEmail(input.nextLine());
+                                            user.setEndereco(menuCadastroEndereço());
                                             System.out.println("Digite a senha: ");
-                                            String senha = input.nextLine();
+                                            String senha2 = input.nextLine();
                                             System.out.println("Digite a senha novamente: ");
                                             String senhaCopia = input.nextLine();
-                                            if (senhaCopia.equals(senha)) {
+                                            if (senhaCopia.equals(senha2)) {
                                                 user.setSenha(input.nextLine());
 //                                            empresaManipulacao.atualizar(index, user);
                                                 System.out.println("Atualizado com sucesso!!!");
@@ -281,9 +294,11 @@ public class Main {
                                     Curriculo novoCurriculo = new Curriculo();
                                     System.out.println("Nome Estudante: ");
                                     novoCurriculo.setNomeDoEstudante(input.nextLine());
+                                    System.out.println("Universidade: ");
+                                    novoCurriculo.setUniversidade(input.nextLine());
                                     System.out.println("Curso: ");
                                     novoCurriculo.setCurso(input.nextLine());
-                                    System.out.println("Semestre: ");
+                                    System.out.println("Digite o numero do Semestre: ");
                                     novoCurriculo.setSemestre(input.nextInt());
                                     input.nextLine();
                                     System.out.println("Resumo Profissional: ");
@@ -317,7 +332,7 @@ public class Main {
                                     System.out.println("-------------------- Menu de conta ------------------");
                                     System.out.println(" Escolha uma opção: ");
                                     System.out.println(" 1 - Editar conta; ");
-                                    System.out.println(" 5 - Excluir conta. ");
+                                    System.out.println(" 2 - Excluir conta. ");
                                     System.out.println(" 6 - Sair. ");
                                     System.out.println("----------------------------------------------------");
                                     String opcaoMenuConta = input.nextLine();
@@ -331,11 +346,12 @@ public class Main {
                                             user.setEmail(input.nextLine());
                                             System.out.println("Digite um email: ");
                                             user.setEmail(input.nextLine());
+                                            user.setEndereco(menuCadastroEndereço());
                                             System.out.println("Digite a senha: ");
-                                            String senha = input.nextLine();
+                                            String senha3 = input.nextLine();
                                             System.out.println("Digite a senha novamente: ");
                                             String senhaCopia = input.nextLine();
-                                            if (senhaCopia.equals(senha)) {
+                                            if (senhaCopia.equals(senha3)) {
                                                 user.setSenha(input.nextLine());
 //                                            estudanteManipulacao.atualizar(index, user);
                                                 System.out.println("Atualizado com sucesso!!!");
@@ -375,19 +391,22 @@ public class Main {
                         System.out.println("Tipo de usuário: 1- Empresa, 2- Estudante");
                         String opcaoTipo = input.nextLine();
                         if (opcaoTipo.equals("1")) {
-                            Usuario user = new Empresa();
+                            Empresa user = new Empresa();
                             user.setTipoUsuario(TipoUsuario.EMPRESA);
                             System.out.println("Digite Nome: ");
                             user.setNome(input.nextLine());
                             System.out.println("Digite um email: ");
                             user.setEmail(input.nextLine());
+                            System.out.println("Digite cnpj: ");
+                            user.setCnpj(input.nextLine());
+                            user.setEndereco(menuCadastroEndereço());
                             System.out.println("Digite a senha: ");
                             String senha = input.nextLine();
                             System.out.println("Digite a senha novamente: ");
                             String senhaCopia = input.nextLine();
                             if (senhaCopia.equals(senha)) {
-                                user.setSenha(input.nextLine());
-//                            empresaManipulacao(user);
+                                user.setSenha(senha);
+                                empresaManipulacao.cadastrar(user);
                                 System.out.println("Cadastrado com sucesso!!!");
                             } else {
                                 System.err.println("Senhas não batem.");
@@ -398,13 +417,14 @@ public class Main {
                             System.out.println("Digite Nome: ");
                             user.setNome(input.nextLine());
                             System.out.println("Digite um email: ");
+                            user.setEndereco(menuCadastroEndereço());
                             user.setEmail(input.nextLine());
                             System.out.println("Digite a senha: ");
                             String senha = input.nextLine();
                             System.out.println("Digite a senha novamente: ");
                             String senhaCopia = input.nextLine();
                             if (senhaCopia.equals(senha)) {
-                                user.setSenha(input.nextLine());
+                                user.setSenha(senha);
                                 estudanteManipulacao.cadastrar(user);
                                 System.out.println("Cadastrado com sucesso!!!");
                                 break;
@@ -441,6 +461,50 @@ public class Main {
         System.err.println("| Opa entrada inválida, digite o número da opção. |");
         System.err.println("---------------------------------------------------");
 
+    }
+
+    private static Endereco menuCadastroEndereço(){
+        Scanner input = new Scanner(System.in);
+        Endereco endereco = new Endereco();
+
+        System.out.println("---------- Cadastro de endereço --------------- ");
+        System.out.println("Digite o pais: ");
+        endereco.setPais(input.nextLine());
+        System.out.println("Digite o estado: ");
+        endereco.setPais(input.nextLine());
+        System.out.println("Digite a cidade: ");
+        endereco.setPais(input.nextLine());
+        System.out.println("Digite o cep: ");
+        endereco.setPais(input.nextLine());
+        System.out.println("Digite a rua: ");
+        endereco.setPais(input.nextLine());
+        System.out.println("Digite o numero: ");
+        endereco.setNumero(input.nextInt());
+        input.nextLine();
+        System.out.println("Endereço cadastrado com sucesso ");
+        return endereco;
+    }
+
+    private static Usuario contaLogin(TipoUsuario tipo, String email, String senha) {
+        EstudanteManipulacao estudanteManipulacao = new EstudanteManipulacao();
+        EmpresaManipulacao empresaManipulacao = new EmpresaManipulacao();
+        if(tipo == TipoUsuario.EMPRESA){
+         Empresa retornoEmpresa = empresaManipulacao.getEmpresas().stream()
+                .forEach(empresa ->{
+                    if(empresa.getEmail().equals(email) && empresa.getSenha().equals(senha)){
+                        return empresa;
+                    }
+                });
+          return retornoEmpresa;
+        }else{
+          Estudante retornoEstudante = estudanteManipulacao.getEstudantes().stream()
+                    .forEach(estudante -> {
+                        if(estudante.getEmail().equals(email) && estudante.getSenha().equals(senha)){
+                            return estudante;
+                        }
+                    });
+        return retornoEstudante;
+        }
     }
 }
 
