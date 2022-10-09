@@ -89,7 +89,7 @@ public class Main {
 
         Vaga vaga4 = new Vaga("frontend pleno", "dbc", Arrays.asList("javascript", "react"));
         vagaManipulacao.cadastrar(vaga4);
-        
+
         // MENU INTERATIVO
         System.out.println("====================== BEM VINDO ============================");
         System.out.println("||          Sistema de oportunidades em tecnologia          ||");
