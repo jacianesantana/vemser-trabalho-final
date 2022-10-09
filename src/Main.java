@@ -123,11 +123,16 @@ public class Main {
         estudante1.listaDeVagasInscritas();
 
 //        empresa1.login("dbc@company.com", "123456");
-        empresaManipulacao.listar()
-                .forEach(empresa -> {
-                    System.out.println(empresa.getNome());
-                    System.out.println(empresa);
-                });
+//        empresaManipulacao.listar()
+//                .forEach(empresa -> {
+//                    System.out.println(empresa.getNome());
+//                    System.out.println(empresa);
+//                });
+
+        vagaManipulacao.listar().stream().forEach(vaga -> {
+            System.out.println(vaga.getTitulo());
+            System.out.println(vaga.getStatusVaga());
+        });
 
         // MENU INTERATIVO
         System.out.println("====================== BEM VINDO ============================");
@@ -194,6 +199,7 @@ public class Main {
                             System.out.println(" 6 - Configuração da conta. ");
                             System.out.println(" 7 - Sair. ");
                             System.out.println(" 8 - Excluir conta. ");
+                            System.out.println(" 9 - Fechar vaga. ");
                             System.out.println("----------------------------------------------------");
                             opcaoEmpresa = input.nextLine();
 
@@ -321,6 +327,25 @@ public class Main {
                                         break;
                                     }
                                 }
+                                case "9": {
+                                        vagaManipulacao.listar().stream().forEach(vaga -> {
+                                            System.out.println("Vaga: " + vaga.getTitulo()+ "Status: "+ vaga.getStatusVaga());
+                                        });
+                                        System.out.println("Digite a vaga que deseja fechar: ");
+                                        String nomeVaga = input.nextLine();
+                                        System.out.println("Digite o primeiro requisito: ");
+                                        String requisito1 = input.nextLine();
+                                        System.out.println("Digite o segundo requisito: ");
+                                        String requisito2 = input.nextLine();
+                                        Vaga retornoVaga = vagaManipulacao.listar().stream().filter(vaga -> vaga.getTitulo().equals(nomeVaga)).findFirst().get();
+                                        retornoVaga.setRequisitos(List.of(requisito1, requisito2));
+                                        retornoVaga.candidatoComMaisRequisitos();
+                                        retornoVaga.fecharVaga(retornoVaga.candidatoSelecionado(estudante1.getNome()));
+                                        vagaManipulacao.listar().stream().forEach(vaga -> {
+                                            System.out.println("Vaga: " + vaga.getTitulo()+ "Status: "+ vaga.getStatusVaga());
+                                        });
+                                        break;
+                                }
                                 default: {
                                     erroOpcao();
                                     break;
@@ -415,7 +440,7 @@ public class Main {
                                         String opcaoMenuConta = input.nextLine();
                                         switch (opcaoMenuConta) {
                                             case "1": {
-                                                Usuario user = new Estudante();
+                                                Estudante user = new Estudante();
                                                 user.setTipoUsuario(TipoUsuario.ESTUDANTE);
                                                 System.out.println("Digite Nome: ");
                                                 user.setNome(input.nextLine());
@@ -432,7 +457,8 @@ public class Main {
                                                 String senhaCopia = input.nextLine();
                                                 if (senhaCopia.equals(senha3)) {
                                                     user.setSenha(senha3);
-//                                            estudanteManipulacao.atualizar(index, user);
+                                                    Integer index = estudanteManipulacao.listar().indexOf(estudanteLogado);
+                                                    estudanteManipulacao.atualizar(index, user);
                                                     System.out.println("Atualizado com sucesso!!!");
                                                     break;
                                                 } else {
