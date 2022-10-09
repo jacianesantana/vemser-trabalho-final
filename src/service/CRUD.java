@@ -1,8 +1,10 @@
 package service;
 
+import java.util.List;
+
 public interface CRUD<T> {
     boolean cadastrar(T objeto);
-    void listar();
+    List<T> listar();
     boolean atualizar(Integer index, T objeto);
     void deletar(Integer index);
 }

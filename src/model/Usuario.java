@@ -1,11 +1,10 @@
 package model;
 
-<<<<<<< HEAD
-import service.Login;
-=======
+
 import exception.LoginInvalidoException;
 import exception.SenhaInvalidaException;
->>>>>>> daa118531287cd3a9d52fdc7c35e2ac4dd5a49dd
+import service.Login;
+
 
 abstract public class Usuario implements Login {
     private TipoUsuario tipoUsuario;
@@ -32,7 +31,7 @@ abstract public class Usuario implements Login {
         try {
             validarSenhaNova(senha);
         } catch (SenhaInvalidaException e) {
-           e.printStackTrace();
+            e.printStackTrace();
         }
         this.senha = senha;
     }
@@ -44,7 +43,7 @@ abstract public class Usuario implements Login {
                 contNumero++;
             }
         }
-        if (contNumero<=2) {
+        if (contNumero <= 2) {
             throw new SenhaInvalidaException("");
         }
 

@@ -1,10 +1,16 @@
+import exception.LoginInvalidoException;
 import model.*;
-import service.*;
+import service.CurriculoManipulacao;
+import service.EmpresaManipulacao;
+import service.EstudanteManipulacao;
+import service.VagaManipulacao;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws LoginInvalidoException {
         //Estudantes
         EstudanteManipulacao estudanteManipulacao = new EstudanteManipulacao();
 
@@ -70,49 +76,56 @@ public class Main {
         Empresa empresa2 = new Empresa(TipoUsuario.EMPRESA, "CWI", enderecoEmpresa2, "8888-8888",
                 "cwi@com", "cwi123456", "011.999.999.0001-00");
         empresaManipulacao.cadastrar(empresa2);
-        
+
         Endereco enderecoEmpresa3 = new Endereco("Brasil", "RS", "Porto Alegre",
                 "2350-260", "TV Sao Joao", 23);
         Empresa empresa3 = new Empresa(TipoUsuario.EMPRESA, "Tech", enderecoEmpresa3, "51 1230.1050",
                 "tech@company.com", "213890", "2-2222-2222");
         empresaManipulacao.cadastrar(empresa3);
-                
+
         Endereco enderecoEmpresa4 = new Endereco("Brasil", "RS", "Porto Alegre",
                 "2350-260", "AV Brasil", 45);
         Empresa empresa4 = new Empresa(TipoUsuario.EMPRESA, "System", enderecoEmpresa4, "51 1098.1200",
                 "ace@company.com", "09874", "3-3333-3333");
         empresaManipulacao.cadastrar(empresa4);
-        
+
 
         // Vagas
         VagaManipulacao vagaManipulacao = new VagaManipulacao();
 
-        Vaga vaga1 = new Vaga("java senior", "dbc", Arrays.asList("java", "mysql"));
+        Vaga vaga1 = new Vaga("java senior", empresa1, List.of("java", "mysql"));
         vagaManipulacao.cadastrar(vaga1);
         estudante0.candidatarvaga(vaga1);
         estudante1.candidatarvaga(vaga1);
 
-        Vaga vaga2 = new Vaga("java junior", "dbc", Arrays.asList("algoritimos"));
+        Vaga vaga2 = new Vaga("java junior", empresa2, List.of("algoritimos"));
         vagaManipulacao.cadastrar(vaga2);
         estudante3.candidatarvaga(vaga2);
-        
-        vaga1.candidatoComMaisRequisitos();
-        vaga1.candidatoSelecionado(estudante1.getNome());
 
-        Vaga vaga3 = new Vaga("qa senior", "dbc", Arrays.asList("qa", "selenium"));
+
+        Vaga vaga3 = new Vaga("qa senior", empresa3, List.of("qa", "selenium"));
         vagaManipulacao.cadastrar(vaga3);
 
-        Vaga vaga4 = new Vaga("frontend pleno", "dbc", Arrays.asList("javascript", "react"));
+        Vaga vaga4 = new Vaga("frontend pleno", empresa4, List.of("javascript", "react"));
         vagaManipulacao.cadastrar(vaga4);
 
-        estudante1.login("jaciane@gmail", "jaci2468");
-        empresa1.login("dbc@company.com", "123456");
-        
+        vaga1.setRequisitos(List.of("java", "algoritmo"));
+        vaga1.candidatoComMaisRequisitos();
         //pegar cpf do metodo candidado selecionado
+        vaga1.candidatoSelecionado(estudante1.getNome());
+        //fechar vaga com o cpf
         vaga1.fecharVaga(vaga1.candidatoSelecionado(estudante1.getNome()));
 
+
+        //  Estudante
+        estudante1.login("jaciane@gmail", "jaci2468");
+        //estudante candidatar vaga
+        estudante1.candidatarvaga(vaga1);
         //pesquisando lista de vagas inscritas
         estudante1.listaDeVagasInscritas();
+
+        empresa1.login("dbc@company.com", "123456");
+
 
         // MENU INTERATIVO
         System.out.println("====================== BEM VINDO ============================");
@@ -141,11 +154,11 @@ public class Main {
                         String email = input.nextLine();
                         System.out.println("Digite a senha: ");
                         String senha = input.nextLine();
-                        if(opcaoTipoLogin.equals("1")){
+                        if (opcaoTipoLogin.equals("1")) {
                             usuarioLogado = contaLogin(TipoUsuario.EMPRESA, email, senha);
-                        }else if(opcaoTipoLogin.equals("2")){
+                        } else if (opcaoTipoLogin.equals("2")) {
                             usuarioLogado = contaLogin(TipoUsuario.EMPRESA, email, senha);
-                        }else{
+                        } else {
                             System.err.println("Erro ao fazer login.");
                             break;
                         }
@@ -489,7 +502,7 @@ public class Main {
 
     }
 
-    private static Endereco menuCadastroEndereço(){
+    private static Endereco menuCadastroEndereço() {
         Scanner input = new Scanner(System.in);
         Endereco endereco = new Endereco();
 
@@ -514,22 +527,16 @@ public class Main {
     private static Usuario contaLogin(TipoUsuario tipo, String email, String senha) {
         EstudanteManipulacao estudanteManipulacao = new EstudanteManipulacao();
         EmpresaManipulacao empresaManipulacao = new EmpresaManipulacao();
-        if(tipo == TipoUsuario.EMPRESA){
-         Empresa retornoEmpresa = empresaManipulacao.getEmpresas().stream()
-                .forEach(empresa ->{
-                    if(empresa.getEmail().equals(email) && empresa.getSenha().equals(senha)){
-                        return empresa;
-                    }
-                });
-          return retornoEmpresa;
-        }else{
-          Estudante retornoEstudante = estudanteManipulacao.getEstudantes().stream()
-                    .forEach(estudante -> {
-                        if(estudante.getEmail().equals(email) && estudante.getSenha().equals(senha)){
-                            return estudante;
-                        }
-                    });
-        return retornoEstudante;
+        if (tipo == TipoUsuario.EMPRESA) {
+            Empresa retornoEmpresa = empresaManipulacao.listar().stream()
+                    .filter(empresa -> empresa.getEmail().equals(email) && empresa.getSenha().equals(senha))
+                    .findFirst().get();
+            return retornoEmpresa;
+        } else {
+            Estudante retornoEstudante = estudanteManipulacao.listar().stream()
+                    .filter(estudante -> estudante.getEmail().equals(email) && estudante.getSenha().equals(senha))
+                    .findFirst().get();
+            return retornoEstudante;
         }
     }
 }
