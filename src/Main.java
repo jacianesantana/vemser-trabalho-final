@@ -116,13 +116,13 @@ public class Main {
 
 
         //  Estudante
-        estudante1.login("jaciane@gmail", "jaci2468");
+//        estudante1.login("jaciane@gmail", "jaci2468");
         //estudante candidatar vaga
         estudante1.candidatarVaga(vaga1);
         //pesquisando lista de vagas inscritas
         estudante1.listaDeVagasInscritas();
 
-        empresa1.login("dbc@company.com", "123456");
+//        empresa1.login("dbc@company.com", "123456");
 
 
         // MENU INTERATIVO
@@ -143,7 +143,8 @@ public class Main {
                 switch (opcao) {
                     case "1": {
                         int opcaoLogin = 0;
-                        Usuario usuarioLogado;
+                        Empresa empresaLogada = new Empresa();
+                        Estudante estudanteLogado = new Estudante();
                         //logar com empresa ou estudante?
                         System.out.println("----------------- Login --------------------");
                         System.out.println("Digite 1 para Empresa ou digite 2 para Estudante: ");
@@ -153,16 +154,20 @@ public class Main {
                         System.out.println("Digite a senha: ");
                         String senha = input.nextLine();
                         if (opcaoTipoLogin.equals("1")) {
-                            usuarioLogado = contaLogin(TipoUsuario.EMPRESA, email, senha);
+                            empresaLogada = empresaManipulacao.listar().stream()
+                                    .filter(empresa -> empresa.getEmail().equals(email) && empresa.getSenha().equals(senha))
+                                    .findFirst().get();
+                            opcaoLogin = 4;
                         } else if (opcaoTipoLogin.equals("2")) {
-                            usuarioLogado = contaLogin(TipoUsuario.EMPRESA, email, senha);
+                            estudanteLogado = estudanteManipulacao.listar().stream()
+                                    .filter(estudante -> estudante.getEmail().equals(email) && estudante.getSenha().equals(senha))
+                                    .findFirst().get();
+                            opcaoLogin = 2;
                         } else {
                             System.err.println("Erro ao fazer login.");
                             break;
                         }
 
-                        opcaoLogin = input.nextInt();
-                        input.nextLine();
 
                         while (opcaoLogin == 4) {
                             String opcaoEmpresa;
@@ -200,6 +205,7 @@ public class Main {
                                     break;
                                 }
                                 case "3": {
+                                    System.out.println(empresaLogada.getNome());
                                     break;
                                 }
                                 case "4": {
@@ -265,7 +271,9 @@ public class Main {
                                             break;
                                         }
                                         case "2": {
-//                                        empresaManipulacao.deletar(index);
+//                                            Empresa finalEmpresaLogada = empresaLogada;
+//                                            empresaManipulacao.listar().indexOf(finalEmpresaLogada);
+//                                            empresaManipulacao.deletar(index);
                                             break;
                                         }
                                         case "3": {
@@ -487,9 +495,10 @@ public class Main {
                 System.err.println("Dado não encontrado.");
                 System.err.println("Tente novamente.");
                 System.err.println("---------------------------------------------------");
-            } catch (Exception e) {
-                System.out.println("Tente novamente.");
             }
+//            catch (Exception e) {
+//                System.out.println("Tente novamente.");
+//            }
         } while (rodar);
     }
 
