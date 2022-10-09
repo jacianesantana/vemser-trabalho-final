@@ -13,8 +13,9 @@ public class CurriculoManipulacao implements CRUD<Curriculo> {
     }
 
     @Override
-    public void cadastrar(Curriculo curriculo) {
+    public boolean cadastrar(Curriculo curriculo) {
         this.listaDeCurriculos.add(curriculo);
+        return false;
     }
 
     @Override
@@ -25,7 +26,7 @@ public class CurriculoManipulacao implements CRUD<Curriculo> {
     }
 
     @Override
-    public void atualizar(Integer index, Curriculo curriculo) {
+    public boolean atualizar(Integer index, Curriculo curriculo) {
         Curriculo curriculoIndex = listaDeCurriculos.get(index);
         curriculoIndex.setNomeDoEstudante(curriculo.getNomeDoEstudante());
         curriculoIndex.setUniversidade(curriculo.getUniversidade());
@@ -34,6 +35,7 @@ public class CurriculoManipulacao implements CRUD<Curriculo> {
         curriculoIndex.setResumoProfissional(curriculo.getResumoProfissional());
         curriculoIndex.setTituloVagaInteresse(curriculo.getTituloVagaInteresse());
         curriculoIndex.setHabilidades(curriculo.getHabilidades());
+        return false;
     }
 
     @Override

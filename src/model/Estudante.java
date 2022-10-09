@@ -3,6 +3,7 @@ package model;
 public class Estudante extends Usuario {
     private String cpf;
     private Curriculo meuCurriculo;
+
     //private List<Vaga> vagasInscritas = new ArrayList<>();
 
     public Estudante() {

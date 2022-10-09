@@ -1,7 +1,6 @@
 package service;
 
 import model.Estudante;
-import service.CRUD;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,8 +13,9 @@ public class EstudanteManipulacao implements CRUD<Estudante> {
     }
 
     @Override
-    public void cadastrar(Estudante estudante) {
+    public boolean cadastrar(Estudante estudante) {
         this.listaDeEstudantes.add(estudante);
+        return false;
     }
 
     @Override
@@ -26,13 +26,14 @@ public class EstudanteManipulacao implements CRUD<Estudante> {
     }
 
     @Override
-    public void atualizar(Integer index, Estudante estudante) {
+    public boolean atualizar(Integer index, Estudante estudante) {
         Estudante estudanteIndex = listaDeEstudantes.get(index);
         estudanteIndex.setNome(estudante.getNome());
         estudanteIndex.setEndereco(estudante.getEndereco());
         estudanteIndex.setTelefone(estudante.getTelefone());
-        estudanteIndex.setEmail(estudante.getEmail());
-        estudanteIndex.setCpf(estudante.getCpf());
+        estudanteIndex.setEmail(estudante.getEmail());//não ta mudando nada
+        estudanteIndex.setCpf(estudante.getCpf());//não ta mudando nada
+        return false;
     }
 
     @Override

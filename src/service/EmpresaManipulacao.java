@@ -1,22 +1,20 @@
 package service;
 
 import model.Empresa;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class EmpresaManipulacao implements CRUD<Empresa> {
     private List<Empresa> listaDeEmpresas;
 
-    public EmpresaManipulacao(List<Empresa> listaDeEmpresa) {
-        this.listaDeEmpresas = listaDeEmpresa;
-    }
-
-    @Override
-    public void cadastrar(Empresa objeto) {
+    public EmpresaManipulacao(){
         this.listaDeEmpresas = new ArrayList<>();
     }
-
+    @Override
+    public boolean cadastrar(Empresa empresa) {
+        this.listaDeEmpresas.add(empresa);
+        return false;
+    }
     @Override
     public void listar() {
         for (int i = 0; i < listaDeEmpresas.size(); i++) {
@@ -25,10 +23,11 @@ public class EmpresaManipulacao implements CRUD<Empresa> {
     }
 
     @Override
-    public void atualizar(Integer index, Empresa empresa) {
+    public boolean atualizar(Integer index, Empresa empresa) {
         Empresa empresaProcurada = listaDeEmpresas.get(index);
         empresaProcurada.setCnpj(empresa.getCnpj());
         empresaProcurada.setNome(empresa.getNome());
+        return false;
     }
 
     @Override
