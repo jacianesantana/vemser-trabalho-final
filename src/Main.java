@@ -1,16 +1,16 @@
-import exception.LoginInvalidoException;
+import exception.SenhaInvalidaException;
 import model.*;
 import service.CurriculoManipulacao;
 import service.EmpresaManipulacao;
 import service.EstudanteManipulacao;
 import service.VagaManipulacao;
-
 import java.util.Arrays;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) throws LoginInvalidoException {
+    public static void main(String[] args) throws SenhaInvalidaException {
         //Estudantes
         EstudanteManipulacao estudanteManipulacao = new EstudanteManipulacao();
 
@@ -89,22 +89,22 @@ public class Main {
         // Vagas
         VagaManipulacao vagaManipulacao = new VagaManipulacao();
 
-        Vaga vaga1 = new Vaga("java senior", empresa1.getNome(), List.of("java", "mysql"));
+        Vaga vaga1 = new Vaga("java senior", empresa1, List.of("java", "mysql"));
         vagaManipulacao.cadastrar(vaga1);
         estudante0.candidatarVaga(vaga1);
         estudante1.candidatarVaga(vaga1);
 
-        Vaga vaga2 = new Vaga("java junior", empresa2.getNome(), List.of("algoritimos"));
+        Vaga vaga2 = new Vaga("java junior", empresa2, List.of("algoritimos"));
         vagaManipulacao.cadastrar(vaga2);
         estudante3.candidatarVaga(vaga2);
-        
+
         vaga1.candidatoComMaisRequisitos();
         vaga1.candidatoSelecionado(estudante1.getNome());
 
-        Vaga vaga3 = new Vaga("qa senior", empresa3.getNome(), List.of("qa", "selenium"));
+        Vaga vaga3 = new Vaga("qa senior", empresa3, List.of("qa", "selenium"));
         vagaManipulacao.cadastrar(vaga3);
 
-        Vaga vaga4 = new Vaga("frontend pleno", empresa4.getNome(), List.of("javascript", "react"));
+        Vaga vaga4 = new Vaga("frontend pleno", empresa4, List.of("javascript", "react"));
         vagaManipulacao.cadastrar(vaga4);
 
         vaga1.setRequisitos(List.of("java", "algoritmo"));
@@ -116,13 +116,13 @@ public class Main {
 
 
         //  Estudante
-        estudante1.login("jaciane@gmail", "jaci2468");
+//        estudante1.login("jaciane@gmail", "jaci2468");
         //estudante candidatar vaga
         estudante1.candidatarVaga(vaga1);
         //pesquisando lista de vagas inscritas
         estudante1.listaDeVagasInscritas();
 
-        empresa1.login("dbc@company.com", "123456");
+//        empresa1.login("dbc@company.com", "123456");
 
 
         // MENU INTERATIVO
@@ -143,7 +143,8 @@ public class Main {
                 switch (opcao) {
                     case "1": {
                         int opcaoLogin = 0;
-                        Usuario usuarioLogado;
+                        Empresa empresaLogada = null;
+                        Estudante estudanteLogado = null;
                         //logar com empresa ou estudante?
                         System.out.println("----------------- Login --------------------");
                         System.out.println("Digite 1 para Empresa ou digite 2 para Estudante: ");
@@ -153,273 +154,293 @@ public class Main {
                         System.out.println("Digite a senha: ");
                         String senha = input.nextLine();
                         if (opcaoTipoLogin.equals("1")) {
-                            usuarioLogado = contaLogin(TipoUsuario.EMPRESA, email, senha);
+                            try {
+                                empresaLogada = empresaManipulacao.listar().stream()
+                                        .filter(empresa -> empresa.getEmail().equals(email) && empresa.getSenha().equals(senha))
+                                        .findFirst().get();
+                            } catch (NoSuchElementException exception) {
+                                System.err.println("Empresa não encontrada.");
+                            }
+                            opcaoLogin = 4;
                         } else if (opcaoTipoLogin.equals("2")) {
-                            usuarioLogado = contaLogin(TipoUsuario.EMPRESA, email, senha);
+                            try {
+
+                                estudanteLogado = estudanteManipulacao.listar().stream()
+                                        .filter(estudante -> estudante.getEmail().equals(email) && estudante.getSenha().equals(senha))
+                                        .findFirst().get();
+                            } catch (NoSuchElementException exception) {
+                                System.err.println("Estudante não encontrado.");
+                            }
+                            opcaoLogin = 2;
                         } else {
                             System.err.println("Erro ao fazer login.");
                             break;
                         }
 
-                        opcaoLogin = input.nextInt();
-                        input.nextLine();
-
-                        while (opcaoLogin == 4) {
-                            String opcaoEmpresa;
-                            System.out.println("-------------------- Logado ------------------");
-                            System.out.println(" Escolha uma opção: ");
-                            System.out.println(" 1 - Criar nova vaga; ");
-                            System.out.println(" 2 - Listar vagas; ");
-                            System.out.println(" 3 -  ");
-                            System.out.println(" 4 - Editar vaga. ");
-                            System.out.println(" 5 - Excluir vaga. ");
-                            System.out.println(" 6 - Configuração da conta. ");
-                            System.out.println(" 7 - Sair. ");
-                            System.out.println("----------------------------------------------------");
-                            opcaoEmpresa = input.nextLine();
+                        if (empresaLogada != null) {
+                            while (opcaoLogin == 4) {
+                                String opcaoEmpresa;
+                                System.out.println("-------------------- Logado ------------------");
+                                System.out.println(" Escolha uma opção: ");
+                                System.out.println(" 1 - Criar nova vaga; ");
+                                System.out.println(" 2 - Listar vagas; ");
+                                System.out.println(" 3 -  ");
+                                System.out.println(" 4 - Editar vaga. ");
+                                System.out.println(" 5 - Excluir vaga. ");
+                                System.out.println(" 6 - Configuração da conta. ");
+                                System.out.println(" 7 - Sair. ");
+                                System.out.println("----------------------------------------------------");
+                                opcaoEmpresa = input.nextLine();
 
 
-                            switch (opcaoEmpresa) {
-                                case "1": {
-                                    Vaga vaga = new Vaga();
-                                    System.out.println("------------- Cadastro de Vaga ------------");
-                                    System.out.println(" Titulo da vaga: ");
-                                    vaga.setTitulo(input.nextLine());
-                                    System.out.println(" Digite o requisito 1: ");
-                                    String requisito1 = input.nextLine();
-                                    System.out.println(" Digite o requisito 2: ");
-                                    String requisito2 = input.nextLine();
-                                    vaga.getRequisitos().add(requisito1);
-                                    vaga.getRequisitos().add(requisito2);
-                                    vagaManipulacao.cadastrar(vaga);
-                                    break;
-                                }
-                                case "2": {
-                                    System.out.println("------------- Lista de vagas cadastradas ------------");
-                                    vagaManipulacao.listar();
-                                    break;
-                                }
-                                case "3": {
-                                    break;
-                                }
-                                case "4": {
-                                    vagaManipulacao.listar();
-                                    System.out.println("Escolha a vaga que quer editar: ");
-                                    Integer index = input.nextInt();
-                                    input.nextLine();
-                                    Vaga novaVaga = new Vaga();
-                                    System.out.println(" Titulo da vaga: ");
-                                    novaVaga.setTitulo(input.nextLine());
-                                    System.out.println("Digite o requisito 1: ");
-                                    String requisito1 = input.nextLine();
-                                    novaVaga.getRequisitos().add(requisito1);
-                                    System.out.println("Digite o requisito 2: ");
-                                    String requisito2 = input.nextLine();
-                                    novaVaga.getRequisitos().add(requisito2);
-                                    vagaManipulacao.atualizar(index, novaVaga);
-                                    System.out.println("Vaga de id=" + index + " atualizada com sucesso");
-                                    break;
-                                }
-                                case "5": {
-                                    vagaManipulacao.listar();
-                                    System.out.println("Digite o número da vaga que deseja excluir: ");
-                                    int id = input.nextInt();
-                                    input.nextLine();
-                                    vagaManipulacao.deletar(id);
-                                    System.out.println("Vaga de id=" + id + " deletada com sucesso");
-                                    break;
-                                }
-                                case "6": {
-                                    System.out.println("-------------------- Menu de conta ------------------");
-                                    System.out.println(" Escolha uma opção: ");
-                                    System.out.println(" 1 - Editar conta; ");
-                                    System.out.println(" 2 - Excluir conta. ");
-                                    System.out.println(" 3 - Sair. ");
-                                    System.out.println("----------------------------------------------------");
-                                    String opcaoMenuConta = input.nextLine();
-                                    switch (opcaoMenuConta) {
-                                        case "1": {
-                                            Usuario user = new Empresa();
-                                            user.setTipoUsuario(TipoUsuario.EMPRESA);
-                                            System.out.println("Digite Nome: ");
-                                            user.setNome(input.nextLine());
-                                            System.out.println("Digite um telefone: ");
-                                            user.setEmail(input.nextLine());
-                                            System.out.println("Digite um email: ");
-                                            user.setEmail(input.nextLine());
-                                            user.setEndereco(menuCadastroEndereço());
-                                            System.out.println("Digite a senha: ");
-
-                                            String senha2 = input.nextLine();
-
-                                            System.out.println("Digite a senha novamente: ");
-                                            String senhaCopia = input.nextLine();
-                                            if (senhaCopia.equals(senha2)) {
-                                                user.setSenha(input.nextLine());
-//                                            empresaManipulacao.atualizar(index, user);
-                                                System.out.println("Atualizado com sucesso!!!");
-                                                break;
-                                            } else {
-                                                System.err.println("Senhas não batem.");
-                                            }
-                                            break;
-                                        }
-                                        case "2": {
-//                                        empresaManipulacao.deletar(index);
-                                            break;
-                                        }
-                                        case "3": {
-                                            break;
-                                        }
-                                        default: {
-                                            erroOpcao();
-                                            break;
-                                        }
-
+                                switch (opcaoEmpresa) {
+                                    case "1": {
+                                        Vaga vaga = new Vaga();
+                                        System.out.println("------------- Cadastro de Vaga ------------");
+                                        System.out.println(" Titulo da vaga: ");
+                                        vaga.setTitulo(input.nextLine());
+                                        System.out.println(" Digite o requisito 1: ");
+                                        String requisito1 = input.nextLine();
+                                        System.out.println(" Digite o requisito 2: ");
+                                        String requisito2 = input.nextLine();
+                                        vaga.getRequisitos().add(requisito1);
+                                        vaga.getRequisitos().add(requisito2);
+                                        vagaManipulacao.cadastrar(vaga);
+                                        break;
                                     }
-                                    break;
-                                }
-                                case "7": {
-                                    opcaoLogin = 0;
-                                    break;
-                                }
-                                default: {
-                                    erroOpcao();
-                                    break;
+                                    case "2": {
+                                        System.out.println("------------- Lista de vagas cadastradas ------------");
+                                        vagaManipulacao.listar();
+                                        break;
+                                    }
+                                    case "3": {
+                                        System.out.println(empresaLogada.getNome());
+                                        break;
+                                    }
+                                    case "4": {
+                                        vagaManipulacao.listar();
+                                        System.out.println("Escolha a vaga que quer editar: ");
+                                        Integer index = input.nextInt();
+                                        input.nextLine();
+                                        Vaga novaVaga = new Vaga();
+                                        System.out.println(" Titulo da vaga: ");
+                                        novaVaga.setTitulo(input.nextLine());
+                                        System.out.println("Digite o requisito 1: ");
+                                        String requisito1 = input.nextLine();
+                                        novaVaga.getRequisitos().add(requisito1);
+                                        System.out.println("Digite o requisito 2: ");
+                                        String requisito2 = input.nextLine();
+                                        novaVaga.getRequisitos().add(requisito2);
+                                        vagaManipulacao.atualizar(index, novaVaga);
+                                        System.out.println("Vaga de id=" + index + " atualizada com sucesso");
+                                        break;
+                                    }
+                                    case "5": {
+                                        vagaManipulacao.listar();
+                                        System.out.println("Digite o número da vaga que deseja excluir: ");
+                                        int id = input.nextInt();
+                                        input.nextLine();
+                                        vagaManipulacao.deletar(id);
+                                        System.out.println("Vaga de id=" + id + " deletada com sucesso");
+                                        break;
+                                    }
+                                    case "6": {
+                                        System.out.println("-------------------- Menu de conta ------------------");
+                                        System.out.println(" Escolha uma opção: ");
+                                        System.out.println(" 1 - Editar conta; ");
+                                        System.out.println(" 2 - Excluir conta. ");
+                                        System.out.println(" 3 - Sair. ");
+                                        System.out.println("----------------------------------------------------");
+                                        String opcaoMenuConta = input.nextLine();
+                                        switch (opcaoMenuConta) {
+                                            case "1": {
+                                                Usuario user = new Empresa();
+                                                user.setTipoUsuario(TipoUsuario.EMPRESA);
+                                                System.out.println("Digite Nome: ");
+                                                user.setNome(input.nextLine());
+                                                System.out.println("Digite um telefone: ");
+                                                user.setEmail(input.nextLine());
+                                                System.out.println("Digite um email: ");
+                                                user.setEmail(input.nextLine());
+                                                user.setEndereco(menuCadastroEndereço());
+                                                System.out.println("Digite a senha: ");
+
+                                                String senha2 = input.nextLine();
+
+                                                System.out.println("Digite a senha novamente: ");
+                                                String senhaCopia = input.nextLine();
+                                                if (senhaCopia.equals(senha2)) {
+                                                    user.setSenha(input.nextLine());
+//                                            empresaManipulacao.atualizar(index, user);
+                                                    System.out.println("Atualizado com sucesso!!!");
+                                                    break;
+                                                } else {
+                                                    System.err.println("Senhas não batem.");
+                                                }
+                                                break;
+                                            }
+                                            case "2": {
+//                                            Empresa finalEmpresaLogada = empresaLogada;
+//                                            empresaManipulacao.listar().indexOf(finalEmpresaLogada);
+//                                            empresaManipulacao.deletar(index);
+                                                break;
+                                            }
+                                            case "3": {
+                                                break;
+                                            }
+                                            default: {
+                                                erroOpcao();
+                                                break;
+                                            }
+
+                                        }
+                                        break;
+                                    }
+                                    case "7": {
+                                        opcaoLogin = 0;
+                                        break;
+                                    }
+                                    default: {
+                                        erroOpcao();
+                                        break;
+                                    }
                                 }
                             }
                         }
-                        while (opcaoLogin == 2) {
-                            // Se ESTUDANTE
-                            String opcaoEstudante;
-                            System.out.println("-------------------- Logado ------------------");
-                            System.out.println(" Escolha uma opção: ");
-                            System.out.println(" 1 - Criar curriculo; ");
-                            System.out.println(" 2 - Editar curriculo; ");
-                            System.out.println(" 3 - Listar curriculos; ");
-                            System.out.println(" 4 - Excluir curriculo. ");
-                            System.out.println(" 5 - Configuração da conta. ");
-                            System.out.println(" 6 - Sair. ");
-                            System.out.println("----------------------------------------------------");
-                            opcaoEstudante = input.nextLine();
+                        if (estudanteLogado != null) {
+                            while (opcaoLogin == 2) {
+                                // Se ESTUDANTE
+                                String opcaoEstudante;
+                                System.out.println("-------------------- Logado ------------------");
+                                System.out.println(" Escolha uma opção: ");
+                                System.out.println(" 1 - Criar curriculo; ");
+                                System.out.println(" 2 - Editar curriculo; ");
+                                System.out.println(" 3 - Listar curriculos; ");
+                                System.out.println(" 4 - Excluir curriculo. ");
+                                System.out.println(" 5 - Configuração da conta. ");
+                                System.out.println(" 6 - Sair. ");
+                                System.out.println("----------------------------------------------------");
+                                opcaoEstudante = input.nextLine();
 
 
-                            switch (opcaoEstudante) {
-                                case "1": {
-                                    Curriculo curriculo = new Curriculo();
-                                    System.out.println("------------- Cadastro de Curriculo ------------");
-                                    System.out.println("Nome Estudante: ");
-                                    curriculo.setNomeDoEstudante(input.nextLine());
-                                    System.out.println("Curso: ");
-                                    curriculo.setCurso(input.nextLine());
-                                    System.out.println("Universidade: ");
-                                    curriculo.setUniversidade(input.nextLine());
-                                    input.nextLine();
-                                    System.out.println("Resumo Profissional: ");
-                                    curriculo.setResumoProfissional(input.nextLine());
-                                    input.nextLine();
-                                    curriculoManipulacao.cadastrar(curriculo);
-                                    break;
-                                }
-                                case "2": {
-                                    curriculoManipulacao.listar();
-                                    System.out.println("Digite o numero do curriculo que deseja editar: ");
-                                    Integer index = input.nextInt();
-                                    input.nextLine();
-                                    Curriculo novoCurriculo = new Curriculo();
-                                    System.out.println("Nome Estudante: ");
-                                    novoCurriculo.setNomeDoEstudante(input.nextLine());
-                                    System.out.println("Universidade: ");
-                                    novoCurriculo.setUniversidade(input.nextLine());
-                                    System.out.println("Curso: ");
-                                    novoCurriculo.setCurso(input.nextLine());
-                                    System.out.println("Digite o numero do Semestre: ");
-                                    novoCurriculo.setSemestre(input.nextInt());
-                                    input.nextLine();
-                                    System.out.println("Resumo Profissional: ");
-                                    novoCurriculo.setResumoProfissional(input.nextLine());
-                                    System.out.println("Vaga de interesse: ");
-                                    // novoCurriculo.setTituloVagaInteresse(input.nextLine());
-                                    curriculoManipulacao.atualizar(index, novoCurriculo);
-                                    break;
-                                }
-                                case "3": {
-                                    curriculoManipulacao.listar();
-                                    break;
-                                }
-                                case "4": {
-                                    curriculoManipulacao.listar();
-                                    System.out.println("Digite o numero do curriculo que deseja excluir: ");
-                                    Integer opcaoDeletarCurriculo = input.nextInt();
-                                    input.nextLine();
-                                    System.out.println("Deseja mesmo excluir o curriculo? ");
-                                    System.out.println("Digite 1 para SIM;");
-                                    System.out.println("Digite 2 para NÂO;");
-                                    String opcaoExcluirCurriculo = input.nextLine();
-                                    if (opcaoExcluirCurriculo.equals("1")) {
-                                        curriculoManipulacao.deletar(opcaoDeletarCurriculo);
-                                        break;
-                                    } else {
+                                switch (opcaoEstudante) {
+                                    case "1": {
+                                        Curriculo curriculo = new Curriculo();
+                                        System.out.println("------------- Cadastro de Curriculo ------------");
+                                        System.out.println("Nome Estudante: ");
+                                        curriculo.setNomeDoEstudante(input.nextLine());
+                                        System.out.println("Curso: ");
+                                        curriculo.setCurso(input.nextLine());
+                                        System.out.println("Universidade: ");
+                                        curriculo.setUniversidade(input.nextLine());
+                                        input.nextLine();
+                                        System.out.println("Resumo Profissional: ");
+                                        curriculo.setResumoProfissional(input.nextLine());
+                                        input.nextLine();
+                                        curriculoManipulacao.cadastrar(curriculo);
                                         break;
                                     }
-                                }
-                                case "5": {
-                                    System.out.println("-------------------- Menu de conta ------------------");
-                                    System.out.println(" Escolha uma opção: ");
-                                    System.out.println(" 1 - Editar conta; ");
-                                    System.out.println(" 2 - Excluir conta. ");
-                                    System.out.println(" 6 - Sair. ");
-                                    System.out.println("----------------------------------------------------");
-                                    String opcaoMenuConta = input.nextLine();
-                                    switch (opcaoMenuConta) {
-                                        case "1": {
-                                            Usuario user = new Estudante();
-                                            user.setTipoUsuario(TipoUsuario.ESTUDANTE);
-                                            System.out.println("Digite Nome: ");
-                                            user.setNome(input.nextLine());
-                                            System.out.println("Digite um telefone: ");
-                                            user.setEmail(input.nextLine());
-                                            System.out.println("Digite um email: ");
-                                            user.setEmail(input.nextLine());
-                                            user.setEndereco(menuCadastroEndereço());
-                                            System.out.println("Digite a senha: ");
+                                    case "2": {
+                                        curriculoManipulacao.listar();
+                                        System.out.println("Digite o numero do curriculo que deseja editar: ");
+                                        Integer index = input.nextInt();
+                                        input.nextLine();
+                                        Curriculo novoCurriculo = new Curriculo();
+                                        System.out.println("Nome Estudante: ");
+                                        novoCurriculo.setNomeDoEstudante(input.nextLine());
+                                        System.out.println("Universidade: ");
+                                        novoCurriculo.setUniversidade(input.nextLine());
+                                        System.out.println("Curso: ");
+                                        novoCurriculo.setCurso(input.nextLine());
+                                        System.out.println("Digite o numero do Semestre: ");
+                                        novoCurriculo.setSemestre(input.nextInt());
+                                        input.nextLine();
+                                        System.out.println("Resumo Profissional: ");
+                                        novoCurriculo.setResumoProfissional(input.nextLine());
+                                        System.out.println("Vaga de interesse: ");
+                                        // novoCurriculo.setTituloVagaInteresse(input.nextLine());
+                                        curriculoManipulacao.atualizar(index, novoCurriculo);
+                                        break;
+                                    }
+                                    case "3": {
+                                        curriculoManipulacao.listar();
+                                        break;
+                                    }
+                                    case "4": {
+                                        curriculoManipulacao.listar();
+                                        System.out.println("Digite o numero do curriculo que deseja excluir: ");
+                                        Integer opcaoDeletarCurriculo = input.nextInt();
+                                        input.nextLine();
+                                        System.out.println("Deseja mesmo excluir o curriculo? ");
+                                        System.out.println("Digite 1 para SIM;");
+                                        System.out.println("Digite 2 para NÂO;");
+                                        String opcaoExcluirCurriculo = input.nextLine();
+                                        if (opcaoExcluirCurriculo.equals("1")) {
+                                            curriculoManipulacao.deletar(opcaoDeletarCurriculo);
+                                            break;
+                                        } else {
+                                            break;
+                                        }
+                                    }
+                                    case "5": {
+                                        System.out.println("-------------------- Menu de conta ------------------");
+                                        System.out.println(" Escolha uma opção: ");
+                                        System.out.println(" 1 - Editar conta; ");
+                                        System.out.println(" 2 - Excluir conta. ");
+                                        System.out.println(" 6 - Sair. ");
+                                        System.out.println("----------------------------------------------------");
+                                        String opcaoMenuConta = input.nextLine();
+                                        switch (opcaoMenuConta) {
+                                            case "1": {
+                                                Usuario user = new Estudante();
+                                                user.setTipoUsuario(TipoUsuario.ESTUDANTE);
+                                                System.out.println("Digite Nome: ");
+                                                user.setNome(input.nextLine());
+                                                System.out.println("Digite um telefone: ");
+                                                user.setEmail(input.nextLine());
+                                                System.out.println("Digite um email: ");
+                                                user.setEmail(input.nextLine());
+                                                user.setEndereco(menuCadastroEndereço());
+                                                System.out.println("Digite a senha: ");
 
-                                            String senha3 = input.nextLine();
+                                                String senha3 = input.nextLine();
 
-                                            System.out.println("Digite a senha novamente: ");
-                                            String senhaCopia = input.nextLine();
-                                            if (senhaCopia.equals(senha3)) {
-                                                user.setSenha(input.nextLine());
+                                                System.out.println("Digite a senha novamente: ");
+                                                String senhaCopia = input.nextLine();
+                                                if (senhaCopia.equals(senha3)) {
+                                                    user.setSenha(input.nextLine());
 //                                            estudanteManipulacao.atualizar(index, user);
-                                                System.out.println("Atualizado com sucesso!!!");
+                                                    System.out.println("Atualizado com sucesso!!!");
+                                                    break;
+                                                } else {
+                                                    System.err.println("Senhas não batem.");
+                                                    break;
+                                                }
+                                            }
+                                            case "2": {
+//                                        estudanteManipulacao.deletar(index);
                                                 break;
-                                            } else {
-                                                System.err.println("Senhas não batem.");
+                                            }
+                                            case "3": {
+                                                break;
+                                            }
+                                            default: {
+                                                erroOpcao();
                                                 break;
                                             }
                                         }
-                                        case "2": {
-//                                        estudanteManipulacao.deletar(index);
-                                            break;
-                                        }
-                                        case "3": {
-                                            break;
-                                        }
-                                        default: {
-                                            erroOpcao();
-                                            break;
-                                        }
+                                    }
+                                    case "6": {
+                                        opcaoLogin = 0;
+                                        break;
+                                    }
+                                    default: {
+                                        erroOpcao();
+                                        break;
                                     }
                                 }
-                                case "6": {
-                                    opcaoLogin = 0;
-                                    break;
-                                }
-                                default: {
-                                    erroOpcao();
-                                    break;
-                                }
                             }
+                            break;
                         }
                         break;
                     }
@@ -487,9 +508,10 @@ public class Main {
                 System.err.println("Dado não encontrado.");
                 System.err.println("Tente novamente.");
                 System.err.println("---------------------------------------------------");
-            } catch (Exception e) {
-                System.out.println("Tente novamente.");
             }
+//            catch (Exception e) {
+//                System.out.println("Tente novamente.");
+//            }
         } while (rodar);
     }
 

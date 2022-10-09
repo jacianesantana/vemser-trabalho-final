@@ -1,5 +1,7 @@
 package model;
 
+import exception.SenhaInvalidaException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +19,7 @@ public class Empresa extends Usuario {
                    String telefone,
                    String email,
                    String senha,
-                   String cnpj) {
+                   String cnpj) throws SenhaInvalidaException {
         super(tipoUsuario, nome, endereco, telefone, email, senha);
         this.cnpj = cnpj;
     }

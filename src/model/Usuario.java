@@ -26,11 +26,6 @@ abstract public class Usuario implements Login {
         this.endereco = endereco;
         this.telefone = telefone;
         this.email = email;
-        try {
-            validarSenhaNova(senha);
-        } catch (SenhaInvalidaException e) {
-            e.printStackTrace();
-        }
         this.senha = senha;
     }
 
@@ -49,7 +44,7 @@ abstract public class Usuario implements Login {
     public void validarSenhaNova(String senha) throws SenhaInvalidaException {
         int contNumero = 0;
         for (int i = 0; i < senha.length(); i++) {
-            if (Character.isAlphabetic(senha.charAt(i))) {
+            if (Character.isDigit(senha.charAt(i))) {
                 contNumero++;
             }
         }

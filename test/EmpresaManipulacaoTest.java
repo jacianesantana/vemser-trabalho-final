@@ -1,5 +1,4 @@
-package Test;
-
+import exception.SenhaInvalidaException;
 import model.Empresa;
 import model.Endereco;
 import model.TipoUsuario;
@@ -34,7 +33,7 @@ public class EmpresaManipulacaoTest {
         Assertions.assertTrue(retorno);
     }
     @Test
-    public void deveTestarDeletarEmpresaComSucesso(){
+    public void deveTestarDeletarEmpresaComSucesso() throws SenhaInvalidaException {
         final Integer INDEX = 0;
         Endereco enderecoEstudante0 = new Endereco("Brasil", "SE", "Aracaju",
                 "49000-000", "Avenida Euclides", 321);

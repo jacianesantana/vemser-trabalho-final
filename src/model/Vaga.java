@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Vaga {
     private String titulo;
-    private String nomeDaEmpresa;
+    private Empresa empresa;
     private List<String> requisitos = new ArrayList<>();
     private List<Estudante> candidatos = new ArrayList<>();
     private StatusVaga statusVaga;
@@ -12,9 +12,9 @@ public class Vaga {
     public Vaga() {
     }
 
-    public Vaga(String titulo, String nomeDaEmpresa, List<String> requisitos) {
+    public Vaga(String titulo, Empresa empresa, List<String> requisitos) {
         this.titulo = titulo;
-        this.nomeDaEmpresa = nomeDaEmpresa;
+        this.empresa = empresa;
         this.requisitos = requisitos;
         this.statusVaga = StatusVaga.ABERTO;
     }
@@ -44,6 +44,7 @@ public class Vaga {
 
     //usuarioEmpresa digita cpf e fecha a vaga
     public void fecharVaga(String cpfCandidatoSelecionado) {
+
         Optional<Estudante> estudanteSelecionado = candidatos.stream()
                 .filter(estudante -> estudante.getCpf().equals(cpfCandidatoSelecionado))
                 .findFirst();
@@ -54,7 +55,7 @@ public class Vaga {
     public String toString() {
         return "Vaga{" +
                 "titulo='" + titulo + '\'' +
-                ", nomeDaEmpresa='" + nomeDaEmpresa + '\'' +
+                ", empresa='" + empresa + '\'' +
                 ", requisitos=" + requisitos +
                 ", candidatos=" + candidatos +
                 ", statusVaga=" + statusVaga +
@@ -69,12 +70,12 @@ public class Vaga {
         this.titulo = titulo;
     }
 
-    public String getNomeDaEmpresa() {
-        return nomeDaEmpresa;
+    public Empresa getEmpresa() {
+        return empresa;
     }
 
-    public void setNomeDaEmpresa(String nomeDaEmpresa) {
-        this.nomeDaEmpresa = nomeDaEmpresa;
+    public void setEmpresa(Empresa empresa) {
+        this.empresa = empresa;
     }
 
     public List<String> getRequisitos() {
