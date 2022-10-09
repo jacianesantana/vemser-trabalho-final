@@ -108,10 +108,14 @@ public class Main {
                 switch (opcao) {
                     case "1": {
                         int opcaoLogin = 0;
+                        //logar com empresa ou estudante?
                         System.out.println("----------------- Login --------------------");
                         System.out.println("Digite o email: ");
 //                        String email = input.nextLine();
                         System.out.println("Digite a senha: ");
+                        String senha = input.nextLine();
+                        estudante0.login(email, senha);
+
                         opcaoLogin = input.nextInt();
                         input.nextLine();
 
@@ -388,7 +392,7 @@ public class Main {
                             } else {
                                 System.err.println("Senhas não batem.");
                             }
-                        } else {
+                        } else if(opcaoTipo.equals("2")) {
                             Estudante user = new Estudante();
                             user.setTipoUsuario(TipoUsuario.ESTUDANTE);
                             System.out.println("Digite Nome: ");
@@ -407,6 +411,8 @@ public class Main {
                             } else {
                                 System.err.println("Senhas não batem.");
                             }
+                        }else {
+                            erroOpcao();
                         }
                         break;
                     }
@@ -436,6 +442,5 @@ public class Main {
         System.err.println("---------------------------------------------------");
 
     }
-
 }
 
