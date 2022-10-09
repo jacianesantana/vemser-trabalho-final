@@ -1,4 +1,4 @@
-package model;
+package service;
 
 public interface Login {
     boolean validarEmail(String email);

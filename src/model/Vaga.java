@@ -7,9 +7,7 @@ public class Vaga {
     private String nomeDaEmpresa;
     private List<String> requisitos = new ArrayList<>();
     private List<Estudante> candidatos = new ArrayList<>();
-
-    private StatusVaga statusvaga;
-
+    private StatusVaga statusVaga;
 
     public Vaga() {
     }
@@ -18,6 +16,7 @@ public class Vaga {
         this.titulo = titulo;
         this.nomeDaEmpresa = nomeDaEmpresa;
         this.requisitos = requisito;
+        this.statusVaga = StatusVaga.ABERTO;
     }
 
     public Map<Estudante, Long> candidatoComMaisRequisitos() {
@@ -50,7 +49,6 @@ public class Vaga {
                 .findFirst();
         setStatusvaga(StatusVaga.FECHADO);
     }
-
 
     @Override
     public String toString() {
@@ -87,11 +85,11 @@ public class Vaga {
     }
 
     public StatusVaga getStatusvaga() {
-        return statusvaga;
+        return statusVaga;
     }
 
     public void setStatusvaga(StatusVaga statusvaga) {
-        this.statusvaga = statusvaga;
+        this.statusVaga = statusvaga;
     }
 
     public List<Estudante> getCandidatos() {

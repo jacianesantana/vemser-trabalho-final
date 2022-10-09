@@ -1,5 +1,7 @@
 package model;
 
+import service.Login;
+
 abstract public class Usuario implements Login {
     private TipoUsuario tipoUsuario;
     private String nome;
