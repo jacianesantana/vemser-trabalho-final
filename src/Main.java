@@ -85,35 +85,26 @@ public class Main {
         Empresa empresa4 = new Empresa(TipoUsuario.EMPRESA, "System", enderecoEmpresa4, "51 1098.1200",
                 "ace@company.com", "09874", "3-3333-3333");
         empresaManipulacao.cadastrar(empresa4);
-<<<<<<< HEAD
-=======
-
->>>>>>> 10ffaa9d3a503994f260d6be910a9c51068aa921
 
         // Vagas
         VagaManipulacao vagaManipulacao = new VagaManipulacao();
 
-        Vaga vaga1 = new Vaga("java senior", empresa1, List.of("java", "mysql"));
+        Vaga vaga1 = new Vaga("java senior", empresa1.getNome(), List.of("java", "mysql"));
         vagaManipulacao.cadastrar(vaga1);
         estudante0.candidatarVaga(vaga1);
         estudante1.candidatarVaga(vaga1);
 
-        Vaga vaga2 = new Vaga("java junior", empresa2, List.of("algoritimos"));
+        Vaga vaga2 = new Vaga("java junior", empresa2.getNome(), List.of("algoritimos"));
         vagaManipulacao.cadastrar(vaga2);
-<<<<<<< HEAD
         estudante3.candidatarVaga(vaga2);
         
         vaga1.candidatoComMaisRequisitos();
         vaga1.candidatoSelecionado(estudante1.getNome());
-=======
-        estudante3.candidatarvaga(vaga2);
->>>>>>> 10ffaa9d3a503994f260d6be910a9c51068aa921
 
-
-        Vaga vaga3 = new Vaga("qa senior", empresa3, List.of("qa", "selenium"));
+        Vaga vaga3 = new Vaga("qa senior", empresa3.getNome(), List.of("qa", "selenium"));
         vagaManipulacao.cadastrar(vaga3);
 
-        Vaga vaga4 = new Vaga("frontend pleno", empresa4, List.of("javascript", "react"));
+        Vaga vaga4 = new Vaga("frontend pleno", empresa4.getNome(), List.of("javascript", "react"));
         vagaManipulacao.cadastrar(vaga4);
 
         vaga1.setRequisitos(List.of("java", "algoritmo"));
@@ -127,7 +118,7 @@ public class Main {
         //  Estudante
         estudante1.login("jaciane@gmail", "jaci2468");
         //estudante candidatar vaga
-        estudante1.candidatarvaga(vaga1);
+        estudante1.candidatarVaga(vaga1);
         //pesquisando lista de vagas inscritas
         estudante1.listaDeVagasInscritas();
 

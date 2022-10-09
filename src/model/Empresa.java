@@ -22,13 +22,6 @@ public class Empresa extends Usuario {
         this.cnpj = cnpj;
     }
 
-<<<<<<< HEAD
-=======
-
-    public Empresa() {
-    }
-
->>>>>>> 10ffaa9d3a503994f260d6be910a9c51068aa921
     public String getCnpj() {
         return cnpj;
     }

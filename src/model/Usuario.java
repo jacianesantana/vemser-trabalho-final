@@ -1,16 +1,8 @@
 package model;
 
-<<<<<<< HEAD
 import exception.LoginInvalidoException;
 import exception.SenhaInvalidaException;
 import service.Login;
-=======
-
-import exception.LoginInvalidoException;
-import exception.SenhaInvalidaException;
-import service.Login;
-
->>>>>>> 10ffaa9d3a503994f260d6be910a9c51068aa921
 
 abstract public class Usuario implements Login {
     private TipoUsuario tipoUsuario;
@@ -42,22 +34,6 @@ abstract public class Usuario implements Login {
         this.senha = senha;
     }
 
-<<<<<<< HEAD
-=======
-    public void validarSenhaNova(String senha) throws SenhaInvalidaException {
-        int contNumero = 0;
-        for (int i = 0; i < senha.length(); i++) {
-            if (Character.isAlphabetic(senha.charAt(i))) {
-                contNumero++;
-            }
-        }
-        if (contNumero <= 2) {
-            throw new SenhaInvalidaException("");
-        }
-
-    }
-
->>>>>>> 10ffaa9d3a503994f260d6be910a9c51068aa921
     @Override
     public String toString() {
         return "Usuario{" +
