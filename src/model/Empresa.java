@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Empresa extends Usuario {
+
     private String cnpj;
     private List<Vaga> vagas = new ArrayList<>();
 
@@ -21,6 +22,13 @@ public class Empresa extends Usuario {
         this.cnpj = cnpj;
     }
 
+<<<<<<< HEAD
+=======
+
+    public Empresa() {
+    }
+
+>>>>>>> 10ffaa9d3a503994f260d6be910a9c51068aa921
     public String getCnpj() {
         return cnpj;
     }
@@ -28,6 +36,7 @@ public class Empresa extends Usuario {
     public void setCnpj(String cnpj) {
         this.cnpj = cnpj;
     }
+
 
     public List<Vaga> getVagas() {
         return vagas;

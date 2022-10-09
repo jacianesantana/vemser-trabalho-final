@@ -23,10 +23,8 @@ public class CurriculoManipulacao implements CRUD<Curriculo> {
     }
 
     @Override
-    public void listar() {
-        for (int i = 0; i < listaDeCurriculos.size(); i++) {
-            System.out.println("id=" + i + " | " + listaDeCurriculos.get(i));
-        }
+    public List<Curriculo> listar() {
+        return listaDeCurriculos;
     }
 
     @Override

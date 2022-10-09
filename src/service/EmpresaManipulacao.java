@@ -21,10 +21,8 @@ public class EmpresaManipulacao implements CRUD<Empresa> {
         }
     }
     @Override
-    public void listar() {
-        for (int i = 0; i < listaDeEmpresas.size(); i++) {
-            System.out.println("id=" + i + " | " + listaDeEmpresas.get(i));
-        }
+    public List<Empresa> listar() {
+        return  listaDeEmpresas;
     }
 
     @Override

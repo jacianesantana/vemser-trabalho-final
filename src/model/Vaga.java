@@ -14,9 +14,17 @@ public class Vaga {
 
     public Vaga(String titulo, String nomeDaEmpresa, List<String> requisitos) {
         this.titulo = titulo;
+<<<<<<< HEAD
         this.nomeDaEmpresa = nomeDaEmpresa;
         this.requisitos = requisitos;
         this.statusVaga = StatusVaga.ABERTO;
+=======
+
+        this.empresa = empresa;
+        this.requisitos = requisitos;
+        this.statusVaga = StatusVaga.ABERTO;
+
+>>>>>>> 10ffaa9d3a503994f260d6be910a9c51068aa921
     }
 
     public Map<Estudante, Long> candidatoComMaisRequisitos() {
@@ -85,6 +93,17 @@ public class Vaga {
         this.requisitos = requisitos;
     }
 
+<<<<<<< HEAD
+=======
+    public StatusVaga getStatusVaga() {
+        return statusVaga;
+    }
+
+    public void setStatusVaga(StatusVaga statusVaga) {
+        this.statusVaga = statusVaga;
+    }
+
+>>>>>>> 10ffaa9d3a503994f260d6be910a9c51068aa921
     public List<Estudante> getCandidatos() {
         return candidatos;
     }
