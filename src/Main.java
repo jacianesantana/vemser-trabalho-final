@@ -125,7 +125,11 @@ public class Main {
         estudante1.listaDeVagasInscritas();
 
 //        empresa1.login("dbc@company.com", "123456");
-
+        empresaManipulacao.listar()
+                .forEach(empresa -> {
+                    System.out.println(empresa.getNome());
+                    System.out.println(empresa);
+                });
 
         // MENU INTERATIVO
         System.out.println("====================== BEM VINDO ============================");
@@ -173,7 +177,7 @@ public class Main {
 
                         while (opcaoLogin == 4) {
                             String opcaoEmpresa;
-                            System.out.println("-------------------- Logado ------------------");
+                            System.out.println("-------------------- Logado com "+ empresaLogada.getNome() + " ------------------");
                             System.out.println(" Escolha uma opção: ");
                             System.out.println(" 1 - Criar nova vaga; ");
                             System.out.println(" 2 - Listar vagas; ");
@@ -182,6 +186,7 @@ public class Main {
                             System.out.println(" 5 - Excluir vaga. ");
                             System.out.println(" 6 - Configuração da conta. ");
                             System.out.println(" 7 - Sair. ");
+                            System.out.println(" 8 - Excluir conta. ");
                             System.out.println("----------------------------------------------------");
                             opcaoEmpresa = input.nextLine();
 
@@ -247,7 +252,7 @@ public class Main {
                                     String opcaoMenuConta = input.nextLine();
                                     switch (opcaoMenuConta) {
                                         case "1": {
-                                            Usuario user = new Empresa();
+                                            Empresa user = new Empresa();
                                             user.setTipoUsuario(TipoUsuario.EMPRESA);
                                             System.out.println("Digite Nome: ");
                                             user.setNome(input.nextLine());
@@ -263,8 +268,9 @@ public class Main {
                                             System.out.println("Digite a senha novamente: ");
                                             String senhaCopia = input.nextLine();
                                             if (senhaCopia.equals(senha2)) {
-                                                user.setSenha(input.nextLine());
-//                                            empresaManipulacao.atualizar(index, user);
+                                                user.setSenha(senha2);
+                                                Integer index = empresaManipulacao.listar().indexOf(empresaLogada);
+                                                empresaManipulacao.atualizar(index, user);
                                                 System.out.println("Atualizado com sucesso!!!");
                                                 break;
                                             } else {
@@ -273,9 +279,9 @@ public class Main {
                                             break;
                                         }
                                         case "2": {
-//                                            Empresa finalEmpresaLogada = empresaLogada;
-//                                            empresaManipulacao.listar().indexOf(finalEmpresaLogada);
-//                                            empresaManipulacao.deletar(index);
+                                            Integer index = empresaManipulacao.listar().indexOf(empresaLogada);
+                                            empresaManipulacao.deletar(index);
+                                            System.out.println("Conta excluida com sucesso!!");
                                             break;
                                         }
                                         case "3": {
@@ -293,6 +299,21 @@ public class Main {
                                     opcaoLogin = 0;
                                     break;
                                 }
+                                case "8": {
+                                    System.out.println("Deseja mesmo excluir a conta? ");
+                                    System.out.println("Digite 1 para SIM;");
+                                    System.out.println("Digite 2 para NÂO;");
+                                    String opcaoExcluirConta = input.nextLine();
+                                    if (opcaoExcluirConta.equals("1")) {
+                                        Integer index = empresaManipulacao.listar().indexOf(empresaLogada);
+                                        empresaManipulacao.deletar(index);
+                                        System.out.println("Conta excluida com sucesso!!");
+                                        opcaoLogin = 0;
+                                        break;
+                                    } else {
+                                        break;
+                                    }
+                                }
                                 default: {
                                     erroOpcao();
                                     break;
@@ -302,7 +323,7 @@ public class Main {
                         while (opcaoLogin == 2) {
                             // Se ESTUDANTE
                             String opcaoEstudante;
-                            System.out.println("-------------------- Logado ------------------");
+                            System.out.println("-------------------- Logado com"+ estudanteLogado.getNome() + " ------------------");
                             System.out.println(" Escolha uma opção: ");
                             System.out.println(" 1 - Criar curriculo; ");
                             System.out.println(" 2 - Editar curriculo; ");
@@ -349,7 +370,7 @@ public class Main {
                                     System.out.println("Resumo Profissional: ");
                                     novoCurriculo.setResumoProfissional(input.nextLine());
                                     System.out.println("Vaga de interesse: ");
-                                    // novoCurriculo.setTituloVagaInteresse(input.nextLine());
+//                                     novoCurriculo.setTituloVagaInteresse(input.nextLine());
                                     curriculoManipulacao.atualizar(index, novoCurriculo);
                                     break;
                                 }
@@ -424,6 +445,21 @@ public class Main {
                                 case "6": {
                                     opcaoLogin = 0;
                                     break;
+                                }
+                                case "7": {
+                                        System.out.println("Deseja mesmo excluir a conta? ");
+                                        System.out.println("Digite 1 para SIM;");
+                                        System.out.println("Digite 2 para NÂO;");
+                                        String opcaoExcluirConta = input.nextLine();
+                                        if (opcaoExcluirConta.equals("1")) {
+                                            Integer index = estudanteManipulacao.listar().indexOf(estudanteLogado);
+                                            estudanteManipulacao.deletar(index);
+                                            System.out.println("Conta excluida com sucesso!!");
+                                            opcaoLogin = 0;
+                                            break;
+                                    }else{
+                                        break;
+                                    }
                                 }
                                 default: {
                                     erroOpcao();
