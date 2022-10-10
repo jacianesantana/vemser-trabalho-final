@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
+import java.util.stream.Stream;
 
 public class Main {
     public static void main(String[] args) throws SenhaInvalidaException {
@@ -221,7 +222,13 @@ public class Main {
                                     }
                                     case "2": {
                                         System.out.println("------------- Lista de vagas cadastradas ------------");
-                                        vagaManipulacao.listar();
+                                        Empresa finalEmpresaLogada = empresaLogada;
+                                        List<Vaga> vagas = vagaManipulacao.listar().stream().filter(vaga -> {
+                                            return vaga.getEmpresa().getNome().equals(finalEmpresaLogada.getNome());
+                                        }).toList();
+                                        vagas.stream().forEach(vaga -> {
+                                            System.out.println("Nome da vaga: " + vaga.getTitulo() +", Requisitos: " + vaga.getRequisitos());
+                                        });
                                         break;
                                     }
                                     case "3": {
@@ -229,8 +236,15 @@ public class Main {
                                         break;
                                     }
                                     case "4": {
-                                        vagaManipulacao.listar();
-                                        System.out.println("Escolha a vaga que quer editar: ");
+
+                                        Empresa finalEmpresaLogada = empresaLogada;
+                                        List<Vaga> vagas = vagaManipulacao.listar().stream().filter(vaga -> {
+                                            return vaga.getEmpresa().getNome().equals(finalEmpresaLogada.getNome());
+                                        }).toList();
+                                        vagas.stream().forEach(vaga -> {
+                                            System.out.println("Indice: "+ vagas.indexOf(vaga) +", Nome da vaga: " + vaga.getTitulo() +", Requisitos: " + vaga.getRequisitos());
+                                        });
+                                        System.out.println("Digite o indice da vaga que quer editar: ");
                                         Integer index = input.nextInt();
                                         input.nextLine();
                                         Vaga novaVaga = new Vaga();
@@ -247,13 +261,25 @@ public class Main {
                                         break;
                                     }
                                     case "5": {
-                                        vagaManipulacao.listar();
-                                        System.out.println("Digite o número da vaga que deseja excluir: ");
-                                        int id = input.nextInt();
-                                        input.nextLine();
-                                        vagaManipulacao.deletar(id);
-                                        System.out.println("Vaga de id=" + id + " deletada com sucesso");
-                                        break;
+                                        Empresa finalEmpresaLogada = empresaLogada;
+                                        List<Vaga> vagas = vagaManipulacao.listar().stream().filter(vaga -> {
+                                            return vaga.getEmpresa().getNome().equals(finalEmpresaLogada.getNome());
+                                        }).toList();
+                                        vagas.stream().forEach(vaga -> {
+                                            System.out.println("Indice: "+ vagas.indexOf(vaga) +", Nome da vaga: " + vaga.getTitulo() +", Requisitos: " + vaga.getRequisitos());
+                                        });
+                                        if(!vagas.isEmpty()){
+                                            System.out.println("Digite o número da vaga que deseja excluir: ");
+                                            int id = input.nextInt();
+                                            input.nextLine();
+                                            vagaManipulacao.deletar(id);
+                                            System.out.println("Vaga de id=" + id + " deletada com sucesso");
+                                            break;
+                                        }else{
+                                            System.out.println("Não há vagas cadastradas.");
+                                            break;
+                                        }
+
                                     }
                                     case "6": {
                                         System.out.println("-------------------- Menu de conta ------------------");
@@ -282,8 +308,8 @@ public class Main {
                                                 String senhaCopia = input.nextLine();
                                                 if (senhaCopia.equals(senha2)) {
                                                     user.setSenha(senha2);
-                                                Integer index = empresaManipulacao.listar().indexOf(empresaLogada);
-                                                empresaManipulacao.atualizar(index, user);
+                                                    Integer index = empresaManipulacao.listar().indexOf(empresaLogada);
+                                                    empresaManipulacao.atualizar(index, user);
                                                     System.out.println("Atualizado com sucesso!!!");
                                                     break;
                                                 } else {
@@ -292,9 +318,9 @@ public class Main {
                                                 break;
                                             }
                                             case "2": {
-                                            Integer index = empresaManipulacao.listar().indexOf(empresaLogada);
-                                            empresaManipulacao.deletar(index);
-                                            System.out.println("Conta excluida com sucesso!!");
+                                                Integer index = empresaManipulacao.listar().indexOf(empresaLogada);
+                                                empresaManipulacao.deletar(index);
+                                                System.out.println("Conta excluida com sucesso!!");
                                                 break;
                                             }
                                             case "3": {
@@ -304,7 +330,6 @@ public class Main {
                                                 erroOpcao();
                                                 break;
                                             }
-
                                     }
                                     break;
                                 }
@@ -328,23 +353,19 @@ public class Main {
                                     }
                                 }
                                 case "9": {
-                                        vagaManipulacao.listar().stream().forEach(vaga -> {
-                                            System.out.println("Vaga: " + vaga.getTitulo()+ "Status: "+ vaga.getStatusVaga());
-                                        });
-                                        System.out.println("Digite a vaga que deseja fechar: ");
-                                        String nomeVaga = input.nextLine();
-                                        System.out.println("Digite o primeiro requisito: ");
-                                        String requisito1 = input.nextLine();
-                                        System.out.println("Digite o segundo requisito: ");
-                                        String requisito2 = input.nextLine();
-                                        Vaga retornoVaga = vagaManipulacao.listar().stream().filter(vaga -> vaga.getTitulo().equals(nomeVaga)).findFirst().get();
-                                        retornoVaga.setRequisitos(List.of(requisito1, requisito2));
-                                        retornoVaga.candidatoComMaisRequisitos();
-                                        retornoVaga.fecharVaga(retornoVaga.candidatoSelecionado(estudante1.getNome()));
-                                        vagaManipulacao.listar().stream().forEach(vaga -> {
-                                            System.out.println("Vaga: " + vaga.getTitulo()+ "Status: "+ vaga.getStatusVaga());
-                                        });
-                                        break;
+                                    vagaManipulacao.listar().forEach(vaga -> System.out.println("Vaga: " + vaga.getTitulo() + " Status: " + vaga.getStatusVaga()));
+                                    System.out.println("Digite a vaga que deseja fechar: ");
+                                    String nomeVaga = input.nextLine();
+                                    Optional<Vaga> vagaSelecionada = vagaManipulacao.listar().stream()
+                                            .filter(vaga -> vaga.getTitulo().equalsIgnoreCase(nomeVaga)).findFirst();
+                                    if (vagaSelecionada.isPresent()) {
+                                        vagaSelecionada.get().candidatoComMaisRequisitos()
+                                                .forEach((estudante, quantRequisito) -> System.out.println("Estudante: " + estudante.getNome() + " Cpf: " + estudante.getCpf() + " Quantidade de requisitos:" + quantRequisito));
+                                        System.out.println("Digite o cpf de estudante selecionado");
+                                        String cpfEstudanteSelecionado = input.nextLine();
+                                        vagaSelecionada.get().fecharVaga(cpfEstudanteSelecionado);
+                                    }
+                                    break;
                                 }
                                 default: {
                                     erroOpcao();
@@ -389,45 +410,75 @@ public class Main {
                                         break;
                                     }
                                     case "2": {
-                                        curriculoManipulacao.listar();
-                                        System.out.println("Digite o numero do curriculo que deseja editar: ");
-                                        Integer index = input.nextInt();
-                                        input.nextLine();
-                                        Curriculo novoCurriculo = new Curriculo();
-                                        System.out.println("Nome Estudante: ");
-                                        novoCurriculo.setNomeDoEstudante(input.nextLine());
-                                        System.out.println("Universidade: ");
-                                        novoCurriculo.setUniversidade(input.nextLine());
-                                        System.out.println("Curso: ");
-                                        novoCurriculo.setCurso(input.nextLine());
-                                        System.out.println("Digite o numero do Semestre: ");
-                                        novoCurriculo.setSemestre(input.nextInt());
-                                        input.nextLine();
-                                        System.out.println("Resumo Profissional: ");
-                                        novoCurriculo.setResumoProfissional(input.nextLine());
-                                        System.out.println("Vaga de interesse: ");
-//                                         novoCurriculo.setTituloVagaInteresse(input.nextLine());
-                                        curriculoManipulacao.atualizar(index, novoCurriculo);
-                                        break;
+                                        Estudante finalEstudanteLogado = estudanteLogado;
+                                        List<Curriculo> curriculos = curriculoManipulacao.listar().stream().filter(curriculo -> {
+                                            return curriculo.getNomeDoEstudante().equals(finalEstudanteLogado.getNome());
+                                        }).toList();
+                                        curriculos.stream().forEach(curriculo -> {
+                                            System.out.println("Indice: "+ curriculos.indexOf(curriculo) +", Nome do curso: " + curriculo.getCurso() +", Universidade: " + curriculo.getUniversidade());
+                                        });
+                                        if(!curriculos.isEmpty()){
+                                            System.out.println("Digite o numero do curriculo que deseja editar: ");
+                                            Integer index = input.nextInt();
+                                            input.nextLine();
+                                            Curriculo novoCurriculo = new Curriculo();
+                                            System.out.println("Nome Estudante: ");
+                                            novoCurriculo.setNomeDoEstudante(input.nextLine());
+                                            System.out.println("Universidade: ");
+                                            novoCurriculo.setUniversidade(input.nextLine());
+                                            System.out.println("Curso: ");
+                                            novoCurriculo.setCurso(input.nextLine());
+                                            System.out.println("Digite o numero do Semestre: ");
+                                            novoCurriculo.setSemestre(input.nextInt());
+                                            input.nextLine();
+                                            System.out.println("Resumo Profissional: ");
+                                            novoCurriculo.setResumoProfissional(input.nextLine());
+                                            System.out.println("Vaga de interesse: ");
+    //                                         novoCurriculo.setTituloVagaInteresse(input.nextLine());
+                                            curriculoManipulacao.atualizar(index, novoCurriculo);
+                                            break;
+                                        }else{
+                                            System.out.println("Não há curriculos para editar.");
+                                        }
                                     }
                                     case "3": {
-                                        curriculoManipulacao.listar();
+                                        Estudante finalEstudanteLogado = estudanteLogado;
+                                        List<Curriculo> curriculos = curriculoManipulacao.listar().stream().filter(curriculo -> {
+                                            return curriculo.getNomeDoEstudante().equals(finalEstudanteLogado.getNome());
+                                        }).toList();
+                                        curriculos.stream().forEach(curriculo -> {
+                                            System.out.println("Indice: "+ curriculos.indexOf(curriculo) +", Nome do curso: " + curriculo.getCurso() +", Universidade: " + curriculo.getUniversidade());
+                                        });
+                                        if(curriculos.isEmpty()){
+                                            System.out.println("Não há curriculos para listar.");
+                                        }
                                         break;
                                     }
                                     case "4": {
-                                        curriculoManipulacao.listar();
-                                        System.out.println("Digite o numero do curriculo que deseja excluir: ");
-                                        Integer opcaoDeletarCurriculo = input.nextInt();
-                                        input.nextLine();
-                                        System.out.println("Deseja mesmo excluir o curriculo? ");
-                                        System.out.println("Digite 1 para SIM;");
-                                        System.out.println("Digite 2 para NÂO;");
-                                        String opcaoExcluirCurriculo = input.nextLine();
-                                        if (opcaoExcluirCurriculo.equals("1")) {
-                                            curriculoManipulacao.deletar(opcaoDeletarCurriculo);
-                                            break;
-                                        } else {
-                                            break;
+                                        Estudante finalEstudanteLogado = estudanteLogado;
+                                        List<Curriculo> curriculos = curriculoManipulacao.listar().stream().filter(curriculo -> {
+                                            return curriculo.getNomeDoEstudante().equals(finalEstudanteLogado.getNome());
+                                        }).toList();
+                                        curriculos.stream().forEach(curriculo -> {
+                                            System.out.println("Indice: "+ curriculos.indexOf(curriculo) +", Nome do curso: " + curriculo.getCurso() +", Universidade: " + curriculo.getUniversidade());
+                                        });
+                                        if(!curriculos.isEmpty()) {
+                                            System.out.println("Digite o numero do curriculo que deseja excluir: ");
+                                            Integer opcaoDeletarCurriculo = input.nextInt();
+                                            input.nextLine();
+                                            System.out.println("Deseja mesmo excluir o curriculo? ");
+                                            System.out.println("Digite 1 para SIM;");
+                                            System.out.println("Digite 2 para NÂO;");
+                                            String opcaoExcluirCurriculo = input.nextLine();
+                                            if (opcaoExcluirCurriculo.equals("1")) {
+                                                curriculoManipulacao.deletar(opcaoDeletarCurriculo);
+                                                System.out.println("Curriculo deletado com sucesso!!");
+                                                break;
+                                            } else {
+                                                break;
+                                            }
+                                        }else{
+                                            System.out.println("Não há curriculos para excluir.");
                                         }
                                     }
                                     case "5": {
