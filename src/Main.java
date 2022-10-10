@@ -197,13 +197,11 @@ public class Main {
                                 System.out.println(" Escolha uma opção: ");
                                 System.out.println(" 1 - Criar nova vaga; ");
                                 System.out.println(" 2 - Listar vagas; ");
-                                System.out.println(" 3 -  ");
+                                System.out.println(" 3 - Fechar vaga.");
                                 System.out.println(" 4 - Editar vaga. ");
                                 System.out.println(" 5 - Excluir vaga. ");
                                 System.out.println(" 6 - Configuração da conta. ");
                                 System.out.println(" 7 - Sair. ");
-                                System.out.println(" 8 - Excluir conta. ");
-                                System.out.println(" 9 - Fechar vaga. ");
                                 System.out.println("----------------------------------------------------");
                                 opcaoEmpresa = input.nextLine();
 
@@ -235,7 +233,18 @@ public class Main {
                                         break;
                                     }
                                     case "3": {
-                                        System.out.println(empresaLogada.getNome());
+                                        vagaManipulacao.listar().forEach(vaga -> System.out.println("Vaga: " + vaga.getTitulo() + " Status: " + vaga.getStatusVaga()));
+                                        System.out.println("Digite a vaga que deseja fechar: ");
+                                        String nomeVaga = input.nextLine();
+                                        Optional<Vaga> vagaSelecionada = vagaManipulacao.listar().stream()
+                                                .filter(vaga -> vaga.getTitulo().equalsIgnoreCase(nomeVaga)).findFirst();
+                                        if (vagaSelecionada.isPresent()) {
+                                            vagaSelecionada.get().candidatoComMaisRequisitos()
+                                                    .forEach((estudante, quantRequisito) -> System.out.println("Estudante: " + estudante.getNome() + " Cpf: " + estudante.getCpf() + " Quantidade de requisitos:" + quantRequisito));
+                                            System.out.println("Digite o cpf de estudante selecionado");
+                                            String cpfEstudanteSelecionado = input.nextLine();
+                                            vagaSelecionada.get().fecharVaga(cpfEstudanteSelecionado);
+                                        }
                                         break;
                                     }
                                     case "4": {
@@ -321,10 +330,19 @@ public class Main {
                                                 break;
                                             }
                                             case "2": {
-                                                Integer index = empresaManipulacao.listar().indexOf(empresaLogada);
-                                                empresaManipulacao.deletar(index);
-                                                System.out.println("Conta excluida com sucesso!!");
-                                                break;
+                                                System.out.println("Deseja mesmo excluir a conta? ");
+                                                System.out.println("Digite 1 para SIM;");
+                                                System.out.println("Digite 2 para NÂO;");
+                                                String opcaoExcluirConta = input.nextLine();
+                                                if (opcaoExcluirConta.equals("1")) {
+                                                    Integer index = empresaManipulacao.listar().indexOf(empresaLogada);
+                                                    empresaManipulacao.deletar(index);
+                                                    System.out.println("Conta excluida com sucesso!!");
+                                                    opcaoLogin = 0;
+                                                    break;
+                                                } else {
+                                                    break;
+                                                }
                                             }
                                             case "3": {
                                                 break;
@@ -338,36 +356,6 @@ public class Main {
                                 }
                                 case "7": {
                                     opcaoLogin = 0;
-                                    break;
-                                }
-                                case "8": {
-                                    System.out.println("Deseja mesmo excluir a conta? ");
-                                    System.out.println("Digite 1 para SIM;");
-                                    System.out.println("Digite 2 para NÂO;");
-                                    String opcaoExcluirConta = input.nextLine();
-                                    if (opcaoExcluirConta.equals("1")) {
-                                        Integer index = empresaManipulacao.listar().indexOf(empresaLogada);
-                                        empresaManipulacao.deletar(index);
-                                        System.out.println("Conta excluida com sucesso!!");
-                                        opcaoLogin = 0;
-                                        break;
-                                    } else {
-                                        break;
-                                    }
-                                }
-                                case "9": {
-                                    vagaManipulacao.listar().forEach(vaga -> System.out.println("Vaga: " + vaga.getTitulo() + " Status: " + vaga.getStatusVaga()));
-                                    System.out.println("Digite a vaga que deseja fechar: ");
-                                    String nomeVaga = input.nextLine();
-                                    Optional<Vaga> vagaSelecionada = vagaManipulacao.listar().stream()
-                                            .filter(vaga -> vaga.getTitulo().equalsIgnoreCase(nomeVaga)).findFirst();
-                                    if (vagaSelecionada.isPresent()) {
-                                        vagaSelecionada.get().candidatoComMaisRequisitos()
-                                                .forEach((estudante, quantRequisito) -> System.out.println("Estudante: " + estudante.getNome() + " Cpf: " + estudante.getCpf() + " Quantidade de requisitos:" + quantRequisito));
-                                        System.out.println("Digite o cpf de estudante selecionado");
-                                        String cpfEstudanteSelecionado = input.nextLine();
-                                        vagaSelecionada.get().fecharVaga(cpfEstudanteSelecionado);
-                                    }
                                     break;
                                 }
                                 default: {
@@ -388,9 +376,9 @@ public class Main {
                                 System.out.println(" 3 - Listar curriculos; ");
                                 System.out.println(" 4 - Excluir curriculo. ");
                                 System.out.println(" 5 - Configuração da conta. ");
-                                System.out.println(" 6 - Sair. ");
-                                System.out.println(" 7 - Excluir conta. ");
-                                System.out.println(" 8 - Listar vagas inscritas. ");
+                                System.out.println(" 6 - Candidatar-se para vaga. ");
+                                System.out.println(" 7 - Listar vagas inscritas. ");
+                                System.out.println(" 8 - Sair. ");
                                 System.out.println("----------------------------------------------------");
                                 opcaoEstudante = input.nextLine();
 
@@ -521,8 +509,18 @@ public class Main {
                                                 }
                                             }
                                             case "2": {
-//                                        estudanteManipulacao.deletar(index);
-                                                break;
+                                                System.out.println("Deseja mesmo excluir a conta? ");
+                                                System.out.println("Digite 1 para SIM;");
+                                                System.out.println("Digite 2 para NÂO;");
+                                                String opcaoExcluirConta = input.nextLine();
+                                                if (opcaoExcluirConta.equals("1")) {
+                                                    Integer index = estudanteManipulacao.listar().indexOf(estudanteLogado);
+                                                    estudanteManipulacao.deletar(index);
+                                                    System.out.println("Conta excluida com sucesso!!");
+                                                    break;
+                                                } else {
+                                                    break;
+                                                }
                                             }
                                             case "3": {
                                                 break;
@@ -534,26 +532,38 @@ public class Main {
                                         }
                                     }
                                     case "6": {
-                                        opcaoLogin = 0;
+                                        Estudante finalEstudanteLogado1 = estudanteLogado;
+                                        vagaManipulacao.listar().stream().forEach(vaga -> {
+                                            if(!vaga.getCandidatos().contains(finalEstudanteLogado1)) {
+                                                System.out.println("Indice: " + vagaManipulacao.listar().indexOf(vaga) + ", Nome da vaga: " + vaga.getTitulo() + ", Requisitos: " + vaga.getRequisitos());
+                                            }
+                                        });
+                                        boolean retorno = vagaManipulacao.listar().stream()
+                                                .filter(vaga -> vaga.getCandidatos().equals(finalEstudanteLogado1)).findFirst().isPresent();
+                                        if(!retorno){
+                                            System.out.println("Digite o indice da vaga para qual quer se candidatar: ");
+                                            Integer index = input.nextInt();
+                                            input.nextLine();
+                                            Vaga vaga = vagaManipulacao.listar().get(index);
+                                            if(estudanteLogado.candidatarVaga(vaga)){
+                                                System.out.println("Inscrito na vaga com sucesso!!");
+                                            }
+                                        }else{
+                                            System.out.println("Não há vagas.");
+                                        }
                                         break;
                                     }
                                     case "7": {
-                                        System.out.println("Deseja mesmo excluir a conta? ");
-                                        System.out.println("Digite 1 para SIM;");
-                                        System.out.println("Digite 2 para NÂO;");
-                                        String opcaoExcluirConta = input.nextLine();
-                                        if (opcaoExcluirConta.equals("1")) {
-                                            Integer index = estudanteManipulacao.listar().indexOf(estudanteLogado);
-                                            estudanteManipulacao.deletar(index);
-                                            System.out.println("Conta excluida com sucesso!!");
-                                            opcaoLogin = 0;
-                                            break;
-                                        } else {
-                                            break;
-                                        }
+                                        Estudante finalEstudanteLogado1 = estudanteLogado;
+                                        vagaManipulacao.listar().stream().forEach(vaga -> {
+                                            if(!vaga.getCandidatos().contains(finalEstudanteLogado1)) {
+                                                System.out.println("Indice: " + vagaManipulacao.listar().indexOf(vaga) + ", Nome da vaga: " + vaga.getTitulo() + ", Requisitos: " + vaga.getRequisitos());
+                                            }
+                                        });
+                                        break;
                                     }
                                     case "8": {
-                                        estudanteLogado.getVagasInscritas().stream().forEach(System.out::println);
+                                        opcaoLogin = 0;
                                         break;
                                     }
                                     default: {
