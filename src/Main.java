@@ -4,13 +4,6 @@ import service.CurriculoManipulacao;
 import service.EmpresaManipulacao;
 import service.EstudanteManipulacao;
 import service.VagaManipulacao;
-<<<<<<< HEAD
-=======
-import java.util.Arrays;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Scanner;
->>>>>>> 77a1a7f9e153f21ff432141359090e4f8405004a
 
 import java.util.*;
 
