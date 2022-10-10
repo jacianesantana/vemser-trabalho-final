@@ -293,7 +293,6 @@ public class Main {
                                                 user.setEmail(input.nextLine());
                                                 user.setEndereco(menuCadastroEndereco());
                                                 System.out.println("Digite a senha: ");
-
                                                 String senha2 = input.nextLine();
 
                                                 System.out.println("Digite a senha novamente: ");
@@ -373,10 +372,8 @@ public class Main {
                                         curriculo.setCurso(input.nextLine());
                                         System.out.println("Universidade: ");
                                         curriculo.setUniversidade(input.nextLine());
-                                        input.nextLine();
                                         System.out.println("Resumo Profissional: ");
                                         curriculo.setResumoProfissional(input.nextLine());
-                                        input.nextLine();
                                         curriculoManipulacao.cadastrar(curriculo);
                                         break;
                                     }
@@ -534,11 +531,8 @@ public class Main {
                                     }
                                     case "7": {
                                         Estudante finalEstudanteLogado1 = estudanteLogado;
-                                        vagaManipulacao.listar().stream().forEach(vaga -> {
-                                            if(!vaga.getCandidatos().contains(finalEstudanteLogado1)) {
-                                                System.out.println("Indice: " + vagaManipulacao.listar().indexOf(vaga) + ", Nome da vaga: " + vaga.getTitulo() + ", Requisitos: " + vaga.getRequisitos());
-                                            }
-                                        });
+                                        System.out.println(finalEstudanteLogado1.listaDeVagasInscritas());
+
                                         break;
                                     }
                                     case "8": {
