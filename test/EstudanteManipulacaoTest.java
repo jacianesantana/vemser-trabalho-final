@@ -31,7 +31,7 @@ public class EstudanteManipulacaoTest {
                 Assertions.assertTrue(retorno);
         }
         @Test
-        public void deveTestarDeletarEstudanteComSucesso() throws SenhaInvalidaException {
+        public void deveTestarDeletarEstudanteComSucesso()  {
 
                 Endereco enderecoEstudante = new Endereco("Brasil", "SE", "Aracaju",
                         "49000-000", "Avenida Euclides", 321);

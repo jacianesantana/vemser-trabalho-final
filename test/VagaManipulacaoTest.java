@@ -18,7 +18,7 @@ public class VagaManipulacaoTest {
     }
 
     @Test
-    public void deveTestarCadastrarVagaComSucesso() throws SenhaInvalidaException {
+    public void deveTestarCadastrarVagaComSucesso() {
         Endereco enderecoEmpresa = new Endereco("Brasil", "RS", "Porto Alegre",
                 "90240-200", "Tv. São José", 455);
         Empresa empresa1 = new Empresa(TipoUsuario.EMPRESA, "DBC", enderecoEmpresa, "51 3330.777",
@@ -31,7 +31,7 @@ public class VagaManipulacaoTest {
     }
 
     @Test
-    public void deveTestarAtualizarVagaComSucesso() throws SenhaInvalidaException {
+    public void deveTestarAtualizarVagaComSucesso() {
         final int INDEX = 0;
         final String TITULO = "estagiario";
         final String NOME_EMPRESA = "google";
