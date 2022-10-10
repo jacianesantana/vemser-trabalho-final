@@ -1,7 +1,6 @@
 package model;
 
 import exception.LoginInvalidoException;
-import exception.SenhaInvalidaException;
 import service.Login;
 
 abstract public class Usuario implements Login {
@@ -41,17 +40,7 @@ abstract public class Usuario implements Login {
                 '}';
     }
 
-    public void validarSenhaNova(String senha) throws SenhaInvalidaException {
-        int contNumero = 0;
-        for (int i = 0; i < senha.length(); i++) {
-            if (Character.isDigit(senha.charAt(i))) {
-                contNumero++;
-            }
-        }
-        if (contNumero<=2) {
-            throw new SenhaInvalidaException("");
-        }
-    }
+
 
     @Override
     public boolean validarEmail(String email) {
