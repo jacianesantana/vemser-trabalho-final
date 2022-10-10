@@ -22,13 +22,15 @@ public class Vaga {
     public Map<Estudante, Long> candidatoComMaisRequisitos() {
         HashMap<Estudante, Long> estudantesComQtdRequistos = new HashMap<>();
         candidatos.forEach(estudante -> {
-            long count = estudante
-                    .getCurriculo()
-                    .getHabilidades()
-                    .stream()
-                    .filter(habilidade -> this.requisitos.contains(habilidade))
-                    .count();
-            estudantesComQtdRequistos.put(estudante, count);
+            if (estudante.getCurriculo() != null) {
+                long count = estudante
+                        .getCurriculo()
+                        .getHabilidades()
+                        .stream()
+                        .filter(habilidade -> this.requisitos.contains(habilidade))
+                        .count();
+                estudantesComQtdRequistos.put(estudante, count);
+            }
         });
         return estudantesComQtdRequistos;
     }

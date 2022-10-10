@@ -40,13 +40,13 @@ public class Main {
         CurriculoManipulacao curriculoManipulacao = new CurriculoManipulacao();
 
         Curriculo curriculoEstudante0 = new Curriculo(estudante0.getNome(), "PUC", "SI",
-                1, "Sem experiência", Arrays.asList("Testes", "Selenium", "Cypress"));
+                1, "Sem experiência", Arrays.asList("Testes", "Selenium", "Cypress","javascript"));
         curriculoEstudante0.setHabilidades(List.of("algoritmo"));
         estudante0.setCurriculo(curriculoEstudante0);
         curriculoManipulacao.cadastrar(curriculoEstudante0);
 
         Curriculo curriculoEstudante1 = new Curriculo(estudante1.getNome(), "Univ", "Curso",
-                1, "Sem experiência", Arrays.asList("POO", "Java", "Spring", "mysql"));
+                1, "Sem experiência", Arrays.asList("POO", "Java", "Spring", "mysql","javascript"));
         curriculoEstudante1.setHabilidades(List.of("java"));
         estudante1.setCurriculo(curriculoEstudante1);
         curriculoManipulacao.cadastrar(curriculoEstudante1);
@@ -56,7 +56,8 @@ public class Main {
         curriculoEstudante2.setHabilidades(List.of("java", "mysql"));
         estudante2.setCurriculo(curriculoEstudante2);
         curriculoManipulacao.cadastrar(curriculoEstudante2);
-
+        Curriculo curriculoEstudante3 = new Curriculo(estudante3.getNome(),"Estacio","ADS",2,"Sem Experiencia",List.of("Java","algoritmo","javascript"));
+        estudante3.setCurriculo(curriculoEstudante3);
         //Empresas
         EmpresaManipulacao empresaManipulacao = new EmpresaManipulacao();
 
