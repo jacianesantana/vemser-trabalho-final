@@ -1,13 +1,16 @@
 package service;
 
+import exception.LoginInvalidoException;
 import model.Empresa;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class EmpresaManipulacao implements CRUD<Empresa> {
     private List<Empresa> listaDeEmpresas;
 
-    public EmpresaManipulacao(){
+    public EmpresaManipulacao() {
         this.listaDeEmpresas = new ArrayList<>();
     }
 
@@ -20,9 +23,10 @@ public class EmpresaManipulacao implements CRUD<Empresa> {
             return false;
         }
     }
+
     @Override
     public List<Empresa> listar() {
-        return  listaDeEmpresas;
+        return listaDeEmpresas;
     }
 
     @Override
@@ -45,5 +49,17 @@ public class EmpresaManipulacao implements CRUD<Empresa> {
         } else {
             return false;
         }
+    }
+
+    public Empresa login(String email, String senha) throws LoginInvalidoException {
+        Optional<Empresa> empresaOptional = this.listar().stream()
+                .filter(empresa -> empresa.getEmail().equals(email) && empresa.getSenha().equals(senha))
+                .findFirst();
+        if (empresaOptional.isPresent()) {
+            return empresaOptional.get();
+        } else {
+            throw new LoginInvalidoException("senha e email inválido");
+        }
+
     }
 }
