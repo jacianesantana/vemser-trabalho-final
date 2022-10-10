@@ -1,4 +1,4 @@
-import exception.SenhaInvalidaException;
+import exception.LoginInvalidoException;
 import model.*;
 import service.CurriculoManipulacao;
 import service.EmpresaManipulacao;
@@ -8,12 +8,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
-import java.util.stream.Stream;
 
 import java.util.*;
 
 public class Main {
-    public static void main(String[] args) throws SenhaInvalidaException {
+    public static void main(String[] args) {
         //Estudantes
         EstudanteManipulacao estudanteManipulacao = new EstudanteManipulacao();
 
@@ -96,47 +95,36 @@ public class Main {
         vagaManipulacao.cadastrar(vaga1);
         estudante0.candidatarVaga(vaga1);
         estudante1.candidatarVaga(vaga1);
+        estudante2.candidatarVaga(vaga1);
+        estudante3.candidatarVaga(vaga1);
+
 
         Vaga vaga2 = new Vaga("java junior", empresa2, List.of("algoritimos"));
         vagaManipulacao.cadastrar(vaga2);
         estudante3.candidatarVaga(vaga2);
+        estudante2.candidatarVaga(vaga2);
+        estudante0.candidatarVaga(vaga2);
 
-        vaga1.candidatoComMaisRequisitos();
-        vaga1.candidatoSelecionado(estudante1.getNome());
+
+
 
         Vaga vaga3 = new Vaga("qa senior", empresa3, List.of("qa", "selenium"));
         vagaManipulacao.cadastrar(vaga3);
+        estudante3.candidatarVaga(vaga3);
+        estudante2.candidatarVaga(vaga3);
+        estudante0.candidatarVaga(vaga3);
+
 
         Vaga vaga4 = new Vaga("frontend pleno", empresa4, List.of("javascript", "react"));
         vagaManipulacao.cadastrar(vaga4);
         estudante0.candidatarVaga(vaga4);
-
-        vaga1.setRequisitos(List.of("java", "algoritmo"));
-        vaga1.candidatoComMaisRequisitos();
-        //pegar cpf do metodo candidado selecionado
-        vaga1.candidatoSelecionado(estudante1.getNome());
-        //fechar vaga com o cpf
-        vaga1.fecharVaga(vaga1.candidatoSelecionado(estudante1.getNome()));
+        estudante3.candidatarVaga(vaga4);
 
 
-        //  Estudante
-//        estudante1.login("jaciane@gmail", "jaci2468");
-        //estudante candidatar vaga
-        estudante1.candidatarVaga(vaga1);
-        //pesquisando lista de vagas inscritas
-        estudante1.listaDeVagasInscritas();
 
-//        empresa1.login("dbc@company.com", "123456");
-//        empresaManipulacao.listar()
-//                .forEach(empresa -> {
-//                    System.out.println(empresa.getNome());
-//                    System.out.println(empresa);
-//                });
 
-        vagaManipulacao.listar().stream().forEach(vaga -> {
-            System.out.println(vaga.getTitulo());
-            System.out.println(vaga.getStatusVaga());
-        });
+
+
 
         // MENU INTERATIVO
         System.out.println("====================== BEM VINDO ============================");
@@ -158,7 +146,6 @@ public class Main {
                         int opcaoLogin = 0;
                         Empresa empresaLogada = null;
                         Estudante estudanteLogado = null;
-                        //logar com empresa ou estudante?
                         System.out.println("----------------- Login --------------------");
                         System.out.println("Digite 1 para Empresa ou digite 2 para Estudante: ");
                         String opcaoTipoLogin = input.nextLine();
@@ -166,23 +153,19 @@ public class Main {
                         String email = input.nextLine();
                         System.out.println("Digite a senha: ");
                         String senha = input.nextLine();
+
                         if (opcaoTipoLogin.equals("1")) {
                             try {
-                                empresaLogada = empresaManipulacao.listar().stream()
-                                        .filter(empresa -> empresa.getEmail().equals(email) && empresa.getSenha().equals(senha))
-                                        .findFirst().get();
-                            } catch (NoSuchElementException exception) {
-                                System.err.println("Empresa não encontrada.");
+                                empresaLogada = empresaManipulacao.login(email,senha);
+                            } catch (LoginInvalidoException exception) {
+                                System.err.println(exception.getMessage());
                             }
                             opcaoLogin = 4;
                         } else if (opcaoTipoLogin.equals("2")) {
                             try {
-
-                                estudanteLogado = estudanteManipulacao.listar().stream()
-                                        .filter(estudante -> estudante.getEmail().equals(email) && estudante.getSenha().equals(senha))
-                                        .findFirst().get();
-                            } catch (NoSuchElementException exception) {
-                                System.err.println("Estudante não encontrado.");
+                                estudanteLogado = estudanteManipulacao.login(email,senha);
+                            } catch (LoginInvalidoException exception) {
+                                System.err.println(exception.getMessage());
                             }
                             opcaoLogin = 2;
                         } else {
@@ -204,7 +187,6 @@ public class Main {
                                 System.out.println(" 7 - Sair. ");
                                 System.out.println("----------------------------------------------------");
                                 opcaoEmpresa = input.nextLine();
-
 
                                 switch (opcaoEmpresa) {
                                     case "1": {
@@ -425,7 +407,6 @@ public class Main {
                                             System.out.println("Resumo Profissional: ");
                                             novoCurriculo.setResumoProfissional(input.nextLine());
                                             System.out.println("Vaga de interesse: ");
-    //                                         novoCurriculo.setTituloVagaInteresse(input.nextLine());
                                             curriculoManipulacao.atualizar(index, novoCurriculo);
                                             break;
                                         }else{

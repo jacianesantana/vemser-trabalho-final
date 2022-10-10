@@ -1,10 +1,13 @@
 package service;
 
+import exception.LoginInvalidoException;
+import model.Empresa;
 import model.Estudante;
 import model.Vaga;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class EstudanteManipulacao implements CRUD<Estudante> {
     private List<Estudante> listaDeEstudantes;
@@ -50,6 +53,17 @@ public class EstudanteManipulacao implements CRUD<Estudante> {
             return true;
         } else {
             return false;
+        }
+    }
+
+    public Estudante login(String email, String senha) throws LoginInvalidoException {
+        Optional<Estudante> estudanteOptional = this.listar().stream()
+                .filter(estudante -> estudante.getEmail().equals(email) && estudante.getSenha().equals(senha))
+                .findFirst();
+        if (estudanteOptional.isPresent()) {
+            return estudanteOptional.get();
+        } else {
+            throw new LoginInvalidoException("senha e email inválido");
         }
     }
 }

@@ -1,4 +1,3 @@
-import exception.SenhaInvalidaException;
 import model.Endereco;
 import model.Estudante;
 import model.TipoUsuario;

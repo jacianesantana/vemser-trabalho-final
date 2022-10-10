@@ -33,7 +33,7 @@ public class Vaga {
         return estudantesComQtdRequistos;
     }
 
-    //UsuarioEmpresa digita nome candidato e recebe o cpf para fechar a vaga
+
     public String candidatoSelecionado(String candidatoSelecionado) {
         Optional<String> cpfCandidadoSelecionado = candidatos.stream()
                 .filter(estudante -> estudante.getNome()
@@ -42,7 +42,7 @@ public class Vaga {
         return cpfCandidadoSelecionado.get();
     }
 
-    //usuarioEmpresa digita cpf e fecha a vaga
+
     public void fecharVaga(String cpfCandidatoSelecionado) {
 
         Optional<Estudante> estudanteSelecionado = candidatos.stream()
