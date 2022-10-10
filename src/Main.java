@@ -4,11 +4,6 @@ import service.CurriculoManipulacao;
 import service.EmpresaManipulacao;
 import service.EstudanteManipulacao;
 import service.VagaManipulacao;
-import java.util.Arrays;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Scanner;
-import java.util.stream.Stream;
 
 import java.util.*;
 
