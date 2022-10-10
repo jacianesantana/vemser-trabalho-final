@@ -49,6 +49,7 @@ public class Vaga {
                 .filter(estudante -> estudante.getCpf().equals(cpfCandidatoSelecionado))
                 .findFirst();
         setStatusVaga(StatusVaga.FECHADO);
+        System.out.println("Vaga " + this.titulo + " Fechada para o candidato " + estudanteSelecionado.get().getNome());
     }
 
     @Override
