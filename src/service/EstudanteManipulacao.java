@@ -55,7 +55,6 @@ public class EstudanteManipulacao implements CRUD<Estudante> {
             return false;
         }
     }
-
     public Estudante login(String email, String senha) throws LoginInvalidoException {
         Optional<Estudante> estudanteOptional = this.listar().stream()
                 .filter(estudante -> estudante.getEmail().equals(email) && estudante.getSenha().equals(senha))
