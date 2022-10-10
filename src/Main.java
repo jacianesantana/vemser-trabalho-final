@@ -197,6 +197,7 @@ public class Main {
                                         String requisito2 = input.nextLine();
                                         vaga.getRequisitos().add(requisito1);
                                         vaga.getRequisitos().add(requisito2);
+                                        vaga.setEmpresa(empresaLogada);
                                         vagaManipulacao.cadastrar(vaga);
                                         break;
                                     }
