@@ -4,6 +4,7 @@ import java.util.*;
 
 public class Vaga {
     private String titulo;
+    private Estudante estudanteSelecionado;
     private Empresa empresa;
     private List<String> requisitos = new ArrayList<>();
     private List<Estudante> candidatos = new ArrayList<>();
@@ -18,7 +19,6 @@ public class Vaga {
         this.requisitos = requisitos;
         this.statusVaga = StatusVaga.ABERTO;
     }
-
     public Map<Estudante, Long> candidatoComMaisRequisitos() {
         HashMap<Estudante, Long> estudantesComQtdRequistos = new HashMap<>();
         candidatos.forEach(estudante -> {
@@ -34,24 +34,15 @@ public class Vaga {
         });
         return estudantesComQtdRequistos;
     }
-
-
-    public String candidatoSelecionado(String candidatoSelecionado) {
-        Optional<String> cpfCandidadoSelecionado = candidatos.stream()
-                .filter(estudante -> estudante.getNome()
-                        .equals(candidatoSelecionado))
-                .map(Estudante::getCpf).findFirst();
-        return cpfCandidadoSelecionado.get();
-    }
-
-
     public void fecharVaga(String cpfCandidatoSelecionado) {
-
         Optional<Estudante> estudanteSelecionado = candidatos.stream()
                 .filter(estudante -> estudante.getCpf().equals(cpfCandidatoSelecionado))
                 .findFirst();
-        setStatusVaga(StatusVaga.FECHADO);
-        System.out.println("Vaga " + this.titulo + " Fechada para o candidato " + estudanteSelecionado.get().getNome());
+        if (estudanteSelecionado.isPresent()) {
+            setStatusVaga(StatusVaga.FECHADO);
+            this.estudanteSelecionado = estudanteSelecionado.get();
+            System.out.println("Vaga " + this.titulo + " Fechada para o candidato " + estudanteSelecionado.get().getNome());
+        }
     }
 
     @Override
@@ -64,6 +55,7 @@ public class Vaga {
                 ", statusVaga=" + statusVaga +
                 '}';
     }
+
 
     public String getTitulo() {
         return titulo;
@@ -91,6 +83,14 @@ public class Vaga {
 
     public List<Estudante> getCandidatos() {
         return candidatos;
+    }
+
+    public String candidatoSelecionado(String candidatoSelecionado) {
+        Optional<String> cpfCandidadoSelecionado = candidatos.stream()
+                .filter(estudante -> estudante.getNome()
+                        .equals(candidatoSelecionado))
+                .map(Estudante::getCpf).findFirst();
+        return cpfCandidadoSelecionado.get();
     }
 
     public void setCandidatos(List<Estudante> candidatos) {

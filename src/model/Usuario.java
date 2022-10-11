@@ -13,7 +13,6 @@ abstract public class Usuario implements Login {
 
     public Usuario() {
     }
-
     public Usuario(TipoUsuario tipoUsuario,
                    String nome,
                    Endereco endereco,
